@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hệ thống quản lý phòng máy thực hành">
+    <meta name="author" content="GeeksLabs">
+    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>Giảng viên đăng nhập - Hệ thống quản lý phòng máy thực hành</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/Public/css/bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="~/Public/css/bootstrap-theme.css" rel="stylesheet">
+    <!--external css-->
+    <!-- font icon -->
+    <link href="~/Public/css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="~/Public/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom styles -->
+    <link href="~/Public/css/style.css" rel="stylesheet">
+    <link href="~/Public/css/style-responsive.css" rel="stylesheet" />
+    <link href="~/Public/plugins/toast/jquery.toast.min.css" rel="stylesheet" />
+</head>
+
+<body class="login-img3-body">
+
+    <div class="container">
+
+        <div class="login-form">
+            <div class="login-wrap">
+                <p class="login-img"><i class="icon_lock_alt"></i></p>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="icon_profile"></i></span>
+                    <input type="text" class="form-control" placeholder="Username" autofocus id="txtUsername">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+                    <input type="password" class="form-control" placeholder="Password" id="txtPassword">
+                </div>
+                <label class="checkbox">
+                    <input type="checkbox" value="remember-me"> Remember me
+                    <span class="pull-right"> <a href="#"> Forgot Password?</a></span>
+                </label>
+                <button class="btn btn-primary btn-lg btn-block" type="submit" id="btnLogin">Login</button>
+                <button class="btn btn-info btn-lg btn-block" type="submit" id="btnSignup">Signup</button>
+            </div>
+        </div>
+        <div class="text-right">
+            <div class="credits">               
+                Designed by <a href="#">QLPM</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Public/js/jquery.js"></script>
+    <script src="~/Public/js/bootstrap.min.js"></script>
+   
+    <script src="~/Public/plugins/toast/jquery.toast.min.js"></script>
+    <script src="~/Public/js/own/account.js"></script>
+</body>
+
+</html>

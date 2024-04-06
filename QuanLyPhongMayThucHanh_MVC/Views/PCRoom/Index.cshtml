@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Danh sách phòng máy";
+    ViewData["page"] = "Phòng máy";
+    ViewData["icon"] = "icon_desktop";
+    ViewData["sub"] = "Danh sách";
+    ViewData["url"] = "/pcroom";
+}
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr class="text-info">
+                <th>#</th>
+                <th>Room name</th>
+                <th>Location</th>
+                <th>Number of PC</th>
+                <th>Monitor</th>
+                <th>Mainboard</th>
+                <th>CPU</th>
+                <th>RAM</th>
+                <th>VGA</th>
+                <th>SSD</th>
+                <th>HDD</th>                
+                <th>Keyboard</th>
+                <th>Mouse</th>
+                <th>Headphone</th>
+                <th>Speaker</th>
+                <th>PSU</th>
+                <th>Status</th>
+                <th>Note</th>              
+            </tr>
+        </thead>
+        <tbody id="tblRooms">
+            
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+    <script src="~/Public/js/own/pcroom.js"></script>
+}
