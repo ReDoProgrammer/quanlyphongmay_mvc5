@@ -61,5 +61,10 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
             var obj = (Lecturer)Session["lecturer"]; 
             return PartialView(obj);
         }
+
+        public ActionResult MyProfile()
+        {
+            return View();
+        }
     }
 }
