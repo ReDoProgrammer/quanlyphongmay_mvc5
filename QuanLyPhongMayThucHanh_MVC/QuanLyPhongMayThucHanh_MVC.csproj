@@ -206,14 +206,18 @@
     <Compile Include="Areas\admin\Models\Lecturer.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ClassPeriodController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PCRoomController.cs" />
+    <Compile Include="Controllers\PracticeScheduleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClassPeriod.cs" />
     <Compile Include="Models\DB.cs" />
     <Compile Include="Models\Lecturer.cs" />
     <Compile Include="Models\PCRoom.cs" />
+    <Compile Include="Models\PracticeSchedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -223,6 +227,7 @@
     <Content Include="Assets\defined\account.js" />
     <Content Include="Assets\defined\CustomerSweetAlert.js" />
     <Content Include="Assets\defined\pcroom.js" />
+    <Content Include="Assets\defined\pcroom_book.js" />
     <Content Include="Assets\fonts\fontawesome-webfont862f.svg" />
     <Content Include="Assets\fonts\glyphicons-halflings-regular-2.html" />
     <Content Include="Assets\fonts\glyphicons-halflings-regular-3.html" />
@@ -276,6 +281,12 @@
     <Content Include="Assets\images\thumbs\winter-2.jpg" />
     <Content Include="Assets\images\thumbs\winter-sun.jpg" />
     <Content Include="Assets\images\thumbs\woodstump.jpg" />
+    <Content Include="Assets\plugins\bootstrap-datetimepicker\bootstrap-datetimepicker.min.css" />
+    <Content Include="Assets\plugins\bootstrap-datetimepicker\bootstrap-datetimepicker.min.js" />
+    <Content Include="Assets\plugins\bootstrap-datetimepicker\moment.min.js" />
+    <Content Include="Assets\plugins\bootstrap-glyphicon\bootstrap-glyphicons.css" />
+    <Content Include="Assets\plugins\select2\select2.min.css" />
+    <Content Include="Assets\plugins\select2\select2.min.js" />
     <Content Include="Assets\plugins\sweetalert\sweetalert.min.js" />
     <Content Include="Assets\plugins\toast\jquery.toast.min.css" />
     <Content Include="Assets\plugins\toast\jquery.toast.min.js" />
@@ -364,6 +375,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\ClassPeriod\" />
+    <Folder Include="Views\PracticeSchedule\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -388,6 +401,8 @@
     <Content Include="Areas\admin\Views\Lecturer\Index.cshtml" />
     <Content Include="Areas\admin\Views\Subject\Index.cshtml" />
     <Content Include="Areas\admin\Views\Statistic\Index.cshtml" />
+    <Content Include="Assets\plugins\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Assets\plugins\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />

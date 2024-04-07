@@ -1,13 +1,84 @@
 ﻿
 @{
-    ViewBag.Title = "Đăng ký sử dụng phòng";
-    ViewData["page"] = "Phòng máy";
+    ViewBag.Title = "Phòng máy";
     ViewData["sub"] = "Đăng ký";
-    ViewBag.icon = "icon_desktop";
+    ViewBag.icon = "fa fa-desktop fa-fw";
     ViewData["url"] = "/pcroom";
 
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="~/Assets/plugins/bootstrap-glyphicon/bootstrap-glyphicons.css" rel="stylesheet" />
+<link href="~/Assets/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
-<h2>Book</h2>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Từ ngày:</label>
+            <div class='input-group date' id='dtpFromDate'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Tới ngày:</label>
+            <div class='input-group date' id='dtpToDate'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 form-group">   
+        <div class="input-group" style="margin-top:25px;">            
+            <select class="form-control" id="slClassPeriods"></select>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" id="btnSearch">
+                    <i class="fa fa-search" aria-hidden="true"></i> 
+                    Search
+                </button>
+            </span>
+        </div>
+    </div>
+</div>
 
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered table-striped">
+        <thead>
+            <tr class="text-info">
+                <th>#</th>
+                <th>Room name</th>
+                <th>Location</th>
+                <th>Number of PC</th>
+                <th>Monitor</th>
+                <th>Mainboard</th>
+                <th>CPU</th>
+                <th>RAM</th>
+                <th>VGA</th>
+                <th>SSD</th>
+                <th>HDD</th>
+                <th>Keyboard</th>
+                <th>Mouse</th>
+                <th>Headphone</th>
+                <th>Speaker</th>
+                <th>PSU</th>
+                <th>Status</th>
+                <th>Note</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tblRooms"></tbody>
+    </table>
+</div>
+
+
+@section scripts{
+    <script src="~/Assets/plugins/bootstrap-datetimepicker/moment.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Assets/defined/pcroom_book.js"></script>
+}
