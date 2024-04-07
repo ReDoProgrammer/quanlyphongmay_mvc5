@@ -62,5 +62,31 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return lst;
         }
 
+        public PCRoom Detail(int id)
+        {
+            SqlParameter[] p = { new SqlParameter("@id", id) };
+            var r = ExecuteQuery("[room_detail]", p).Rows[0];
+            var room = new PCRoom
+            {
+                Id = int.Parse(r["id"].ToString()),
+                Name = r["name"].ToString(),
+                NumberOfPC = int.Parse(r["number_of_pc"].ToString()),
+                Location = r["location"].ToString(),
+                Note = r["note"].ToString(),
+                CPU = r["CPU"].ToString(),
+                VGA = r["VGA"].ToString(),
+                Mainboard = r["Mainboard"].ToString(),
+                PSU = r["PSU"].ToString(),
+                Keyboard = r["Keyboard"].ToString(),
+                Mouse = r["Mouse"].ToString(),
+                Monitor = r["Monitor"].ToString(),
+                Headphone = r["Headphone"].ToString(),
+                Speaker = r["Speaker"].ToString(),
+                RAM = r["RAM"].ToString(),
+                HDD = r["HDD"].ToString(),
+                SSD = r["SSD"].ToString()
+            };
+            return room;
+        }
     }
 }

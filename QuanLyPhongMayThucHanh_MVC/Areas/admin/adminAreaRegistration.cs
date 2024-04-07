@@ -16,9 +16,10 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin
         {
             context.MapRoute(
                 "admin_default",
-                "admin/{controller}/{action}/{id}",
+                "admin/{controller}/{action}/{id}",               
                 new { action = "Index", id = UrlParameter.Optional },
                 new[] { "QuanLyPhongMayThucHanh_MVC.Areas.Admin.Controllers" }
+                
             );
         }
     }

@@ -196,7 +196,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\admin\adminAreaRegistration.cs" />
+    <Compile Include="Areas\admin\Controllers\AuthController.cs" />
+    <Compile Include="Areas\admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\admin\Controllers\LecturerController.cs" />
+    <Compile Include="Areas\admin\Controllers\RoomController.cs" />
+    <Compile Include="Areas\admin\Controllers\StatisticController.cs" />
+    <Compile Include="Areas\admin\Controllers\SubjectController.cs" />
+    <Compile Include="Areas\admin\Models\Lecturer.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -211,6 +218,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\admin\account.js" />
+    <Content Include="Assets\admin\room.js" />
     <Content Include="Assets\defined\account.js" />
     <Content Include="Assets\defined\pcroom.js" />
     <Content Include="Assets\fonts\fontawesome-webfont862f.svg" />
@@ -353,8 +362,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\admin\Models\" />
-    <Folder Include="Areas\admin\Views\Home\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -372,6 +379,14 @@
     <Content Include="Assets\script\Baobinh.net.url" />
     <Content Include="Areas\admin\Views\web.config" />
     <Content Include="Areas\admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\admin\Views\Shared\_RenderProfile.cshtml" />
+    <Content Include="Areas\admin\Views\Auth\Login.cshtml" />
+    <Content Include="Areas\admin\Views\Shared\_SideMenu.cshtml" />
+    <Content Include="Areas\admin\Views\Room\Index.cshtml" />
+    <Content Include="Areas\admin\Views\Lecturer\Index.cshtml" />
+    <Content Include="Areas\admin\Views\Subject\Index.cshtml" />
+    <Content Include="Areas\admin\Views\Statistic\Index.cshtml" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
