@@ -141,5 +141,13 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return ExecuteNonQuery("[room_update]", prs);
 
         }
+        public int Delete(int id)
+        {
+            SqlParameter[] prs =
+            {
+                new SqlParameter("@id",id)
+            };
+            return ExecuteNonQuery("[room_delete]", prs);
+        }
     }
 }

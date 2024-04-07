@@ -47,10 +47,10 @@
                         Html.RenderAction("RenderProfile", "Home");
                     }
 
-                    
+
                 </div>
             </nav>
-           
+
         </div>
         <!--END TOPBAR-->
         <div id="wrapper">
@@ -74,7 +74,7 @@
                                 if (ViewData["sub"] != null)
                                 {
                                     <i class="fa fa-angle-right"></i>
-                                    <li class="hidden"><a href="#">@ViewData["sub"]</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                                <li class="hidden"><a href="#">@ViewData["sub"]</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
                                     <li class="active">@ViewData["sub"]</li>
                                 }
                             }
@@ -157,8 +157,9 @@
 
 
         </script>
-    <script src="~/Assets/plugins/toast/jquery.toast.min.js"></script>
-    <script src="~/Assets/plugins/sweetalert/sweetalert.min.js"></script>
+        <script src="~/Assets/plugins/toast/jquery.toast.min.js"></script>
+        <script src="~/Assets/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="~/Assets/defined/CustomerSweetAlert.js"></script>
         @RenderSection("Scripts", required: false)
     </body>
 

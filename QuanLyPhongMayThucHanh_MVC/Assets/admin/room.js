@@ -1,15 +1,15 @@
-﻿$(document).ready(function(){
+﻿$(document).ready(function () {
     SearchRoom();
 })
 var keyword = '';
 var id = 0;
 
-$('#btnSearch').click(function(){
+$('#btnSearch').click(function () {
     keyword = $('#txtKeyword').val();
     SearchRoom();
 })
 
-$('#btnSubmit').click(function(){
+$('#btnSubmit').click(function () {
     let name = $('#txtName').val();
     let location = $('#txtLocation').val();
     let number_of_pc = parseInt($('#txtNumberOfPC').val());
@@ -26,39 +26,39 @@ $('#btnSubmit').click(function(){
     let speaker = $('#txtSpeaker').val();
     let psu = $('#txtPSU').val();
     let note = $('#txtNote').val();
-    
-    if(id==0){
+
+    if (id == 0) {
         $.ajax({
-            url:'/admin/room/insert',
-            type:'post',
-            data:{name,location,number_of_pc,monitor,mainboard,cpu,ram,vga,ssd,hdd,keyboard, mouse,headphone,speaker,psu,note},
-            success:function(data){
+            url: '/admin/room/insert',
+            type: 'post',
+            data: { name, location, number_of_pc, monitor, mainboard, cpu, ram, vga, ssd, hdd, keyboard, mouse, headphone, speaker, psu, note },
+            success: function (data) {
                 console.log(data);
-                if(data.code == 201){
+                if (data.code == 201) {
                     $.toast({
                         heading: 'Successfully',
                         text: data.msg,
                         icon: data.icon,
                         loader: true,        // Change it to false to disable loader
                         loaderBg: '#9EC600'  // To change the background
-                    })                    
+                    })
                 }
             }
         })
-    }else{
+    } else {
         $.ajax({
-            url:'/admin/room/update',
-            type:'post',
-            data:{id,name,location,number_of_pc,monitor,mainboard,cpu,ram,vga,ssd,hdd,keyboard, mouse,headphone,speaker,psu,note},
-            success:function(data){
-                if(data.code == 201){
+            url: '/admin/room/update',
+            type: 'post',
+            data: { id, name, location, number_of_pc, monitor, mainboard, cpu, ram, vga, ssd, hdd, keyboard, mouse, headphone, speaker, psu, note },
+            success: function (data) {
+                if (data.code == 201) {
                     $.toast({
                         heading: 'Successfully',
                         text: data.msg,
                         icon: data.icon,
                         loader: true,        // Change it to false to disable loader
                         loaderBg: '#9EC600'  // To change the background
-                    })                   
+                    })
                 }
             }
         })
@@ -70,7 +70,7 @@ $('#btnSubmit').click(function(){
 
 $('#roomModal').on('hidden.bs.modal', function () {
     //thiết lập các giá trị mặc định cho các input
-    id=0;
+    id = 0;
     $('#txtName').val('');
     $('#txtLocation').val('');
     $('#txtNumberOfPC').val(10);
@@ -87,19 +87,19 @@ $('#roomModal').on('hidden.bs.modal', function () {
     $('#txtSpeaker').val('');
     $('#txtPSU').val('');
     $('#txtNote').val('');
-  })
+})
 
-function updateroom(id){
+function updateroom(id) {
     this.id = id;
     $('#modalTitle').text('Update room info');
     $.ajax({
-        url:'/admin/room/detail',
-        type:'get',
-        data:{id},
-        success:function(data){
-           if(data.code == 200){
-               $('#roomModal').modal();
-               let r = data.room;
+        url: '/admin/room/detail',
+        type: 'get',
+        data: { id },
+        success: function (data) {
+            if (data.code == 200) {
+                $('#roomModal').modal();
+                let r = data.room;
                 $('#txtName').val(r.Name);
                 $('#txtLocation').val(r.Location);
                 $('#txtNumberOfPC').val(r.NumberOfPC);
@@ -116,24 +116,49 @@ function updateroom(id){
                 $('#txtSpeaker').val(r.Speaker);
                 $('#txtPSU').val(r.PSU);
                 $('#txtNote').val(r.Note);
-           }
+            }
         }
     })
-    
+
 }
 
-function deleteroom(id){
-    console.log(id);
+function deleteroom(id) {
+    confirmDiaglog("Are you sure want to delete this room?", "You won't be able to revert this!", "question", "Yes, delete it!", "No, cancel!")
+    .then(_=>{
+        $.ajax({
+            url:'/admin/room/delete',
+            type:'post',
+            data:{id},
+            success:function(data){
+                if(data.code == 200){
+                    $.toast({
+                        heading: 'Successfully',
+                        text: data.msg,
+                        icon: data.icon,
+                        loader: true,        // Change it to false to disable loader
+                        loaderBg: '#9EC600'  // To change the background
+                    })
+                    SearchRoom();
+                }else{
+                    Swal.fire({
+                        title: "ACCESS DENIED",
+                        text: data.msg,
+                        icon: icon
+                      });
+                }
+            }
+        })
+    })
 }
 
-function SearchRoom(){
+function SearchRoom() {
     $.ajax({
-        url:'/admin/room/Search',
-        type:'get',
-        data:{keyword},
-        success:function(data){
-           $('#tblRooms').empty();
-            if(data.code == 200){
+        url: '/admin/room/Search',
+        type: 'get',
+        data: { keyword },
+        success: function (data) {
+            $('#tblRooms').empty();
+            if (data.code == 200) {
                 let idx = 1;
                 data.rooms.forEach(r => {
                     $('#tblRooms').append(`
@@ -167,7 +192,7 @@ function SearchRoom(){
                         </tr> 
                     `);
                 });
-           }
+            }
         }
 
     })
