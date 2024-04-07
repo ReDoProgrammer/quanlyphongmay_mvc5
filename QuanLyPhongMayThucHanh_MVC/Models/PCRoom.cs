@@ -62,6 +62,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return lst;
         }
 
+
         public PCRoom Detail(int id)
         {
             SqlParameter[] p = { new SqlParameter("@id", id) };
@@ -87,6 +88,58 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 SSD = r["SSD"].ToString()
             };
             return room;
+        }
+
+        public int Insert(string name, string location, int number_of_pc, string monitor, string mainboard, string cpu, string ram, string vga, string ssd, string hdd, string keyboard, string mouse, string headphone, string speaker, string psu, string note)
+        {
+            SqlParameter[] prs =
+            {
+                new SqlParameter ("@name",name),
+                new SqlParameter ("@number_of_pc",number_of_pc),
+                new SqlParameter ("@location",location),
+                new SqlParameter ("@note",note),
+                new SqlParameter ("@CPU",cpu),
+                new SqlParameter ("@VGA",vga),
+                new SqlParameter ("@Mainboard",mainboard),
+                new SqlParameter ("@PSU",psu),
+                new SqlParameter ("@Keyboard",keyboard),
+                new SqlParameter ("@Mouse",mouse),
+                new SqlParameter ("@Monitor",monitor),
+                new SqlParameter ("@Headphone",headphone),
+                new SqlParameter ("@Speaker",speaker),
+                new SqlParameter ("@RAM",ram),
+                new SqlParameter ("@HDD",hdd),
+                new SqlParameter ("@SSD",ssd)
+            };
+            return (int)ExecuteScalar("[room_insert]", prs);
+
+        }
+
+
+        public int Update(int id,string name, string location, int number_of_pc, string monitor, string mainboard, string cpu, string ram, string vga, string ssd, string hdd, string keyboard, string mouse, string headphone, string speaker, string psu, string note)
+        {
+            SqlParameter[] prs =
+            {
+                new SqlParameter ("@id",id),
+                new SqlParameter ("@name",name),
+                new SqlParameter ("@number_of_pc",number_of_pc),
+                new SqlParameter ("@location",location),
+                new SqlParameter ("@note",note),
+                new SqlParameter ("@CPU",cpu),
+                new SqlParameter ("@VGA",vga),
+                new SqlParameter ("@Mainboard",mainboard),
+                new SqlParameter ("@PSU",psu),
+                new SqlParameter ("@Keyboard",keyboard),
+                new SqlParameter ("@Mouse",mouse),
+                new SqlParameter ("@Monitor",monitor),
+                new SqlParameter ("@Headphone",headphone),
+                new SqlParameter ("@Speaker",speaker),
+                new SqlParameter ("@RAM",ram),
+                new SqlParameter ("@HDD",hdd),
+                new SqlParameter ("@SSD",ssd)
+            };
+            return ExecuteNonQuery("[room_update]", prs);
+
         }
     }
 }

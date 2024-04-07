@@ -26,5 +26,6 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
         {
             return View();
         }
+
     }
 }
