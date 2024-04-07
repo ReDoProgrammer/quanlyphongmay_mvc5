@@ -195,6 +195,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\admin\adminAreaRegistration.cs" />
+    <Compile Include="Areas\admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -351,6 +353,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\admin\Models\" />
+    <Folder Include="Areas\admin\Views\Home\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -366,6 +370,8 @@
     <Content Include="Assets\fonts\Simple-Line-Iconsd41d.eot" />
     <Content Include="Assets\images\Baobinh.net.url" />
     <Content Include="Assets\script\Baobinh.net.url" />
+    <Content Include="Areas\admin\Views\web.config" />
+    <Content Include="Areas\admin\Views\Shared\_Layout.cshtml" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
