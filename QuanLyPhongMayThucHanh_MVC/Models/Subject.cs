@@ -23,7 +23,8 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
        
         public List<Subject> Select()
         {
-            return ConvertToList(ExecuteQuery("sp_select"));
+
+            return ConvertToList(ExecuteQuery("[sb_select]"));
         }
 
         public int Insert(string acronym, string name)

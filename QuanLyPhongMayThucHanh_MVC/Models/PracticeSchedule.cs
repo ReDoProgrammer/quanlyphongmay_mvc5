@@ -29,18 +29,19 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return lst;
         }
 
-        public long Book(DateTime book_date,int room_id, int subject_id,int lecturer_id,int class_period_id,string note )
+        public int Book(DateTime book_date,int room_id, int subject_id,int lecturer_id,int class_period_id,string note , int created_by)
         {
             SqlParameter[] prs =
             {
-                new SqlParameter("@book_date",book_date),
+                new SqlParameter("@book_date",book_date.ToString("yyyy-MM-dd")),
                 new SqlParameter("@room_id",room_id),
                 new SqlParameter("@subject_id",subject_id),
                 new SqlParameter("@lecturer_id",lecturer_id),
                 new SqlParameter("@class_period_id",class_period_id),
-                new SqlParameter("@note",note)
+                new SqlParameter("@note",note),
+                new SqlParameter("@created_by",created_by)
             };
-            return (long)ExecuteScalar("ps_book", prs);
+            return (int)ExecuteScalar("ps_book", prs);
         }
     }
 }

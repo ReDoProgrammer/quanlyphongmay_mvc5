@@ -66,10 +66,11 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         {
             SqlParameter[] prs =
             {
-                new SqlParameter("@from_date",from_date),
-                new SqlParameter("@to_date",to_date),
+                new SqlParameter("@from_date",from_date.ToString("yyyy-MM-dd")),
+                new SqlParameter("@to_date",to_date.ToString("yyyy-MM-dd")),
                 new SqlParameter("@class_period_id",cp)
             };
+            var t = from_date.ToString("yyyy-MM-dd");
             var dt = ExecuteQuery("room_lookup", prs);
             var lst = new List<PCRoom>();
             foreach (DataRow r in dt.Rows)

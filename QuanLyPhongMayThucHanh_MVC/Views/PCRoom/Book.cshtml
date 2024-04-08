@@ -84,12 +84,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="modalTitle">Modal Header</h4>
+                <h4 class="modal-title" id="modalTitle">Book PC LAB</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label>Name</label>
+                        <label>Date</label>
                         <div class='input-group date' id='dtpBookDate'>
                             <input type='text' class="form-control" />
                             <span class="input-group-addon">
@@ -98,24 +98,19 @@
                         </div>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label>Location</label>
-                        <input type="text" class="form-control" id="txtLocation" />
+                        <label>Subject</label>
+                        <select class="form-control" id="slSubjects"></select>
                     </div>
-                </div>
+                </div>        
                 <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label>Number Of PC</label>
-                        <input type="number" min="1" class="form-control" id="txtNumberOfPC" />
+                    <div class="col-md-12 form-group">
+                        <label>Note:</label>
+                        <textarea class="form-control" id="txaNote" placeholder="Note here...."></textarea>
                     </div>
-                    <div class="col-md-6 form-group">
-                        <label>Monitor</label>
-                        <input type="text" class="form-control" id="txtMonitor" />
-                    </div>
-                </div>
-               
+                </div>      
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="btnSubmit">Submit changes</button>
+                <button type="button" class="btn btn-success" id="btnSubmit">Submit booking</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -128,5 +123,6 @@
 @section scripts{
     <script src="~/Assets/plugins/bootstrap-datetimepicker/moment.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Assets/plugins/sweetalert/sweetalert.min.js"></script>
     <script src="~/Assets/defined/pcroom_book.js"></script>
 }

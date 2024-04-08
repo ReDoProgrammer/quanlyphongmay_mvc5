@@ -1,6 +1,6 @@
 ﻿$(function () {
     $('#dtpFromDate').datetimepicker({
-        format: 'DD/MM/YYYY HH:mm',
+        format: 'DD/MM/YYYY',
         defaultDate: new Date()
     });
 
@@ -8,38 +8,79 @@
     defaultDate.setDate(defaultDate.getDate() + 3);
 
     $('#dtpToDate').datetimepicker({
-        format: 'DD/MM/YYYY HH:mm',
+        format: 'DD/MM/YYYY',
         defaultDate: defaultDate
     });
 
     $('#dtpBookDate').datetimepicker({
-        format: 'DD/MM/YYYY HH:mm',
+        format: 'DD/MM/YYYY',
         defaultDate: new Date()
     })
     // $('.js-example-basic-multiple').select2();
     loadcp();
+    loadsubjects();
 });
 
-$('#btnSearch').click(function(){
-    let from_date = $('#dtpFromDate').data("DateTimePicker").date().format('DD/MM/YYYY HH:mm');
-    let to_date = $('#dtpToDate').data("DateTimePicker").date().format('DD/MM/YYYY HH:mm');
-    let cp = parseInt($('#slClassPeriods option:selected').val());
-    lookup(from_date,to_date,cp);
+var room_id = 0;
+var from_date,to_date,cp;
+
+$('#btnSearch').click(function () {
+    from_date = $('#dtpFromDate').data("DateTimePicker").date().format('YYYY-MM-DD');
+    to_date = $('#dtpToDate').data("DateTimePicker").date().format('YYYY-MM-DD');
+    cp = parseInt($('#slClassPeriods option:selected').val());
+    lookup();
 
 })
+$('#btnSubmit').click(function(){
+    let book_date = $('#dtpBookDate').data("DateTimePicker").date().format('YYYY-MM-DD');
+    let subject_id = parseInt($('#slSubjects option:selected').val());
+    let class_period_id = parseInt($('#slClassPeriods option:selected').val());
+    let note = $('#txaNote').val();
+    
+    $.ajax({
+        url:'/practiceschedule/book',
+        type:'post',
+        data:{book_date,room_id,subject_id,class_period_id,note},
+        success:function(data){
+            if(data.code == 201){
+                Swal.fire({
+                    title: "SUCCESSFULLY",
+                    text: data.msg,
+                    icon: "success"
+                  });
+                $('#modalBook').modal('hide');
+                lookup();
+            }
+        }
+    })
+})
 
-function book(id){
-    console.log(id);
+function book(id) {
+    room_id = id;
     $('#modalBook').modal();
 }
 
-function loadcp(){
+function loadsubjects() {
     $.ajax({
-        url:'/classperiod/list',
-        type:'get',
-        success:function(data){
-            if(data.code == 200){
-                data.cps.forEach(c=>{
+        url: '/subject/select',
+        type: 'get',
+        success: function (data) {
+            if (data.code == 200) {
+                data.subjects.forEach(s => {
+                    $('#slSubjects').append(`<option value="${s.Id}">${s.Acronym} - ${s.Name}</option>`)
+                })
+            }
+        }
+    })
+}
+
+function loadcp() {
+    $.ajax({
+        url: '/classperiod/list',
+        type: 'get',
+        success: function (data) {
+            if (data.code == 200) {
+                data.cps.forEach(c => {
                     $('#slClassPeriods').append(`<option value = "${c.Id}">${c.Name}  [${c.StartTime} - ${c.EndTime}]</option>`);
                 })
             }
@@ -48,14 +89,14 @@ function loadcp(){
 }
 
 
-function lookup(from_date,to_date,cp) {
+function lookup() {
     $.ajax({
         url: '/pcroom/lookup',
         type: 'get',
-        data: { from_date,to_date,cp },
+        data: { from_date, to_date, cp },
         success: function (data) {
             $('#tblRooms').empty();
-            if(data.code == 200){
+            if (data.code == 200) {
                 let idx = 1;
                 data.rooms.forEach(r => {
                     $('#tblRooms').append(`
@@ -84,7 +125,7 @@ function lookup(from_date,to_date,cp) {
                         </tr> 
                     `);
                 });
-           }
+            }
         }
 
     })

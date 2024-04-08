@@ -28,8 +28,8 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
         {
             try
             {
-                var lec = (Models.Lecturer)Session["lecturer"];
-                var rs = ps.Book(book_date, room_id, subject_id, lec.id, class_period_id, note);
+                var lec = (Models.Lecturer)Session["lecturer"];                
+                var rs = ps.Book(book_date, room_id, subject_id, lec.id, class_period_id, note,lec.id);
                 if (rs > 0)
                     return Json(new { code = 201, msg = "Book PC LAB room successfully!", JsonRequestBehavior.AllowGet });
                 return Json(new { code = 403, msg = "Book room failed", JsonRequestBehavior.AllowGet });
