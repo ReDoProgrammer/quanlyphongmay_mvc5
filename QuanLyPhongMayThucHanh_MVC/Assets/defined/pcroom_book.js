@@ -2,7 +2,8 @@
    
     $('#dtpDate').datetimepicker({
         format: 'DD/MM/YYYY',
-        defaultDate: new Date()
+        defaultDate: new Date(),
+        minDate: moment().startOf('day')       
     });
 
     $('#dtpBookDate').datetimepicker({

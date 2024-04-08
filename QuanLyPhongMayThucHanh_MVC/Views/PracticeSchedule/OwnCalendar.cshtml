@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Lịch thực hành phòng máy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["icon"] = "fa fa-calendar";
+    ViewData["url"] = "/PracticeSchedule/Calendar";
+}
+
+<link href="~/Assets/plugins/bootstrap-glyphicon/bootstrap-glyphicons.css" rel="stylesheet" />
+<link href="~/Assets/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+<div class="row">
+    <div class="col-md-3 col-md-offset-5">
+        <div class="form-group">
+            <label>Filter time</label>
+            <div class='input-group date' id='dtpFromDate'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 form-group">
+        <div class="input-group" style="margin-top:25px;">
+            <div class='input-group date' id='dtpToDate'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" id="btnSearch">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    Search
+                </button>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered table-striped">
+        <thead>
+            <tr class="text-info">
+                <th>#</th>
+                <th>Room</th>
+                <th>Subject</th>
+                <th>Lecturer</th>
+                <th>CP</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Remark</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tblCalendars"></tbody>
+    </table>
+</div>
+
+@section scripts{
+    <script src="~/Assets/plugins/bootstrap-datetimepicker/moment.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Assets/defined/own_calendar.js"></script>
+}
+
+
+
+
+
+

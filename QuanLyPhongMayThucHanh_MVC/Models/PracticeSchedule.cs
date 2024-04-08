@@ -31,7 +31,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                     Id = long.Parse(r["id"].ToString()),
                     Room = r["room"].ToString(),
                     Subject = r["subject"].ToString(),
-                    Lecturer = r["subject"].ToString(),
+                    Lecturer = r["lecturer"].ToString(),
                     ClassPeriod = r["class_period"].ToString(),
                     StartDate = r["start_date"].ToString(),
                     EndDate = r["end_date"].ToString(),
@@ -66,6 +66,17 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter("@to_date",to_date.ToString("yyyy-MM-dd HH:mm"))
             };
             return ConvertToList(ExecuteQuery("ps_calendar", prs));
+        }
+
+        public List<PracticeSchedule> OwnCalendar(DateTime from_date, DateTime to_date,int lecturer_id)
+        {
+            SqlParameter[] prs =
+            {
+                new SqlParameter("@from_date",from_date.ToString("yyyy-MM-dd HH:mm")),
+                new SqlParameter("@to_date",to_date.ToString("yyyy-MM-dd HH:mm")),
+                new SqlParameter("@lecturer_id",lecturer_id)
+            };
+            return ConvertToList(ExecuteQuery("[ps_own_calendar]", prs));
         }
 
         public PracticeSchedule Detail(int id)

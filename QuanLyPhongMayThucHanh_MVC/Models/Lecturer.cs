@@ -63,6 +63,25 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return lec;
         }
 
-       
+        public Lecturer Admin()
+        {
+
+            var gv = ExecuteQuery("[lecturer_admin]").Rows[0];
+
+            var lec = new Lecturer(
+                int.Parse(gv["id"].ToString()),
+               username,
+               gv["fullname"].ToString(),
+               gv["avatar"].ToString(),
+               gv["phone"].ToString(),
+               gv["email"].ToString(),
+               gv["position"].ToString(),
+               gv["falculty"].ToString()
+                );
+            return lec;
+        }
+
+
+
     }
 }

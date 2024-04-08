@@ -228,6 +228,7 @@
     <Content Include="Assets\admin\room.js" />
     <Content Include="Assets\defined\account.js" />
     <Content Include="Assets\defined\CustomerSweetAlert.js" />
+    <Content Include="Assets\defined\own_calendar.js" />
     <Content Include="Assets\defined\pcroom.js" />
     <Content Include="Assets\defined\pcroom_book.js" />
     <Content Include="Assets\defined\pcroom_calendar.js" />
@@ -346,7 +347,8 @@
     <Content Include="Assets\styles\simple-line-icons.css" />
     <Content Include="Assets\styles\style-responsive.css" />
     <Content Include="Assets\styles\zabuto_calendar.min.css" />
-    <Content Include="Assets\tmp\tmp1.html" />
+    <Content Include="Assets\tmp\admin.html" />
+    <Content Include="Assets\tmp\lecturer.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
@@ -416,6 +418,7 @@
     <Content Include="Views\PCRoom\Book.cshtml" />
     <Content Include="Views\Account\MyProfile.cshtml" />
     <Content Include="Views\PracticeSchedule\Calendar.cshtml" />
+    <Content Include="Views\PracticeSchedule\OwnCalendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
