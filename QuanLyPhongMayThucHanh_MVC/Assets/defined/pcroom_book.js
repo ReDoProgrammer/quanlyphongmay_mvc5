@@ -11,6 +11,11 @@
         format: 'DD/MM/YYYY HH:mm',
         defaultDate: defaultDate
     });
+
+    $('#dtpBookDate').datetimepicker({
+        format: 'DD/MM/YYYY HH:mm',
+        defaultDate: new Date()
+    })
     // $('.js-example-basic-multiple').select2();
     loadcp();
 });
@@ -24,7 +29,8 @@ $('#btnSearch').click(function(){
 })
 
 function book(id){
-    
+    console.log(id);
+    $('#modalBook').modal();
 }
 
 function loadcp(){

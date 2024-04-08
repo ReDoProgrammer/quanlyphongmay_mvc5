@@ -210,6 +210,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PCRoomController.cs" />
     <Compile Include="Controllers\PracticeScheduleController.cs" />
+    <Compile Include="Controllers\SubjectController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -218,6 +219,7 @@
     <Compile Include="Models\Lecturer.cs" />
     <Compile Include="Models\PCRoom.cs" />
     <Compile Include="Models\PracticeSchedule.cs" />
+    <Compile Include="Models\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -377,6 +379,7 @@
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ClassPeriod\" />
     <Folder Include="Views\PracticeSchedule\" />
+    <Folder Include="Views\Subject\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
