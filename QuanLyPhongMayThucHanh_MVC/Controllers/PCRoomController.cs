@@ -46,6 +46,5 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
             }
         
         }
-
     }
 }

@@ -9,22 +9,36 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
 {
     public class PracticeSchedule:DB
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Room { get; set; }
         public string Subject { get; set; }
         public string Lecturer { get; set; }
         public string ClassPeriod { get; set; }
         public string Note { get; set; }
         public string Status { get; set; }
+        public int StatusId { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
-
+        
+        public PracticeSchedule() {  }
         private List<PracticeSchedule> ConvertToList(DataTable dt)
         {
             var lst = new List<PracticeSchedule>();
             foreach (DataRow r in dt.Rows)
             {
-
+                lst.Add(new PracticeSchedule()
+                {
+                    Id = long.Parse(r["id"].ToString()),
+                    Room = r["room"].ToString(),
+                    Subject = r["subject"].ToString(),
+                    Lecturer = r["subject"].ToString(),
+                    ClassPeriod = r["class_period"].ToString(),
+                    StartDate = r["start_date"].ToString(),
+                    EndDate = r["end_date"].ToString(),
+                    Note = r["note"].ToString(),
+                    StatusId = int.Parse(r["status_id"].ToString()),
+                    Status = r["status"].ToString()
+                });
             }
             return lst;
         }
@@ -43,5 +57,14 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             };
             return (int)ExecuteScalar("ps_book", prs);
         }
+
+        public List<PracticeSchedule> Calendar(DateTime from_date,DateTime to_date)
+        {
+            SqlParameter[] prs=
+            {
+                new SqlParameter("@from_date",from_date.ToString("yyyy-MM-dd HH:mm")),
+                new SqlParameter("@to_date",to_date.ToString("yyyy-MM-dd HH:mm"))
+            };
+            return ConvertToList(ExecuteQuery("ps_calendar",prs));        }
     }
 }

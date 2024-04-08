@@ -18,7 +18,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
         }
 
         // GET: PracticeSchedule
-        public ActionResult Index()
+        public ActionResult Calendar()
         {
             return View();
         }
@@ -39,6 +39,20 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
             {
                 return Json(new { code = 500, msg = "Book room failed with error: " + ex.Message, JsonRequestBehavior.AllowGet });
             }
+        }
+
+        [HttpGet]
+        public JsonResult LABCalendar(DateTime from_date, DateTime to_date)
+        {
+            try
+            {
+                return Json(new { code = 200, calendars = ps.Calendar(from_date, to_date), msg = "Load danh sách phòng máy thành công!" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { code = 500, msg = "Lỗi tra cứu phòng LAB: " + ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
         }
     }
 }

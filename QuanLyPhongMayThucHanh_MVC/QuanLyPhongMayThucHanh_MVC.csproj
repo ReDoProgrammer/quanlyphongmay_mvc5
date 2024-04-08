@@ -378,7 +378,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ClassPeriod\" />
-    <Folder Include="Views\PracticeSchedule\" />
     <Folder Include="Views\Subject\" />
   </ItemGroup>
   <ItemGroup>
@@ -414,6 +413,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\PCRoom\Book.cshtml" />
     <Content Include="Views\Account\MyProfile.cshtml" />
+    <Content Include="Views\PracticeSchedule\Calendar.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
