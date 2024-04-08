@@ -34,14 +34,11 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
         }
 
         [HttpGet]
-        public JsonResult Lookup(DateTime from_date,DateTime to_date,int cp)//cp: class period
+        public JsonResult Lookup(DateTime date,int cp)//cp: class period
         {
             try
-            {
-                //DateTime from_date = DateTime.ParseExact(fromdate, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
-                //DateTime to_date = DateTime.ParseExact(todate, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
-                var rooms = room.Lookup(from_date,to_date,cp);
-                return Json(new { code = 200, rooms = rooms, msg = "Load danh sách phòng máy thành công!" }, JsonRequestBehavior.AllowGet);
+            {              
+                return Json(new { code = 200, rooms = room.Lookup(date, cp), msg = "Load danh sách phòng máy thành công!" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

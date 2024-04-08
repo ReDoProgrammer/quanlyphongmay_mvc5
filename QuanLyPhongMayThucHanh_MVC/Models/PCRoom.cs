@@ -33,71 +33,17 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             {
                 new SqlParameter("@keyword",keyword)
             };
-            var dt = ExecuteQuery("[room_search]", pars);
-            var lst = new List<PCRoom>();
-            foreach (DataRow r in dt.Rows)
-            {
-                lst.Add(new PCRoom
-                {
-                    Id = int.Parse(r["id"].ToString()),
-                    Name = r["name"].ToString(),
-                    NumberOfPC = int.Parse(r["number_of_pc"].ToString()),
-                    Location = r["location"].ToString(),
-                    Note = r["note"].ToString(),
-                    CPU = r["CPU"].ToString(),
-                    VGA = r["VGA"].ToString(),
-                    Mainboard = r["Mainboard"].ToString(),
-                    PSU = r["PSU"].ToString(),
-                    Keyboard = r["Keyboard"].ToString(),
-                    Mouse = r["Mouse"].ToString(),
-                    Monitor = r["Monitor"].ToString(),
-                    Headphone = r["Headphone"].ToString(),
-                    Speaker = r["Speaker"].ToString(),
-                    RAM = r["RAM"].ToString(),
-                    HDD = r["HDD"].ToString(),
-                    SSD = r["SSD"].ToString(),
-                    Status = r["status"].ToString() == "1" ? "Đang sử dụng" : "Phòng trống"
-                });
-            }
-            return lst;
+            return ConvertToList(ExecuteQuery("[room_search]", pars));
         }
 
-        public List<PCRoom> Lookup(DateTime from_date, DateTime to_date, int cp)
+        public List<PCRoom> Lookup(DateTime date, int cp)
         {
             SqlParameter[] prs =
             {
-                new SqlParameter("@from_date",from_date.ToString("yyyy-MM-dd")),
-                new SqlParameter("@to_date",to_date.ToString("yyyy-MM-dd")),
+                new SqlParameter("@date",date.ToString("yyyy-MM-dd")),              
                 new SqlParameter("@class_period_id",cp)
-            };
-            var t = from_date.ToString("yyyy-MM-dd");
-            var dt = ExecuteQuery("room_lookup", prs);
-            var lst = new List<PCRoom>();
-            foreach (DataRow r in dt.Rows)
-            {
-                lst.Add(new PCRoom
-                {
-                    Id = int.Parse(r["id"].ToString()),
-                    Name = r["name"].ToString(),
-                    NumberOfPC = int.Parse(r["number_of_pc"].ToString()),
-                    Location = r["location"].ToString(),
-                    Note = r["note"].ToString(),
-                    CPU = r["CPU"].ToString(),
-                    VGA = r["VGA"].ToString(),
-                    Mainboard = r["Mainboard"].ToString(),
-                    PSU = r["PSU"].ToString(),
-                    Keyboard = r["Keyboard"].ToString(),
-                    Mouse = r["Mouse"].ToString(),
-                    Monitor = r["Monitor"].ToString(),
-                    Headphone = r["Headphone"].ToString(),
-                    Speaker = r["Speaker"].ToString(),
-                    RAM = r["RAM"].ToString(),
-                    HDD = r["HDD"].ToString(),
-                    SSD = r["SSD"].ToString(),
-                    Status = r["status"].ToString() == "1" ? "Đang sử dụng" : "Phòng trống"
-                });
-            }
-            return lst;
+            };         
+            return ConvertToList(ExecuteQuery("room_lookup", prs));
         }
 
         public PCRoom Detail(int id)
@@ -185,6 +131,36 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter("@id",id)
             };
             return ExecuteNonQuery("[room_delete]", prs);
+        }
+
+        private List<PCRoom> ConvertToList(DataTable dt)
+        {
+            var lst = new List<PCRoom>();
+            foreach (DataRow r in dt.Rows)
+            {
+                lst.Add(new PCRoom
+                {
+                    Id = int.Parse(r["id"].ToString()),
+                    Name = r["name"].ToString(),
+                    NumberOfPC = int.Parse(r["number_of_pc"].ToString()),
+                    Location = r["location"].ToString(),
+                    Note = r["note"].ToString(),
+                    CPU = r["CPU"].ToString(),
+                    VGA = r["VGA"].ToString(),
+                    Mainboard = r["Mainboard"].ToString(),
+                    PSU = r["PSU"].ToString(),
+                    Keyboard = r["Keyboard"].ToString(),
+                    Mouse = r["Mouse"].ToString(),
+                    Monitor = r["Monitor"].ToString(),
+                    Headphone = r["Headphone"].ToString(),
+                    Speaker = r["Speaker"].ToString(),
+                    RAM = r["RAM"].ToString(),
+                    HDD = r["HDD"].ToString(),
+                    SSD = r["SSD"].ToString(),
+                    Status = r["status"].ToString() == "1" ? "Đang sử dụng" : "Phòng trống"
+                });
+            }
+            return lst;
         }
     }
 }

@@ -1,15 +1,8 @@
 ﻿$(function () {
-    $('#dtpFromDate').datetimepicker({
+   
+    $('#dtpDate').datetimepicker({
         format: 'DD/MM/YYYY',
         defaultDate: new Date()
-    });
-
-    var defaultDate = new Date();
-    defaultDate.setDate(defaultDate.getDate() + 3);
-
-    $('#dtpToDate').datetimepicker({
-        format: 'DD/MM/YYYY',
-        defaultDate: defaultDate
     });
 
     $('#dtpBookDate').datetimepicker({
@@ -22,11 +15,10 @@
 });
 
 var room_id = 0;
-var from_date,to_date,cp;
+var date,cp;
 
 $('#btnSearch').click(function () {
-    from_date = $('#dtpFromDate').data("DateTimePicker").date().format('YYYY-MM-DD');
-    to_date = $('#dtpToDate').data("DateTimePicker").date().format('YYYY-MM-DD');
+    date = $('#dtpDate').data("DateTimePicker").date().format('YYYY-MM-DD');
     cp = parseInt($('#slClassPeriods option:selected').val());
     lookup();
 
@@ -93,7 +85,7 @@ function lookup() {
     $.ajax({
         url: '/pcroom/lookup',
         type: 'get',
-        data: { from_date, to_date, cp },
+        data: { date, cp },
         success: function (data) {
             $('#tblRooms').empty();
             if (data.code == 200) {
