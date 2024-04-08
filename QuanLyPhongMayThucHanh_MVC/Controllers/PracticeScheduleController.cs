@@ -1,4 +1,5 @@
-﻿using QuanLyPhongMayThucHanh_MVC.Areas.admin.Models;
+﻿using Common;
+using QuanLyPhongMayThucHanh_MVC.Areas.admin.Models;
 using QuanLyPhongMayThucHanh_MVC.Models;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,22 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
                 var lec = (Models.Lecturer)Session["lecturer"];                
                 var rs = ps.Book(book_date, room_id, subject_id, lec.id, class_period_id, note,lec.id);
                 if (rs > 0)
+                {
+                    //send email
+                    string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/tmp/tmp1.html"));
+
+                    var b = ps.Detail(rs);
+
+                    content = content.Replace("{{Id}}",rs.ToString());
+                    content = content.Replace("{{Room}}",b.Room);
+                    content = content.Replace("{{Subject}}",rs.ToString(b.Subject));
+                    content = content.Replace("{{ClassPeriod}}", b.ClassPeriod);
+                    content = content.Replace("{{FromDate}}", b.StartDate);
+                    content = content.Replace("{{ToDate}}", b.EndDate);                  
+                    
+                    var r = Mailer.SendMail(lec.email, "PCLAB Mngr", "Booking PC LAB successfully", content); 
                     return Json(new { code = 201, msg = "Book PC LAB room successfully!", JsonRequestBehavior.AllowGet });
+                }
                 return Json(new { code = 403, msg = "Book room failed", JsonRequestBehavior.AllowGet });
 
             }

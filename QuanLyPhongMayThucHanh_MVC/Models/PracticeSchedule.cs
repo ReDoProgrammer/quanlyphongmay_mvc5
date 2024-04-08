@@ -7,7 +7,7 @@ using System.Web;
 
 namespace QuanLyPhongMayThucHanh_MVC.Models
 {
-    public class PracticeSchedule:DB
+    public class PracticeSchedule : DB
     {
         public long Id { get; set; }
         public string Room { get; set; }
@@ -19,8 +19,8 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         public int StatusId { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
-        
-        public PracticeSchedule() {  }
+
+        public PracticeSchedule() { }
         private List<PracticeSchedule> ConvertToList(DataTable dt)
         {
             var lst = new List<PracticeSchedule>();
@@ -43,7 +43,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return lst;
         }
 
-        public int Book(DateTime book_date,int room_id, int subject_id,int lecturer_id,int class_period_id,string note , int created_by)
+        public int Book(DateTime book_date, int room_id, int subject_id, int lecturer_id, int class_period_id, string note, int created_by)
         {
             SqlParameter[] prs =
             {
@@ -54,17 +54,37 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter("@class_period_id",class_period_id),
                 new SqlParameter("@note",note),
                 new SqlParameter("@created_by",created_by)
-            };
-            return (int)ExecuteScalar("ps_book", prs);
+            };           
+            return Convert.ToInt32(ExecuteScalar("ps_book", prs));
         }
 
-        public List<PracticeSchedule> Calendar(DateTime from_date,DateTime to_date)
+        public List<PracticeSchedule> Calendar(DateTime from_date, DateTime to_date)
         {
-            SqlParameter[] prs=
+            SqlParameter[] prs =
             {
                 new SqlParameter("@from_date",from_date.ToString("yyyy-MM-dd HH:mm")),
                 new SqlParameter("@to_date",to_date.ToString("yyyy-MM-dd HH:mm"))
             };
-            return ConvertToList(ExecuteQuery("ps_calendar",prs));        }
+            return ConvertToList(ExecuteQuery("ps_calendar", prs));
+        }
+
+        public PracticeSchedule Detail(int id)
+        {
+            SqlParameter[] prs = { new SqlParameter("@id", id) };
+            DataRow r = ExecuteQuery("ps_detail", prs).Rows[0];
+            return new PracticeSchedule()
+            {
+                Id = long.Parse(r["id"].ToString()),
+                Room = r["room"].ToString(),
+                Subject = r["subject"].ToString(),
+                Lecturer = r["subject"].ToString(),
+                ClassPeriod = r["class_period"].ToString(),
+                StartDate = r["start_date"].ToString(),
+                EndDate = r["end_date"].ToString(),
+                Note = r["note"].ToString(),
+                StatusId = int.Parse(r["status_id"].ToString()),
+                Status = r["status"].ToString()
+            };
+        }
     }
 }
