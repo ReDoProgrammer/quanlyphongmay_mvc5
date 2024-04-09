@@ -32,7 +32,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                     Room = r["room"].ToString(),
                     Subject = r["subject"].ToString(),
                     Lecturer = r["lecturer"].ToString(),
-                    ClassPeriod = r["class_period"].ToString(),
+                    ClassPeriod = r["period"].ToString(),
                     StartDate = r["start_date"].ToString(),
                     EndDate = r["end_date"].ToString(),
                     Note = r["note"].ToString(),
@@ -43,7 +43,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return lst;
         }
 
-        public int Book(DateTime book_date, int room_id, int subject_id, int lecturer_id, int class_period_id, string note, int created_by)
+        public int Book(DateTime book_date, int room_id, int subject_id, int lecturer_id, int class_period_id_1, int class_period_id_2, string note, int created_by)
         {
             SqlParameter[] prs =
             {
@@ -51,7 +51,8 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter("@room_id",room_id),
                 new SqlParameter("@subject_id",subject_id),
                 new SqlParameter("@lecturer_id",lecturer_id),
-                new SqlParameter("@class_period_id",class_period_id),
+                new SqlParameter("@class_period_id_1",class_period_id_1),
+                new SqlParameter("@class_period_id_2",class_period_id_2),
                 new SqlParameter("@note",note),
                 new SqlParameter("@created_by",created_by)
             };           
@@ -89,13 +90,19 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 Room = r["room"].ToString(),
                 Subject = r["subject"].ToString(),
                 Lecturer = r["subject"].ToString(),
-                ClassPeriod = r["class_period"].ToString(),
+                ClassPeriod = r["period"].ToString(),
                 StartDate = r["start_date"].ToString(),
                 EndDate = r["end_date"].ToString(),
                 Note = r["note"].ToString(),
                 StatusId = int.Parse(r["status_id"].ToString()),
                 Status = r["status"].ToString()
             };
+        }
+
+        public int Delete(int id)
+        {
+            SqlParameter[] prs = { new SqlParameter("@id", id) };
+            return Convert.ToInt32(ExecuteNonQuery("ps_delete", prs));
         }
     }
 }

@@ -12,6 +12,8 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
     {
 
         private PracticeSchedule ps;
+      
+
         public PracticeScheduleController()
         {
             ps = new PracticeSchedule();
@@ -28,12 +30,12 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
         }
 
         [HttpPost]
-        public JsonResult Book(DateTime book_date, int room_id, int subject_id, int class_period_id, string note)
+        public JsonResult Book(DateTime book_date, int room_id, int subject_id, int class_period_id_1, int class_period_id_2, string note)
         {
             try
             {
                 var lec = (Models.Lecturer)Session["lecturer"];                
-                var rs = ps.Book(book_date, room_id, subject_id, lec.id, class_period_id, note,lec.id);
+                var rs = ps.Book(book_date, room_id, subject_id, lec.id, class_period_id_1, class_period_id_2, note,lec.id);
                 if (rs > 0)
                 {
                     //send email
@@ -79,6 +81,35 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult Delete(int id, string remark)
+        {
+            var b = ps.Detail(id);
+            var rs = ps.Delete(id);
+            if (rs > 0)
+            {
+                var lec = (Models.Lecturer)Session["lecturer"];
+                string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/tmp/lecturer_cancel.html"));
+
+              
+
+                content = content.Replace("{{Id}}", rs.ToString());
+                content = content.Replace("{{Room}}", b.Room);
+                content = content.Replace("{{Subject}}", rs.ToString(b.Subject));
+                content = content.Replace("{{ClassPeriod}}", b.ClassPeriod);
+                content = content.Replace("{{StartTime}}", b.StartDate);
+                content = content.Replace("{{EndTime}}", b.EndDate);
+                content = content.Replace("{{Remark}}", b.Note);
+                content = content.Replace("{{Lecturer}}", lec.fullname);
+                content = content.Replace("{{BookTime}}", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+                content = content.Replace("{{CancelRemark}}", remark);
+
+                Mailer.SendMail(lec.email, "PCLAB Mngr", "Cancel booking PC LAB successfully", content);
+                return Json(new { code = 200, msg = "The room has been canceled!" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { code = 400,  msg = "Can not cancel this room!" }, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public JsonResult LABCalendar(DateTime from_date, DateTime to_date)
         {
@@ -106,6 +137,12 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
                 return Json(new { code = 500, msg = "Load own calendar failed with error: " + ex.Message }, JsonRequestBehavior.AllowGet);
             }
 
+        }
+
+        [HttpGet]
+        public JsonResult Detail(int id)
+        {
+            return Json(new { code = 200, calendar = ps.Detail(id), msg = "Get calendar detail successfully!" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

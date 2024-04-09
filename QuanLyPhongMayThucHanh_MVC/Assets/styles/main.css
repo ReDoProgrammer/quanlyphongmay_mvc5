@@ -7423,3 +7423,6 @@ ul.chats li.out .message {
 .profile .icon-settings { margin-right:5px}	
 
 .task-item {margin-top:15px; overflow:hidden; display:block}
+.fw-bold{
+    font-weight:bold;
+}

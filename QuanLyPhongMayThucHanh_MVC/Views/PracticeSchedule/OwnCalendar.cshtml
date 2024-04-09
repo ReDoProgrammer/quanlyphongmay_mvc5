@@ -59,9 +59,76 @@
     </table>
 </div>
 
+
+<!-- Modal -->
+<div id="modalCancelBooking"  class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="modalTitle" data-id="">Cacnel Booking PC LAB</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">                  
+                    <div class="col-md-2 form-group">                       
+                        <label class="fw-bold">Room</label>
+                    </div>
+                    <div class="col-md-10 form-group">                       
+                        <label id="lblRoom">fdsafasdf</label>
+                    </div>
+                </div>   
+                <div class="row">
+                    <div class="col-md-2 form-group">
+                        <label class="fw-bold">Subject</label>
+                    </div>
+                    <div class="col-md-10 form-group">
+                        <label id="lblSubject"></label>
+                    </div>
+                </div>   
+                <div class="row">
+                    <div class="col-md-2 form-group">
+                        <label class="fw-bold">Start</label>
+                    </div>
+                    <div class="col-md-10 form-group">
+                        <label id="lblStartDate"></label>
+                    </div>
+                </div>   
+                <div class="row">
+                    <div class="col-md-2 form-group">
+                        <label class="fw-bold">End</label>
+                    </div>
+                    <div class="col-md-10 form-group">
+                        <label id="lblEndDate"></label>
+                    </div>
+                </div>   
+                <div class="row">
+                    <div class="col-md-2 form-group">
+                        <label class="fw-bold">Remark</label>
+                    </div>
+                    <div class="col-md-10 form-group">
+                        <label id="lblRemark"></label>
+                    </div>
+                </div>   
+                <hr/>
+                <textarea class="form-control" id="txaCancelNote" placeholder="Cancel remark"></textarea>            
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-id="" id="btnSubmitCancelBooking">Submit cancel booking</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
 @section scripts{
     <script src="~/Assets/plugins/bootstrap-datetimepicker/moment.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Assets/plugins/sweetalert/sweetalert.min.js"></script> 
     <script src="~/Assets/defined/own_calendar.js"></script>
 }
 

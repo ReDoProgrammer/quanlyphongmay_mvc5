@@ -11,7 +11,7 @@
 <link href="~/Assets/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
 <div class="row">
-    <div class="col-md-3 col-md-offset-3">
+    <div class="col-md-4">
         <div class="form-group">
             <label>Ngày:</label>
             <div class='input-group date' id='dtpDate'>
@@ -22,9 +22,13 @@
             </div>
         </div>
     </div>    
-    <div class="col-md-6 form-group">   
+    <div class="col-md-4 form-group">
+            <label>From</label>
+            <select class="form-control" id="slFromClassPeriods"></select>            
+    </div>
+    <div class="col-md-4 form-group">   
         <div class="input-group" style="margin-top:25px;">            
-            <select class="form-control" id="slClassPeriods"></select>
+            <select class="form-control" id="slToClassPeriods"></select>
             <span class="input-group-btn">
                 <button type="button" class="btn btn-default" id="btnSearch">
                     <i class="fa fa-search" aria-hidden="true"></i> 

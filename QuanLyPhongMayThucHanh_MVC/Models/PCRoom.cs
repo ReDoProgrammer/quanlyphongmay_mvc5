@@ -36,12 +36,13 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return ConvertToList(ExecuteQuery("[room_search]", pars));
         }
 
-        public List<PCRoom> Lookup(DateTime date, int cp)
+        public List<PCRoom> Lookup(DateTime date, int class_period_id_1,int @class_period_id_2)
         {
             SqlParameter[] prs =
             {
                 new SqlParameter("@date",date.ToString("yyyy-MM-dd")),              
-                new SqlParameter("@class_period_id",cp)
+                new SqlParameter("@class_period_id_1",class_period_id_1),
+                new SqlParameter("@class_period_id_2",class_period_id_2)
             };         
             return ConvertToList(ExecuteQuery("room_lookup", prs));
         }

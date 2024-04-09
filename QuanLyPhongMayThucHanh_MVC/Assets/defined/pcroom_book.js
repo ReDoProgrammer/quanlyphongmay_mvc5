@@ -16,24 +16,22 @@
 });
 
 var room_id = 0;
-var date,cp;
 
-$('#btnSearch').click(function () {
-    date = $('#dtpDate').data("DateTimePicker").date().format('YYYY-MM-DD');
-    cp = parseInt($('#slClassPeriods option:selected').val());
+
+$('#btnSearch').click(function () {   
     lookup();
-
 })
 $('#btnSubmit').click(function(){
     let book_date = $('#dtpBookDate').data("DateTimePicker").date().format('YYYY-MM-DD');
     let subject_id = parseInt($('#slSubjects option:selected').val());
-    let class_period_id = parseInt($('#slClassPeriods option:selected').val());
+    let class_period_id_1 = parseInt($('#slFromClassPeriods option:selected').val());
+    let class_period_id_2 = parseInt($('#slToClassPeriods option:selected').val());
     let note = $('#txaNote').val();
     
     $.ajax({
         url:'/practiceschedule/book',
         type:'post',
-        data:{book_date,room_id,subject_id,class_period_id,note},
+        data:{book_date,room_id,subject_id,class_period_id_1,class_period_id_2,note},
         success:function(data){
             if(data.code == 201){
                 Swal.fire({
@@ -74,7 +72,8 @@ function loadcp() {
         success: function (data) {
             if (data.code == 200) {
                 data.cps.forEach(c => {
-                    $('#slClassPeriods').append(`<option value = "${c.Id}">${c.Name}  [${c.StartTime} - ${c.EndTime}]</option>`);
+                    $('#slFromClassPeriods').append(`<option value = "${c.Id}">${c.Name}  [${c.StartTime} - ${c.EndTime}]</option>`);
+                    $('#slToClassPeriods').append(`<option value = "${c.Id}">${c.Name}  [${c.StartTime} - ${c.EndTime}]</option>`);
                 })
             }
         }
@@ -83,10 +82,13 @@ function loadcp() {
 
 
 function lookup() {
+    let date = $('#dtpDate').data("DateTimePicker").date().format('YYYY-MM-DD');
+    let class_period_id_1 = parseInt($('#slFromClassPeriods option:selected').val());
+    let class_period_id_2 = parseInt($('#slToClassPeriods option:selected').val());
     $.ajax({
         url: '/pcroom/lookup',
         type: 'get',
-        data: { date, cp },
+        data: { date, class_period_id_1,class_period_id_2 },
         success: function (data) {
             $('#tblRooms').empty();
             if (data.code == 200) {

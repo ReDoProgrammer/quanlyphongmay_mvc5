@@ -16,6 +16,7 @@ $('#btnSearch').click(function(){
     LoadOwnCalendar();
 })
 
+var id;
 function LoadOwnCalendar(){
     let from_date = $('#dtpFromDate').data("DateTimePicker").date().format('YYYY-MM-DD HH:mm');
     let to_date = $('#dtpToDate').data("DateTimePicker").date().format('YYYY-MM-DD HH:mm');
@@ -39,7 +40,7 @@ function LoadOwnCalendar(){
                         <td>${c.Note}</td>
                         <td>${c.Status}</td>
                         <td>
-                            ${c.StatusId!=1?'<button class="btn btn-xs btn-warning" title="Cancel booking"><i class="fa fa-undo" aria-hidden="true"></i></button>':''}
+                            ${c.StatusId!=1?'<button class="btn btn-xs btn-warning" title="Cancel booking" onClick = "CancelBooking('+c.Id+')"><i class="fa fa-undo" aria-hidden="true"></i></button>':''}
                         </td>
                     </tr>
                 `);
@@ -47,3 +48,49 @@ function LoadOwnCalendar(){
         }
     })
 }
+
+function CancelBooking(id){
+    this.id = id;
+    $.ajax({
+        url:'/practiceschedule/detail',
+        type:'get',
+        data:{id},
+        success:function(data){
+            $('#lblRoom').text(data.calendar.Room);
+            $('#lblSubject').text(data.calendar.Subject);
+            $('#lblStartDate').text(data.calendar.StartDate);
+            $('#lblEndDate').text(data.calendar.EndDate);
+            $('#lblRemark').text(data.calendar.Note);           
+            $('#modalCancelBooking').modal();
+        }
+    })
+}
+
+$('#btnSubmitCancelBooking').click(function(){
+    let remark = $('#txaCancelNote').val();
+    if(remark.trim().length == 0){
+        Swal.fire({
+            title: "Validation",
+            text: "Please enter cancel remark",
+            icon: "warning"
+          });
+        return;
+    }
+    $.ajax({
+        url:'/practiceschedule/delete',
+        type:'post',
+        data:{id,remark},
+        success:function(data){
+            if(data.code == 200){
+                $.toast({
+                    heading: 'Information',
+                    text: 'Now you can add icons to generate different kinds of toasts',
+                    showHideTransition: 'slide',
+                    icon: 'info'
+                })
+                LoadOwnCalendar();
+                $('#modalCancelBooking').modal('hide');
+            }
+        }
+    })
+})
