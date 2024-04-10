@@ -25,7 +25,7 @@
     }
 
     $.ajax({
-        url: '/admin/auth/login',
+        url: '/admin/auth/Login',
         type: 'post',
         data: { username, password},
                 success: function (data) {

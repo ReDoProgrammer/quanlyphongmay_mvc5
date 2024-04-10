@@ -1,4 +1,4 @@
-﻿using QuanLyPhongMayThucHanh_MVC.Areas.admin.Models;
+﻿using QuanLyPhongMayThucHanh_MVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,15 +21,15 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
             try
             {
                 var lec = new Lecturer();
-                var code = lec.Login(username, password);
-                var msg = "Đăng nhập thành công!";
+                var code = lec.AdminLogin(username, password);
+                var msg = "Login as administrator successfully!";
 
                 switch (code)
                 {
-                    case 404: msg = "Tài khoản không tồn tại!"; break;
-                    case 403: msg = "Bạn không có quyền truy cập module này!"; break;
-                    case 400: msg = "Mật khẩu không chính xác!"; break;
-                    default: msg = "Đăng nhập thành công!"; break;
+                    case 404: msg = "Account not found!"; break;
+                    case 403: msg = "You can't access this module!"; break;
+                    case 400: msg = "Wrong password!"; break;
+                    default: msg = "Login as administrator successfully!"; break;
                 }
                 if (code != 200)
                 {

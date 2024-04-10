@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Faculty index";
+    ViewData["page"] = "Faculties list";
+    ViewData["icon"] = "fa fa-sitemap fa-fw";
+    ViewData["url"] = "/admin/room";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+   
+    <div class="col-md-2 col-md-offset-10 text-right">
+        <button class="btn btn-success" data-toggle="modal" data-target="#roomModal">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Add new faculty
+        </button>
+    </div>
+</div>
+
+
+<div class="table-responsive">
+    <table class="table table-hover-color">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Acronym</th>
+                <th>Name</th>                
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tblFaculties">  </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div id="facultyModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="modalTitle">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label>Acronym</label>
+                        <input type="text" class="form-control" id="txtAcronym" />
+                    </div>                   
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" id="txtName" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btnSubmit">Submit changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@section scripts{        
+<script src="~/Assets/admin/faculty.js"></script>
+}
+

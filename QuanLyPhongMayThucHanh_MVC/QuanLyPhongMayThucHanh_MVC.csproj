@@ -198,12 +198,12 @@
     <Compile Include="Areas\admin\adminAreaRegistration.cs" />
     <Compile Include="Areas\admin\Controllers\AuthController.cs" />
     <Compile Include="Areas\admin\Controllers\BaseController.cs" />
+    <Compile Include="Areas\admin\Controllers\FacultyController.cs" />
     <Compile Include="Areas\admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\admin\Controllers\LecturerController.cs" />
     <Compile Include="Areas\admin\Controllers\RoomController.cs" />
     <Compile Include="Areas\admin\Controllers\StatisticController.cs" />
     <Compile Include="Areas\admin\Controllers\SubjectController.cs" />
-    <Compile Include="Areas\admin\Models\Lecturer.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClassPeriodController.cs" />
@@ -216,6 +216,7 @@
     </Compile>
     <Compile Include="Models\ClassPeriod.cs" />
     <Compile Include="Models\DB.cs" />
+    <Compile Include="Models\Faculty.cs" />
     <Compile Include="Models\Lecturer.cs" />
     <Compile Include="Models\PCRoom.cs" />
     <Compile Include="Models\PracticeSchedule.cs" />
@@ -225,6 +226,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\admin\account.js" />
+    <Content Include="Assets\admin\faculty.js" />
     <Content Include="Assets\admin\room.js" />
     <Content Include="Assets\defined\account.js" />
     <Content Include="Assets\defined\CustomerSweetAlert.js" />
@@ -382,6 +384,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\admin\Models\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ClassPeriod\" />
     <Folder Include="Views\Subject\" />
@@ -411,6 +414,7 @@
     <Content Include="Areas\admin\Views\Statistic\Index.cshtml" />
     <Content Include="Assets\plugins\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Assets\plugins\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Areas\admin\Views\Faculty\Index.cshtml" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />

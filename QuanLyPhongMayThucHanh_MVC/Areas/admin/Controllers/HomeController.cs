@@ -1,4 +1,4 @@
-﻿using QuanLyPhongMayThucHanh_MVC.Areas.admin.Models;
+﻿using QuanLyPhongMayThucHanh_MVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

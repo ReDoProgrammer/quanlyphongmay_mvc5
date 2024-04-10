@@ -15,12 +15,12 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         public string phone { get; set; }
         public string email { get; set; }
         public string position { get; set; }
-        public string falculty { get; set; }
+        public string faculty { get; set; }
         public Lecturer()
         {
 
         }
-        public Lecturer(int id,string username,string fullname,string avatar,string phone, string email, string position,string falculty)
+        public Lecturer(int id,string username,string fullname,string avatar,string phone, string email, string position,string faculty)
         {
             this.id = id;
             this.username = username;
@@ -29,7 +29,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             this.phone = phone;
             this.email = email;
             this.position = position;
-            this.falculty = falculty;
+            this.faculty = faculty;
         }
         public int Login(string username, string password)
         {
@@ -39,7 +39,14 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             };
             return (int)ExecuteScalar("lecturer_login", pars);
         }
-
+        public int AdminLogin(string username, string password)
+        {
+            SqlParameter[] pars = {
+                new SqlParameter("@username", username),
+                new SqlParameter("@password", password)
+            };
+            return (int)ExecuteScalar("admin_login", pars);
+        }
         public Lecturer Profile(string username)
         {
             SqlParameter[] param=
@@ -58,7 +65,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                gv["phone"].ToString(),
                gv["email"].ToString(),
                gv["position"].ToString(),
-               gv["falculty"].ToString()
+               gv["faculty"].ToString()
                 );
             return lec;
         }
@@ -76,7 +83,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                gv["phone"].ToString(),
                gv["email"].ToString(),
                gv["position"].ToString(),
-               gv["falculty"].ToString()
+               gv["faculty"].ToString()
                 );
             return lec;
         }
