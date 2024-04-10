@@ -66,5 +66,10 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
         {
             return View();
         }
+        public ActionResult Logout()
+        {
+            Session["lecturer"] = null;
+            return RedirectToAction("login");
+        }
     }
 }

@@ -301,6 +301,7 @@
     <Content Include="Assets\script\charts-highchart-more.js" />
     <Content Include="Assets\script\charts-highchart-pie.js" />
     <Content Include="Assets\script\custom.min.js" />
+    <Content Include="Assets\script\customize.js" />
     <Content Include="Assets\script\data.js" />
     <Content Include="Assets\script\drilldown.js" />
     <Content Include="Assets\script\exporting.js" />
