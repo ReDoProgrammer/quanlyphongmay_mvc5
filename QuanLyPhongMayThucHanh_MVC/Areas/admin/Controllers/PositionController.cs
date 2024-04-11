@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
 {
-    public class PositionController : Controller
+    public class PositionController : BaseController
     {
         private Position p;
         public PositionController()
