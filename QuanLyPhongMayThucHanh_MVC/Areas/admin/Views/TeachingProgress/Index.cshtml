@@ -7,35 +7,36 @@
 <div class="row">
     <div class="col-md-4 form-group">
         <label>Faculty</label>
-        <select class="form-control" id="slFaculties"></select>
+        <select class="form-control" id="slFaculties1"></select>
     </div>
-    <div class="col-md-4 form-group">
-        <label>Subject</label>
-        <select class="form-control" id="slSubjects"></select>
-    </div>
+    <div class="col-md-4">
+        <label>Classroom</label>
+        <select class="form-control" id="slClassrooms1"></select>
+    </div> 
+    
     <div class="col-md-4 form-group">
         <label>Lecturer</label>
-        <select class="form-control" id="slLecturers"></select>
+        <select class="form-control" id="slLecturers1"></select>
     </div>    
 </div>
 <div class="row" style="margin-top:5px;">
     <div class="col-md-4 form-group">
         <label>School year</label>
-        <select class="form-control" id="slSchoolYears"></select>
+        <select class="form-control" id="slSchoolYears1"></select>
     </div>   
     <div class="col-md-4">
         <label>Semester</label>
-        <select class="form-control" id="slSemesters"></select>
+        <select class="form-control" id="slSemesters1"></select>
     </div> 
-    <div class="col-md-4">
-        <label>Classroom</label>
-        <select class="form-control" id="slClassrooms"></select>
-    </div> 
+    <div class="col-md-4 form-group">
+        <label>Subject</label>
+        <select class="form-control" id="slSubjects1"></select>
+    </div>
     
 </div>
 <div class="rows" style="margin-top:5px">
     <div class="col-md-4">
-        <select class="form-control" id="slStatus">
+        <select class="form-control" id="slStatus1">
             <option value="-1">All</option>
             <option value="0">Actived</option>
             <option value="1">Unactived</option>
@@ -52,76 +53,75 @@
             </span>
         </div>
     </div>
-    <div class="col-md-2 text-right">
-        <button class="btn btn-success" data-toggle="modal" data-target="#lecturerModal">
+    <div class="col-md-4 text-right">
+        <button class="btn btn-success" data-toggle="modal" data-target="#progressModal">
             <i class="fa fa-plus" aria-hidden="true"></i>
-            Add new lecturer
+            Add new progress
         </button>
     </div>
 </div>
 
+    <div class="table-responsive">
+        <table class="table table-hover-color">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Faculty</th>
+                    <th>Subject</th>
+                    <th>Classroom</th>
+                    <th>Lecturer</th>
+                    <th>School year</th>
+                    <th>Academic year</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tblLecturers">  </tbody>
+        </table>
+    </div>
 
-<div class="table-responsive">
-    <table class="table table-hover-color">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Faculty</th>
-                <th>Subject</th>
-                <th>Classroom</th>
-                <th>Lecturer</th>
-                <th>School year</th>
-                <th>Academic year</th>               
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="tblLecturers">  </tbody>
-    </table>
-</div>
+
 
 <!-- Modal -->
-<div id="lecturerModal" class="modal fade" role="dialog">
+<div id="progressModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
 
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="modalTitle">Add new lecturer</h4>
+                <h4 class="modal-title" id="modalTitle">Add new progress</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label>Position</label>
-                        <select class="form-control" id="slPositions"></select>
+                    <div class="col-md-4 form-group">
+                        <label>Faculty</label>
+                        <select class="form-control" id="slFaculties"></select>
                     </div>
-                    <div class="col-md-6 form-group">
-                        <label>Fullname</label>
-                        <input type="text" class="form-control" id="txtFullname" />
+                    <div class="col-md-4 form-group">
+                        <label>Class</label>
+                        <select class="form-control" id="slClassrooms"></select>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label>Subject</label>
+                        <select class="form-control" id="slSubjects"></select>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4 form-group">
-                        <label>Username</label>
-                        <input type="text" class="form-control" id="txtUsername" />
+                    <div class="col-md-2 form-group">
+                        <label>School year</label>
+                        <select class="form-control" id="slSchoolYears"></select>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label>Semester</label>
+                        <select class="form-control" id="slSemesters"></select>
                     </div>
                     <div class="col-md-4 form-group">
-                        <label>Password</label>
-                        <input type="password" value="123" class="form-control" id="txtPassword" />
+                        <label>Lecturer</label>
+                        <select class="form-control" id="slLecturers"></select>
                     </div>
                     <div class="col-md-4 form-group">
-                        <label>Repeat password</label>
-                        <input type="password" value="123" class="form-control" id="txtRepeatPassword" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 form-group">
-                        <label>Phone</label>
-                        <input type="text" class="form-control" id="txtPhone" />
-                    </div>
-                    <div class="col-md-8 form-group">
-                        <label>Email</label>
-                        <input type="text" class="form-control" id="txtEmail" />
+                        <label>Number of students</label>
+                        <input type="number" id="txtNumberOfStudents" class="form-control" min="1"  style="text-align:right;">
                     </div>
                 </div>
             </div>

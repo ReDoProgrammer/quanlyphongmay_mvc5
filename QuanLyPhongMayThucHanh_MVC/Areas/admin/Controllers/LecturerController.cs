@@ -41,6 +41,10 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
         {
             return Json(new { code = 200, lecturers = l.Search(faculty_id,keyword), icon = "info", header = "SUCCESSFULLY", msg = "Get lecturers list successfully!" }, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult ListActived()
+        {
+            return Json(new { code = 200, lecturers = l.ListActived(), icon = "info", header = "SUCCESSFULLY", msg = "Get lecturers list successfully!" }, JsonRequestBehavior.AllowGet);
+        }
 
 
         public JsonResult Detail(int id)

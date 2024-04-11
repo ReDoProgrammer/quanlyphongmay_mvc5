@@ -24,33 +24,44 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         public List<Subject> Select()
         {
 
-            return ConvertToList(ExecuteQuery("[sb_select]"));
+            return ConvertToList(ExecuteQuery("[subject_select]"));
         }
 
-        public int Insert(string acronym, string name)
+        public Subject Detail(int id)
+        {
+            SqlParameter[] prs = { new SqlParameter("@id", id) };
+            var r = ExecuteQuery("subject_detail", prs).Rows[0];
+            if (r == null) return null;
+            return new Subject
+            {
+                Id = int.Parse(r["id"].ToString()),
+                Acronym = r["acronym"].ToString(),
+                Name = r["name"].ToString()
+            };
+        }
+
+        public int Insert(string name)
         {
             SqlParameter[] prs =
             {
-                new SqlParameter("@acronym",acronym),
                 new SqlParameter("@name",name)
             };
-            return (int)ExecuteScalar("sb_insert", prs);
+            return (int)ExecuteScalar("subject_insert", prs);
         }
 
-        public int Update(int id, string acronym, string name)
+        public int Update(int id, string name)
         {
             SqlParameter[] prs =
             {
                 new SqlParameter("@id",id),
-                new SqlParameter("@acronym",acronym),
                 new SqlParameter("@name",name)
             };
-            return ExecuteNonQuery("sb_update", prs);
+            return ExecuteNonQuery("subject_update", prs);
         }
         public int Delete(int id)
         {
             SqlParameter[] prs = { new SqlParameter("@id", id) };
-            return ExecuteNonQuery("sb_delete", prs);
+            return ExecuteNonQuery("subject_delete", prs);
         }
 
         private List<Subject> ConvertToList(DataTable dt)

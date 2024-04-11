@@ -47,6 +47,12 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return lst;
         }
 
+
+        public List<Lecturer> ListActived()
+        {
+            return ConvertToList(ExecuteQuery("lecturer_select_actived"));
+        }
+
         public List<Lecturer> Search(int faculty_id, string keyword)
         {
             SqlParameter[] prs =
