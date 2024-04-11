@@ -22,3 +22,4 @@ function setActiveMenu() {
         $('#side-menu li a[href="' + activeMenuHref + '"]').closest('li').addClass('active');
     }
 }
+

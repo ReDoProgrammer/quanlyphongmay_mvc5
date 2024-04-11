@@ -201,6 +201,7 @@
     <Compile Include="Areas\admin\Controllers\FacultyController.cs" />
     <Compile Include="Areas\admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\admin\Controllers\LecturerController.cs" />
+    <Compile Include="Areas\admin\Controllers\PositionController.cs" />
     <Compile Include="Areas\admin\Controllers\RoomController.cs" />
     <Compile Include="Areas\admin\Controllers\StatisticController.cs" />
     <Compile Include="Areas\admin\Controllers\SubjectController.cs" />
@@ -219,6 +220,7 @@
     <Compile Include="Models\Faculty.cs" />
     <Compile Include="Models\Lecturer.cs" />
     <Compile Include="Models\PCRoom.cs" />
+    <Compile Include="Models\Position.cs" />
     <Compile Include="Models\PracticeSchedule.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -227,6 +229,7 @@
   <ItemGroup>
     <Content Include="Assets\admin\account.js" />
     <Content Include="Assets\admin\faculty.js" />
+    <Content Include="Assets\admin\lecturer.js" />
     <Content Include="Assets\admin\room.js" />
     <Content Include="Assets\defined\account.js" />
     <Content Include="Assets\defined\CustomerSweetAlert.js" />
@@ -385,6 +388,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\admin\Models\" />
+    <Folder Include="Areas\admin\Views\Position\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ClassPeriod\" />
     <Folder Include="Views\Subject\" />
