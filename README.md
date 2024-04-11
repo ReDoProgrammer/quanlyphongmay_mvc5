@@ -1,4 +1,4 @@
-WEB QUẢN LÝ PHÒNG MÁY TÍNH THỰC HÀNH
+﻿WEB QUẢN LÝ PHÒNG MÁY TÍNH THỰC HÀNH
 SỬ DỤNG ASP.NET MVC 5 VÀ SQL EXPRESS 2022
 
 
@@ -23,6 +23,8 @@ SỬ DỤNG ASP.NET MVC 5 VÀ SQL EXPRESS 2022
 •	Xem lịch sử thay đổi trong hệ thống
 •	Quản lý môn thực hành
 •	Quản lý lớp thực hành
+	Quản lý giảng viên
+       Quản lý lớp giảng dạy
 3. Giảng viên
 •	Cập nhật môn dạy theo kì(cần phê duyệt)
 •	Kiểm tra phòng máy đã có ai đăng kí chưa
