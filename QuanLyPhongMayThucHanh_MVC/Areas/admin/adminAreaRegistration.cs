@@ -2,25 +2,30 @@
 
 namespace QuanLyPhongMayThucHanh_MVC.Areas.admin
 {
-    public class adminAreaRegistration : AreaRegistration 
+    public class adminAreaRegistration : AreaRegistration
     {
-        public override string AreaName 
+        public override string AreaName
         {
-            get 
+            get
             {
                 return "admin";
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+        public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "admin_default",
-                "admin/{controller}/{action}/{id}",               
-                new { action = "Index", id = UrlParameter.Optional },
-                new[] { "QuanLyPhongMayThucHanh_MVC.Areas.Admin.Controllers" }
-                
+                "Admin_default",
+                "Admin/{controller}/{action}/{id}",
+                new { action = "Index", id = UrlParameter.Optional }
             );
+
+            context.MapRoute(
+                "Admin_Specific",
+                "Admin/",
+                new { controller = "Home", action = "Index" }
+            );
+
         }
     }
 }
