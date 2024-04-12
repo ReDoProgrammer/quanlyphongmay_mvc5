@@ -50,19 +50,27 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return lst;
         }
 
-        public List<TeachingProgress> Filter(int lecturer_id, int subject_id, int semester_id, string school_year, int classroom_id, bool status, string keyword)
+        public string Filter(int lecturer_id, int subject_id, int semester_id, string school_year, int classroom_id, string keyword, int page)
         {
-            SqlParameter[] prs =
+            try
             {
+                SqlParameter[] prs =
+                   {
                 new SqlParameter("@lecturer_id",lecturer_id),
                 new SqlParameter("@subject_id",subject_id),
                 new SqlParameter("@semester_id",semester_id),
                 new SqlParameter("@school_year",school_year),
                 new SqlParameter("@classroom_id",classroom_id),
-                new SqlParameter("@status",status),
-                new SqlParameter("@keyword",keyword)
+                new SqlParameter("@keyword",keyword),
+                new SqlParameter("@page",page)
             };
-            return ConvertToList(ExecuteQuery("tp_filter", prs));
+                var t = (string)GetJsonData("tp_filter", prs);
+                return (string)GetJsonData("tp_filter", prs);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message.ToString();
+            }
         }
 
         public ResponseObject Create(int lecturer_id, int subject_id, int semester_id, string school_year,int number_of_students,int classroom_id)

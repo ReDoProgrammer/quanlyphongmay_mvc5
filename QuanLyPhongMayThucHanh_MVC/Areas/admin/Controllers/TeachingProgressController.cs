@@ -17,10 +17,10 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
             return View();
         }
 
-        public JsonResult Filter(int lecturer_id, int subject_id, int semester_id, string school_year, int classroom_id, bool status, string keyword)
+        public JsonResult Filter(int lecturer_id, int subject_id, int semester_id, string school_year, int classroom_id, string keyword, int page)
         {
-            var rs = tp.Filter(lecturer_id,subject_id,semester_id,school_year,classroom_id,status,keyword);
-            return Json(new { code = 200, icon = "success", header = "SUCCESSFULLY", semester = rs, msg = "Get semester detail successfully" }, JsonRequestBehavior.AllowGet);
+            var rs = tp.Filter(lecturer_id,subject_id,semester_id,school_year,classroom_id,keyword,page);
+            return Json(new { code = 200, icon = "success", header = "SUCCESSFULLY", progresses = rs, msg = "Get semester detail successfully" }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Detail(int id)
