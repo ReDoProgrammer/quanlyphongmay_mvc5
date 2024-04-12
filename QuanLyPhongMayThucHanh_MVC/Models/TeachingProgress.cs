@@ -50,7 +50,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return lst;
         }
 
-        public string Filter(int lecturer_id, int subject_id, int semester_id, string school_year, int classroom_id, string keyword, int page)
+        public List<TeachingProgress> Filter(int lecturer_id, int subject_id, int semester_id, string school_year, int classroom_id, string keyword, int page)
         {
             try
             {
@@ -64,12 +64,11 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter("@keyword",keyword),
                 new SqlParameter("@page",page)
             };
-                var t = (string)GetJsonData("tp_filter", prs);
-                return (string)GetJsonData("tp_filter", prs);
+                return ConvertToList(ExecuteQuery("tp_filter",prs));
             }
             catch (Exception ex)
             {
-                return ex.Message.ToString();
+                return null;
             }
         }
 
