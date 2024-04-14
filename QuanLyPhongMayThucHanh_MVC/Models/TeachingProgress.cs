@@ -26,6 +26,8 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         public int FacultyId { get; set; }
         public string FacultyAcronym { get; set; }
         public string FacultyName { get; set; }
+        public bool Status { get; set; }
+        public string StatusName { get; set; }
 
         private List<TeachingProgress> ConvertToList(DataTable dt)
         {
@@ -44,7 +46,9 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                     ClassRoom = r["classroom"].ToString(),
                     ClassroomAcronym = r["classroom_acronym"].ToString(),
                     FacultyAcronym = r["faculty_acronym"].ToString(),
-                    FacultyName = r["faculty_name"].ToString()
+                    FacultyName = r["faculty_name"].ToString(),
+                    Status = Convert.ToBoolean(r["status_id"].ToString()),
+                    StatusName = r["status"].ToString()
                 });
             }
             return lst;
@@ -52,6 +56,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
 
         public List<TeachingProgress> Filter(int lecturer_id, int subject_id, int semester_id, string school_year, int classroom_id, string keyword, int page)
         {
+           
             try
             {
                 SqlParameter[] prs =
@@ -69,6 +74,28 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+        public int TotalPages(int lecturer_id, int subject_id, int semester_id, string school_year, int classroom_id, string keyword, int page)
+        {
+
+            try
+            {
+                SqlParameter[] prs =
+                   {
+                new SqlParameter("@lecturer_id",lecturer_id),
+                new SqlParameter("@subject_id",subject_id),
+                new SqlParameter("@semester_id",semester_id),
+                new SqlParameter("@school_year",school_year),
+                new SqlParameter("@classroom_id",classroom_id),
+                new SqlParameter("@keyword",keyword),
+                new SqlParameter("@page",page)
+            };
+                return Convert.ToInt32(ExecuteScalar("tp_filter_pages", prs));
+            }
+            catch (Exception ex)
+            {
+                return -1;
             }
         }
 

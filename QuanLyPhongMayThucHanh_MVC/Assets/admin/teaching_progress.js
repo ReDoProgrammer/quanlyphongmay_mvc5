@@ -1,5 +1,5 @@
 ﻿$(function () {
-    InitData();    
+    InitData();
 })
 const $slSchoolYears = $('#slSchoolYears');
 const $slSchoolYears1 = $('#slSchoolYears1');
@@ -27,209 +27,138 @@ function InitData() {
         $slSchoolYears.append(`<option ${i == current_year ? 'selected' : ''} value="${i}-${i + 1}">${i}-${i + 1}</option>`);
         $slSchoolYears1.append(`<option ${i == current_year ? 'selected' : ''} value="${i}-${i + 1}">${i}-${i + 1}</option>`);
     }
-    Promise.all([LoadFaculties,LoadLecturers,LoadSemesters,LoadSubjects])
+   
+    Promise.all([
+        makeAjaxRequest('/admin/faculty/select'),
+        makeAjaxRequest('/admin/lecturer/ListActived'),
+        makeAjaxRequest('/admin/semester/Select'),
+        makeAjaxRequest('/admin/subject/Select')
+    ])
+        .then(async data => {
+
+            await data[0].faculties.forEach(f => {
+                $slFaculties.append(`<option value="${f.Id}">${f.Acronym} - ${f.Name}</option>`);
+                $slFaculties1.append(`<option value="${f.Id}">${f.Acronym} - ${f.Name}</option>`);
+            })
+            $slFaculties.trigger('change');
+            $slFaculties1.trigger('change');
+
+            data[1].lecturers.forEach(l=>{
+                $slLecturers.append(`<option value="${l.id}">${l.fullname} (${l.username})</option>`)
+                $slLecturers1.append(`<option value="${l.id}">${l.fullname} (${l.username})</option>`)
+            })
+          
+            data[2].forEach(s=>{
+                $slSemesters.append(`<option value="${s.id}">${s.name}</option>`);
+                $slSemesters1.append(`<option value="${s.id}">${s.name}</option>`);
+            })
+            data[3].forEach(s=>{
+                $slSubjects.append(`<option value="${s.Id}">${s.Acronym} - ${s.Name}</option>`)
+                $slSubjects1.append(`<option value="${s.Id}">${s.Acronym} - ${s.Name}</option>`)
+            })
+            var queryParams = {
+                faculty_id: $slFaculties1.val()
+            }; 
+            makeAjaxRequest('/admin/classroom/SelectByFaculty',queryParams)
+            .then(async data=>{
+                await data.classrooms.forEach(c=>{
+                    $slClassRooms.append(`<option value="${c.Id}">${c.Acronym} - ${c.Name}</option>`);
+                    $slClassRooms1.append(`<option value="${c.Id}">${c.Acronym} - ${c.Name}</option>`);
+                });
+                $btnSearch.click();    
+            })
+        })
+
+}
+
+$btnSearch.click(function(){
+    const url = '/admin/teachingprogress/filter';
+    const data={
+        lecturer_id: $slLecturers1.val(),
+        subject_id:$slSubjects1.val(),
+        semester_id: $slSemesters1.val(), 
+        school_year: $slSchoolYears1.val(),
+        classroom_id: $slClassRooms1.val(),
+        keyword: $txtKeyword.val().trim(),
+        page:page
+    };
+    makeAjaxRequest(url,data)
     .then(data=>{
         console.log(data);
-    })
-    // $btnSearch.click();    
-
-}
-
-function LoadLecturers() {
-    return new Promise((resolve,reject)=>{
-        $.ajax({
-            url: '/admin/lecturer/listactived',
-            type: 'get',
-            success: function (data) {
-                if (data.code == 200) {
-                    return resolve(data.lecturers)
-                }
-                return reject();
-            }
+        $tblProgresses.empty();
+        let idx = (page-1)*10;
+        data.progresses.forEach(p=>{
+            $tblProgresses.append(`
+                <tr id = "${p.Id}">
+                    <td>${++idx}</td>
+                    <td>${p.FacultyAcronym}</td>
+                    <td>${p.SubjectName}</td>
+                    <td>${p.ClassRoom}</td>
+                    <td>${p.LecturerFullname}</td>
+                    <td>${p.SchoolYear}</td>
+                    <td class="text-right">${p.NumberOfStudents}</td>
+                    <td><i class="${p.Status?'text-success':'text-danger'}">${p.StatusName}</i></td>
+                    <td class="text-right">
+                        <button class="btn btn-xs btn-warning ${p.Status?'disabled':''}" title="Update progress" onClick = "update_faculty(`+ p.Id + `)"><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-xs btn-danger ${p.Status?'disabled':''}" title="Delete progress" onClick = "delete_faculty(`+ p.Id + `)"><i class="fa fa-trash-o"></i></button>
+                    </td>
+                </tr>
+            `);
         })
     })
-}
-function LoadFaculties() {
-    return new Promise((resolve,reject)=>{
-        $.ajax({
-            url: '/admin/faculty/select',
-            type: 'get',
-            success: function (data) {
-                return resolve(data);
-            },
-            error: function(xhr, status, error) {
-                reject(error);
-            }
-        })
-    })
-}
-
-$btnSearch.click(function () {
-    let lecturer_id = $slLecturers1.val();
-    let subject_id = $slSubjects1.val();
-    let semester_id = $slSemesters1.val();
-    let school_year = $slSchoolYears1.val();
-    let classroom_id = $slClassRooms1.val();
-    let keyword = $txtKeyword.val().trim();
-
-    $.ajax({
-        url: '/admin/teachingprogress/filter',
-        type: 'get',
-        data: { lecturer_id, subject_id, semester_id, school_year, classroom_id, keyword, page },
-        success: function (data) {
-            $pagination.empty();
-            $tblProgresses.empty();
-            let result = jQuery.parseJSON(data)
-            if(result == null) return;
-            if (result.code == 200) {
-                let progresses = JSON.parse(JSON.parse(result.json_output)[0]['JSON_F52E2B61-18A1-11d1-B105-00805F49916B']);
-                let idx = (page-1)*10;
-                progresses.forEach(p=>{
-                    $tblProgresses.append(`
-                        <tr id="${p.Id}">
-                            <td>${++idx}</td>
-                            <td>${p.faculty_acronym}</td>
-                            <td>${p.subject_name}</td>
-                            <td>${p.classroom}</td>
-                            <td>${p.lecturer_fullname}</td>
-                            <td>${p.school_year}</td>
-                            <td><i class="${p.status == 0?'text-danger':'text-success'}">${p.status_name}</i></td>
-                            <td></td>
-                        </tr>
-                    `);
-                })
-                for(i = 1; i<=result.total_pages; i++){
-                    $pagination.append(` <li ${i == result.current_page?'class="active"':''}><a href="#">${i}</a></li>`)
-                }
-            }
-        }
+    .catch(err=>{
+        console.log(err);
     })
 })
 
-$slFaculties.change(function () {
-    let faculty_id = $(this).val();
-    $.ajax({
-        url: '/admin/classroom/selectbyfaculty',
-        type: 'get',
-        data: { faculty_id },
-        success: function (data) {
-            $slClassRooms.empty();
-            data.classrooms.forEach(c => {
-                $slClassRooms.append(`<option value="${c.Id}">${c.Acronym} - ${c.Name}</option>`)
-            })
-        }
-    })
-})
-$slFaculties1.change(function () {
-    let faculty_id = $(this).val();
-    $.ajax({
-        url: '/admin/classroom/selectbyfaculty',
-        type: 'get',
-        data: { faculty_id },
-        success: function (data) {
-            $slClassRooms1.empty();
-            data.classrooms.forEach(c => {
-                $slClassRooms1.append(`<option value="${c.Id}">${c.Acronym} - ${c.Name}</option>`)
-            })
-        }
-    })
-})
-$btnSubmit.click(function () {
-    let classroom_id = $slClassRooms.val();
-    let subject_id = $slSubjects.val();
-    let school_year = $slSchoolYears.val();
-    let semester_id = $slSemesters.val();
-    let lecturer_id = $slLecturers.val();
-    let number_of_students = 0;
-    try {
-        number_of_students = parseInt($txtNumberOfStudents.val());
-        if (isNaN(number_of_students) || number_of_students < 1) {
-            Swal.fire({
-                title: "Data validation",
-                text: "Invalid number of students",
-                icon: "warning"
-            });
-            $txtNumberOfStudents.select();
-            return;
-        }
-    } catch (error) {
-        Swal.fire({
-            title: "Data validation",
-            text: "Invalid number of students",
-            icon: "warning"
+
+$slFaculties1.on('change',function(){
+    var queryParams = {
+        faculty_id: $slFaculties1.val()
+    }; 
+    $slClassRooms1.empty();
+    makeAjaxRequest('/admin/classroom/SelectByFaculty',queryParams)
+    .then(data=>{
+        data.classrooms.forEach(c=>{
+            $slClassRooms1.append(`<option value="${c.Id}">${c.Acronym} - ${c.Name}</option>`);
         });
-        $txtNumberOfStudents.select();
-        return;
-    }
-
-    const action = id == 0 ? 'insert' : 'update';
-    const url = `/admin/teachingprogress/${action}`;
-    const data = { lecturer_id, subject_id, semester_id, school_year, number_of_students, classroom_id };
-    if (action === 'update') data.id = id;
-
-    // Execute the AJAX call
-    executeAjaxCall(url, data);
-
-
+    })
 })
-function executeAjaxCall(url, data) {
-    $.ajax({
-        url: url,
-        type: 'post',
-        data: data,
-        success: function (response) {
-            handleResponse(response);
-        },
-        error: function () {
-            Swal.fire('Error', 'An unexpected error occurred. Please try again later.', 'error');
-        }
-    });
-}
-
-function handleResponse(data) {
-    if ([200, 201].includes(data.code)) {
-        showToast(data.header, data.msg, data.icon);
-        $('#progressModal').modal('hide');
-    } else {
-        Swal.fire({
-            title: data.header,
-            text: data.msg,
-            icon: data.icon
+$slFaculties.on('change',function(){
+    var queryParams = {
+        faculty_id: $slFaculties.val()
+    }; 
+    $slClassRooms.empty();
+    makeAjaxRequest('/admin/classroom/SelectByFaculty',queryParams)
+    .then(data=>{
+        data.classrooms.forEach(c=>{
+            $slClassRooms.append(`<option value="${c.Id}">${c.Acronym} - ${c.Name}</option>`);
         });
-    }
-    $btnSearch.click();
+    })
+})
 
-}
-function showToast(heading, text, icon) {
-    $.toast({
-        heading: heading,
-        text: text,
-        icon: icon,
-        loader: true,
-        loaderBg: '#9EC600'
+function makeAjaxRequest(url, queryParams) {
+    // Nếu queryParams chưa được khai báo, gán một đối tượng trống cho nó
+    queryParams = queryParams || {};
+
+    // Chuyển đổi đối tượng JSON thành chuỗi truy vấn
+    var queryString = Object.entries(queryParams)
+        .map(([key, value]) => key + '=' + encodeURIComponent(value))
+        .join('&');
+
+    return new Promise(function (resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url + '?' + queryString); // Thêm queryString vào URL
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                resolve(JSON.parse(xhr.response));
+            } else {
+                reject(Error(xhr.statusText));
+            }
+        };
+        xhr.onerror = function () {
+            reject(Error("Network Error"));
+        };
+        xhr.send();
     });
-}
-
-function LoadSubjects() {
-    return new Promise((resolve,reject)=>{
-        $.ajax({
-            url: '/admin/subject/select',
-            type: 'get',
-            success: function (data) {
-                return resolve(data);
-            }
-        })
-    })
-}
-
-function LoadSemesters() {
-    return new Promise((resolve,reject)=>{
-        $.ajax({
-            url: '/admin/semester/select',
-            type: 'get',
-            success: function (data) {
-                return resolve(data);               
-            }
-        })
-    })
 }

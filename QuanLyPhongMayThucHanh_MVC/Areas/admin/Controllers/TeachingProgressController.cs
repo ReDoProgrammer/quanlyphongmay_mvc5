@@ -14,12 +14,13 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
         // GET: admin/TeachingProgress
         public ActionResult Index()
         {
+            
             return View();
         }
 
         public JsonResult Filter(int lecturer_id, int subject_id, int semester_id, string school_year, int classroom_id, string keyword, int page)
         {
-            return Json(new { code = 200,icon = "success",header="SUCCESSFULLY",msg="Filter teaching progress successfully!",progresses= tp.Filter(lecturer_id, subject_id, semester_id, school_year, classroom_id, keyword, page) }, JsonRequestBehavior.AllowGet);
+            return Json(new { code = 200,icon = "success",header="SUCCESSFULLY",msg="Filter teaching progress successfully!",progresses= tp.Filter(lecturer_id, subject_id, semester_id, school_year, classroom_id, keyword, page),pages = tp.TotalPages(lecturer_id, subject_id, semester_id, school_year, classroom_id, keyword, page) }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Detail(int id)

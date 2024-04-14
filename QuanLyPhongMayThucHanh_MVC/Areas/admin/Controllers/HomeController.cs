@@ -1,6 +1,7 @@
 ﻿using QuanLyPhongMayThucHanh_MVC.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,6 +13,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
         // GET: admin/Home
         public ActionResult Index()
         {
+          
             return View();
         }
 

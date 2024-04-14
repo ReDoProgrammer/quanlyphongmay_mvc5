@@ -8,6 +8,7 @@ using System.Web;
 
 namespace QuanLyPhongMayThucHanh_MVC.Models
 {
+   
     public class DB
     {
         private readonly string connectionString;
@@ -31,61 +32,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
 
             this.conn = new SqlConnection(this.connectionString);
         }
-
-
-        public string GetJsonString(string procedureName, SqlParameter[] parameters)
-        {
-            try
-            {
-                if (this.conn.State == ConnectionState.Closed)
-                {
-                    this.conn.Open();
-                }
-                SqlCommand command = new SqlCommand(procedureName, this.conn);
-                command.CommandType = CommandType.StoredProcedure;
-
-                if (parameters != null)
-                {
-                    command.Parameters.AddRange(parameters);
-                }
-
-                // Thực thi stored procedure
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.HasRows)
-                    {
-                        // Load dữ liệu từ SqlDataReader vào DataTable
-                        DataTable dataTable = new DataTable();
-                        dataTable.Load(reader);
-
-                        // Lấy số trang
-                        int totalRows = dataTable.Rows.Count;
-                        int pageSize = 10;
-                        int totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-
-                        // Tạo object chứa cả dữ liệu và số trang
-                        var result = new
-                        {
-                            data = dataTable,
-                            total_pages = totalPages
-                        };
-
-                        // Chuyển object thành JSON
-                        return JsonConvert.SerializeObject(result);
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                return JsonConvert.SerializeObject(new { error = ex.Message });
-            }
-        }
-
-
+       
 
         /*
          

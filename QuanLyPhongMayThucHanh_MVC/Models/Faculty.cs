@@ -65,7 +65,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         }
 
         public List<Faculty> Select()
-        {
+        {            
             return ConvertToList(ExecuteQuery("faculty_select"));
         }
 
