@@ -1,4 +1,4 @@
-﻿using Common;
+﻿using QuanLyPhongMayThucHanh_MVC.DTO;
 using QuanLyPhongMayThucHanh_MVC.Models;
 using System;
 using System.Collections.Generic;

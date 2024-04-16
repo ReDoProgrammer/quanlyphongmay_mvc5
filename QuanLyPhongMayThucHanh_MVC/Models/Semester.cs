@@ -1,5 +1,5 @@
-﻿using Common;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using QuanLyPhongMayThucHanh_MVC.DTO;
 using System;
 using System.Collections.Generic;
 using System.Data;

@@ -4,17 +4,17 @@ using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace Common
+namespace QuanLyPhongMayThucHanh_MVC.DTO
 {
+
     public class Mailer
     {
         private static string email = ConfigurationManager.AppSettings["Email"];
         private static string epass = ConfigurationManager.AppSettings["EPass"];
-        
-        public static bool SendMail(string toEmail,string name, string subject, string body)
+
+        public static bool SendMail(string toEmail, string name, string subject, string body)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace Common
                     Port = 587,
                     EnableSsl = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
-                    Credentials = new NetworkCredential(email,epass),
+                    Credentials = new NetworkCredential(email, epass),
                     Timeout = 20000
                 };
                 MailAddress mailAddress = new MailAddress(email, name);

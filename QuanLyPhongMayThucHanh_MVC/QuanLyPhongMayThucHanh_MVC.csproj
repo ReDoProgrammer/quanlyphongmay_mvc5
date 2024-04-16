@@ -215,6 +215,8 @@
     <Compile Include="Controllers\PCRoomController.cs" />
     <Compile Include="Controllers\PracticeScheduleController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
+    <Compile Include="DTO\Mailer.cs" />
+    <Compile Include="DTO\ResponseObject.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -439,12 +441,6 @@
     <Content Include="Views\Account\MyProfile.cshtml" />
     <Content Include="Views\PracticeSchedule\Calendar.cshtml" />
     <Content Include="Views\PracticeSchedule\OwnCalendar.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{1b620638-2a62-41b7-9468-a112991348c3}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
