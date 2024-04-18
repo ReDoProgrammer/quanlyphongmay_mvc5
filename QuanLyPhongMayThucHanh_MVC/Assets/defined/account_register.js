@@ -156,8 +156,9 @@ $btnSubmit.click(function () {
                     title: "SUCCESSFULLY",
                     text: data.msg,
                     icon: "success"
+                }).then(_=>{
+                    window.location.href = '/account/login';
                 });
-                window.location.href = '/account/login';
             }
         }
     })
