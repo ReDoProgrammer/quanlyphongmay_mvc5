@@ -12,6 +12,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         public string Name { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
+        public int Order { get; set; }
 
         public ClassPeriod() { }
         public ClassPeriod(int Id,string Name, string StartTime, string EndTime) {
@@ -31,7 +32,8 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                     Id = int.Parse(r["id"].ToString()),
                     Name = r["name"].ToString(),
                     StartTime = r["start_time"].ToString(),
-                    EndTime = r["end_time"].ToString()
+                    EndTime = r["end_time"].ToString(),
+                    Order = int.Parse(r["order"].ToString())
                 });
             }
             return lst;

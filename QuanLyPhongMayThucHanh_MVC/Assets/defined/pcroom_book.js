@@ -16,12 +16,17 @@
 });
 
 var room_id = 0;
+var cps = [];
+const $slFromClassPeriods = $('#slFromClassPeriods');
+const $slToClassPeriods = $('#slToClassPeriods');
+const $btnSearch = $('#btnSearch');
+const $btnSubmit = $('#btnSubmit');
+const $slSubjects = $('#slSubjects');
 
-
-$('#btnSearch').click(function () {   
+$btnSearch.click(function () {   
     lookup();
 })
-$('#btnSubmit').click(function(){
+$btnSubmit.click(function(){
     let book_date = $('#dtpBookDate').data("DateTimePicker").date().format('YYYY-MM-DD');
     let subject_id = parseInt($('#slSubjects option:selected').val());
     let class_period_id_1 = parseInt($('#slFromClassPeriods option:selected').val());
@@ -58,7 +63,7 @@ function loadsubjects() {
         success: function (data) {
             if (data.code == 200) {
                 data.subjects.forEach(s => {
-                    $('#slSubjects').append(`<option value="${s.Id}">${s.Acronym} - ${s.Name}</option>`)
+                    $slSubjects.append(`<option value="${s.Id}">${s.Acronym} - ${s.Name}</option>`)
                 })
             }
         }
@@ -71,10 +76,11 @@ function loadcp() {
         type: 'get',
         success: function (data) {
             if (data.code == 200) {
+                cps = data.cps;
                 data.cps.forEach(c => {
-                    $('#slFromClassPeriods').append(`<option value = "${c.Id}">${c.Name}  [${c.StartTime} - ${c.EndTime}]</option>`);
-                    $('#slToClassPeriods').append(`<option value = "${c.Id}">${c.Name}  [${c.StartTime} - ${c.EndTime}]</option>`);
+                    $slFromClassPeriods.append(`<option value = "${c.Id}" data-order="${c.Order}">${c.Name}  [${c.StartTime} - ${c.EndTime}]</option>`);
                 })
+                $slFromClassPeriods.trigger('change');
             }
         }
     })
@@ -125,3 +131,14 @@ function lookup() {
 
     })
 }
+
+$slFromClassPeriods.on('change',function(){
+    let order =  $('#slFromClassPeriods option:selected').data('order');
+    var filterCPS = $.grep(cps, function(c) {
+        return c.Order >= order;
+    });
+    $slToClassPeriods.empty();
+    filterCPS.forEach(c=>{
+        $slToClassPeriods.append(`<option value = "${c.Id}" data-order="${c.Order}">${c.Name}  [${c.StartTime} - ${c.EndTime}]</option>`);
+    })
+})
