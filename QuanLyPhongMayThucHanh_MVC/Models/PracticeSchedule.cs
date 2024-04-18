@@ -66,6 +66,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter("@from_date",from_date.ToString("yyyy-MM-dd HH:mm")),
                 new SqlParameter("@to_date",to_date.ToString("yyyy-MM-dd HH:mm"))
             };
+            var dt = ExecuteQuery("ps_calendar", prs);
             return ConvertToList(ExecuteQuery("ps_calendar", prs));
         }
 

@@ -47,6 +47,16 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return lst;
         }
 
+        public bool CheckUsername(string username)
+        {
+            SqlParameter[] prs = { new SqlParameter("@username",username) };
+            return Convert.ToInt32(ExecuteScalar("lecturer_checkusername", prs))>0;
+        }
+        public bool CheckEmail(string email)
+        {
+            SqlParameter[] prs = { new SqlParameter("@email", email) };
+            return Convert.ToInt32(ExecuteScalar("lecturer_checkemail", prs)) > 0;
+        }
 
         public List<Lecturer> ListActived()
         {
@@ -81,6 +91,35 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 status = r["status"].ToString(),
                 is_actived = int.Parse(r["is_actived"].ToString())
             };
+        }
+
+        public ResponseObject SignUp(string username, string fullname, string password, string email, string phone, int faculty_id, int position_id)
+        {
+            try
+            {
+                SqlParameter[] prs =
+                   {
+                new SqlParameter("@username",username),
+                new SqlParameter("@password",password),
+                new SqlParameter("@fullname",fullname),
+                new SqlParameter("@phone",phone),
+                new SqlParameter("@email",email),
+                new SqlParameter("@position_id",position_id),
+                new SqlParameter("@faculty_id",faculty_id)
+            };
+                var rs = (string)ExecuteScalar("[lecturer_register]", prs);
+                return JsonConvert.DeserializeObject<ResponseObject>(rs);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseObject
+                {
+                    code = 500,
+                    icon = "error",
+                    header = "CREATE NEW LECTURER FAILED",
+                    msg = ex.Message
+                };
+            }
         }
         public ResponseObject Create(string username, string password, string fullname, string phone, string email, int position_id, int faculty_id)
         {

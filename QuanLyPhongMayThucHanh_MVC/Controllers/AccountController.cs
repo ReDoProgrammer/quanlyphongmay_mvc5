@@ -1,4 +1,5 @@
-﻿using QuanLyPhongMayThucHanh_MVC.Models;
+﻿using QuanLyPhongMayThucHanh_MVC.DTO;
+using QuanLyPhongMayThucHanh_MVC.Models;
 using System;
 using System.Web.Mvc;
 
@@ -6,6 +7,42 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
 {
     public class AccountController : Controller
     {
+        private Faculty f;
+        private Position p;
+        private Lecturer l;
+
+        public AccountController()
+        {
+            f = new Faculty();
+            p = new Position();
+            l = new Lecturer();
+        }
+
+        [HttpGet]
+        public JsonResult CheckUsername(string username)
+        {
+            return Json(new { code = 200, icon = "success",header = "SUCCESSFULLY",msg="Check username successfully", exists = l.CheckUsername(username)}, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpGet]
+        public JsonResult CheckEmail(string email)
+        {
+            return Json(new { code = 200, icon = "success", header = "SUCCESSFULLY", msg = "Check email successfully", exists = l.CheckEmail(email) }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        [HttpGet]
+        public JsonResult GetFaculties()
+        {
+            return Json(new { code = 200, msg="Get faculties list successfully",header="Successfully",icon = "success",faculties = f.Select()},JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetPositions()
+        {
+            return Json(new { code = 200,msg="Get positions list successfully",icon="success",header = "Successfully",positions = p.List()}, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpGet]
         public ActionResult Login()
@@ -53,6 +90,25 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
         public ActionResult SignUp()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult SignUp(string username, string fullname, string password, string email, string phone, int faculty_id, int position_id)
+        {
+            var rs = l.SignUp(username, fullname, password, email, phone, faculty_id, position_id);
+            if(rs.code == 201)
+            {
+                string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/tmp/lecturer_register_admin.html"));
+                var adm = new Lecturer().Admin();
+                content = content.Replace("{{Username}}", username);
+                content = content.Replace("{{Fullname}}", fullname);
+                content = content.Replace("{{Email}}", email);
+                content = content.Replace("{{Phone}}", phone);                
+                content = content.Replace("{{ActionTime}}", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+
+                Mailer.SendMail(adm.email, "PCLAB MNGR", "New registed account", content);
+            }
+            return Json(rs, JsonRequestBehavior.AllowGet);
         }
 
         [ChildActionOnly]

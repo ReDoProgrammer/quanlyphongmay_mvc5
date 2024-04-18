@@ -241,6 +241,7 @@
     <Content Include="Assets\admin\room.js" />
     <Content Include="Assets\admin\teaching_progress.js" />
     <Content Include="Assets\defined\account.js" />
+    <Content Include="Assets\defined\account_register.js" />
     <Content Include="Assets\defined\CustomerSweetAlert.js" />
     <Content Include="Assets\defined\own_calendar.js" />
     <Content Include="Assets\defined\pcroom.js" />
@@ -265,6 +266,7 @@
     <Content Include="Assets\images\bg\bg.jpg" />
     <Content Include="Assets\images\bg\top-strip.png" />
     <Content Include="Assets\images\gallery\logo.png" />
+    <Content Include="Assets\images\logo.png" />
     <Content Include="Assets\images\thumbs\arch-1.jpg" />
     <Content Include="Assets\images\thumbs\arch-2.jpg" />
     <Content Include="Assets\images\thumbs\autumn-1.jpg" />
@@ -343,6 +345,7 @@
     <Content Include="Assets\script\jquery.nestable.js" />
     <Content Include="Assets\script\jquery.news-ticker.js" />
     <Content Include="Assets\script\jquery.slimscroll.js" />
+    <Content Include="Assets\script\jquery.validate.min.js" />
     <Content Include="Assets\script\main.js" />
     <Content Include="Assets\script\modernizr.min.js" />
     <Content Include="Assets\script\pace.min.js" />
@@ -415,8 +418,6 @@
     <Content Include="Assets\fonts\Simple-Line-Icons.ttf" />
     <Content Include="Assets\fonts\Simple-Line-Icons.woff" />
     <Content Include="Assets\fonts\Simple-Line-Iconsd41d.eot" />
-    <Content Include="Assets\images\Baobinh.net.url" />
-    <Content Include="Assets\script\Baobinh.net.url" />
     <Content Include="Areas\admin\Views\web.config" />
     <Content Include="Areas\admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\admin\Views\Home\Index.cshtml" />

@@ -158,7 +158,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                     RAM = r["RAM"].ToString(),
                     HDD = r["HDD"].ToString(),
                     SSD = r["SSD"].ToString(),
-                    Status = r["status"].ToString() == "1" ? "Đang sử dụng" : "Phòng trống"
+                    Status = r["status_id"].ToString() == "1" ? "Đang sử dụng" : "Phòng trống"
                 });
             }
             return lst;

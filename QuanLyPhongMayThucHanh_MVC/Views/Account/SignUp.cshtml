@@ -1,17 +1,150 @@
-﻿
-@{
+﻿@{
+    ViewBag.Title = "Lecturer register account - PC LAB Management";
     Layout = null;
 }
 
 <!DOCTYPE html>
+<html lang="en">
 
-<html>
+
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Đăng ký tài khoản giảng viên - Hệ thống quản lý phòng máy thực hành</title>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,800italic,400,700,800">
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300">
+    <link type="text/css" rel="stylesheet" href="/Assets/styles/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="/Assets/styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/Assets/styles/animate.css">
+    <link type="text/css" rel="stylesheet" href="/Assets/styles/main.css">
+    <link type="text/css" rel="stylesheet" href="/Assets/styles/style-responsive.css">
+    <link href="~/Assets/plugins/toast/jquery.toast.min.css" rel="stylesheet" />
 </head>
 <body>
-    <div> 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-violet">
+                    <div class="panel-heading">
+                        <i class="fa fa-user"></i>
+                        Register lecturer account
+                    </div>
+                    <div class="panel-body pan">
+                        <div>
+                            <form class="form-body pal" id="registration-form">
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <img src="~/Assets/images/logo.png" style="width:100px; height:auto; padding: 20px 0;"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-icon right">
+                                                <i class="fa fa-user"></i>
+                                                <input id="txtUsername" name="username" type="text" placeholder="Username" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-icon right">
+                                                <i class="fa fa-user"></i>
+                                                <input id="txtFullname" name="fullname" type="text" placeholder="Fullname" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-icon right">
+                                                <i class="fa fa-key" aria-hidden="true"></i>
+                                                <input id="txtPassword" name="password" type="password" placeholder="Password" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-icon right">
+                                                <i class="fa fa-key" aria-hidden="true"></i>
+                                                <input id="txtConfirmPassword" name="confirm_password" type="password" placeholder="Confirm password" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-icon right">
+                                                <i class="fa fa-envelope"></i>
+                                                <input id="txtEmail" type="text" name="email" placeholder="E-mail" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-icon right">
+                                                <i class="fa fa-phone"></i>
+                                                <input id="txtPhone" name="phone" type="text" placeholder="Phone" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Faculty</label>
+                                            <select class="form-control" id="slFaculties">                                               
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Position</label>
+                                            <select class="form-control" id="slPositions">                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*<div class="form-group">
+                                    <input id="inputIncludeFile" type="file" placeholder="Inlcude some file">
+                                </div>*@                                
+                            </form>
+                            <div class="form-actions text-right pal">
+                                <a href="/account/login" class="btn btn-secondary">Login</a>
+                               
+                                <button class="btn btn-primary"  id="btnSubmit">
+                                    Register
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+       
+    </style>
+    <script src="~/Assets/script/jquery-1.10.2.min.js"></script>
+    <script src="~/Assets/script/jquery.validate.min.js"></script>
+    <script src="~/Assets/plugins/toast/jquery.toast.min.js"></script>
+    <script src="~/Assets/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="~/Assets/defined/account_register.js"></script>
 </body>
+
 </html>
