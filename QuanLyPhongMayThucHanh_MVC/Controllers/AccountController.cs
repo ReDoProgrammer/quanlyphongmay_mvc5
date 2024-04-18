@@ -57,14 +57,14 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
             {
                 var lec = new Lecturer();
                 var code = lec.Login(username, password);
-                var msg = "Đăng nhập thành công!";
+                var msg = "Login successfully!";
 
                 switch (code)
                 {
-                    case 404: msg = "Tài khoản không tồn tại!"; break;
-                    case 403: msg = "Tài khoản chưa được kích hoạt. Vui lòng liên hệ admin!"; break;
-                    case 400: msg = "Mật khẩu không chính xác!"; break;
-                    default: msg = "Đăng nhập thành công!"; break;
+                    case 404: msg = "Username does not exists!"; break;
+                    case 403: msg = "The account has not been activated. Please contact the admin!"; break;
+                    case 400: msg = "Incorrect password!"; break;
+                    default: msg = "Login successfully!"; break;
                 }
                 if (code != 200)
                 {

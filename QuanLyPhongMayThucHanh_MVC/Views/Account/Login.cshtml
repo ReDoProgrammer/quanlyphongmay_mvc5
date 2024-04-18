@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Giảng viên đăng nhập - Hệ thống quản lý phòng máy thực hành";
+    ViewBag.Title = "Lecturer login - PC LAB MNGR - Hệ thống quản lý phòng máy thực hành";
     Layout = null;
 }
 
@@ -8,11 +8,10 @@
 
 
 <head>
-    <title>Login</title>
+    <title>@ViewBag.Title</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,800italic,400,700,800">
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300">
     <link type="text/css" rel="stylesheet" href="/Assets/styles/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="/Assets/styles/bootstrap.min.css">
@@ -25,67 +24,64 @@
     <div class="page-form">
         <div class="panel panel-blue">
             <div class="panel-body pan">
-                <div class="form-horizontal">
-                    <div class="form-body login-padding">                       
+                <div class="form-horizontal" style="border: 1px solid #808080; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);">
+                    <div class="form-body login-padding">
                         <div class="form-group">
-                            <div class="col-md-3">
-                                <img src="/Assets/images/logo.png" class="img-responsive" style="margin-top: -10px;" />
-                            </div>
-                            <div class="col-md-9">
-                                <h2>Login</h2>
-                                <p>
-                                    Just sign in and we'll send you on your way
-                                </p>
+                            <div class="col-md-12 text-center">
+                                <img src="/Assets/images/logo.png" class="img-responsive" style="width:100px; height:auto; padding: 10px 0; margin: auto;" />
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="inputName" class="col-md-3 control-label">
-                                Username:
-                            </label>
-                            <div class="col-md-9">
-                                <div class="input-icon right">
-                                    <i class="fa fa-user"></i>
-                                    <input id="txtUsername" type="text" placeholder="" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPassword" class="col-md-3 control-label">
-                                Password:
-                            </label>
-                            <div class="col-md-9">
-                                <div class="input-icon right">
-                                    <i class="fa fa-lock"></i>
-                                    <input id="txtPassword" type="password" placeholder="" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group mbn">
-                            <div class="col-lg-12">
-                                <div class="form-group mbn">                                    
-                                    <div class="col-lg-12 text-center">                                       
-                                        <button id="btnLogin" class="btn btn-default sign-btn">
-                                            Sign In
-                                        </button>
+                        <form class="form-body pal" id="registration-form">
+                            <div class="form-group">
+                                <label for="inputName" class="col-md-3 control-label">
+                                    Username:
+                                </label>
+                                <div class="col-md-9">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-user"></i>
+                                        <input id="txtUsername" name="username" type="text" placeholder="" class="form-control" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12 text-center">
-                                <p style="margin-top:10px;">
-                                    Don't have account?
-                                    <a href="/account/signup" style="color:blue; font-weight:bold;">Register here</a>
-                                </p>
+                            <div class="form-group">
+                                <label for="inputPassword" class="col-md-3 control-label">
+                                    Password:
+                                </label>
+                                <div class="col-md-9">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-lock"></i>
+                                        <input id="txtPassword" name="password" type="password" placeholder="" class="form-control" />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="form-group mbn">
+                                <div class="col-lg-12">
+                                    <div class="form-group mbn">
+                                        <div class="col-lg-12 text-center">
+                                            <button id="btnLogin" class="btn btn-default sign-btn">
+                                                Sign In
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 text-right">
+                                    <p style="margin-top:15px;">
+                                        Don't have account?
+                                        <a href="/account/signup" style="color:blue; font-weight:bold;">Register here</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        
+
     </div>
     <script src="~/Assets/script/jquery-1.10.2.min.js"></script>
     <script src="~/Assets/plugins/toast/jquery.toast.min.js"></script>
-<script src="~/Assets/defined/account.js"></script>
+    <script src="~/Assets/script/jquery.validate.min.js"></script>
+    <script src="~/Assets/defined/account.js"></script>
 </body>
 
 </html>
