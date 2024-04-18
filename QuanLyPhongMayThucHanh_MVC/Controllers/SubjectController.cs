@@ -29,5 +29,12 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
         {
             return Json(new { code = 200,subjects = sb.Select(), msg = "Load subjects list successfully!" }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult OwnSubjects()
+        {
+            var lecturer = (Lecturer)Session["lecturer"];
+            return Json(new { code = 200,icon = "success", header="Load own current subjects successfully", subjects = sb.OwnCurrentSubjects(lecturer.id,false) }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -58,7 +58,7 @@ function book(id) {
 
 function loadsubjects() {
     $.ajax({
-        url: '/subject/select',
+        url: '/subject/OwnSubjects',
         type: 'get',
         success: function (data) {
             if (data.code == 200) {
@@ -97,6 +97,7 @@ function lookup() {
         data: { date, class_period_id_1,class_period_id_2 },
         success: function (data) {
             $('#tblRooms').empty();
+            console.log(data);
             if (data.code == 200) {
                 let idx = 1;
                 data.rooms.forEach(r => {

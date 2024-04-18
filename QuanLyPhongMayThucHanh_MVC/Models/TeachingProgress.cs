@@ -54,6 +54,8 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return lst;
         }
 
+        
+
         public List<TeachingProgress> Filter(int lecturer_id, int subject_id, int semester_id, string school_year, int classroom_id, string keyword, int page)
         {
            

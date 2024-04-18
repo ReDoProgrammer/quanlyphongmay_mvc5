@@ -20,7 +20,25 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             this.Acronym = Acronym;
             this.Name = Name;
         }
-       
+
+        public List<Subject> OwnCurrentSubjects(int lecturer_id, bool is_finished)
+        {
+            try
+            {
+                SqlParameter[] prs =
+                   {
+                new SqlParameter("@lecturer_id",lecturer_id),
+                new SqlParameter("@is_finished",is_finished ==true?1:0)
+            };
+                return ConvertToList(ExecuteQuery("tp_own_current_subjects", prs));
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
+
         public List<Subject> Select()
         {
 

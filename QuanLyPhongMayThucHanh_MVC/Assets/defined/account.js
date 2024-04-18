@@ -99,7 +99,7 @@ $btnLogin.click(function (e) {
                         })
                         return;
                     }
-                    console.log(data);
+                    localStorage.setItem('activeMenuHref', '/');
                     window.location.href = '/';
                 }
     })

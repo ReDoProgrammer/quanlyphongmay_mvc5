@@ -19,7 +19,9 @@ function SearchRoom(){
                             <td>${idx++}</td>
                             <td class="font-weight-bold">${r.Name}</td>
                             <td>${r.Location}</td>
-                            <td>${r.NumberOfPC}</td>
+                            <td class="text-right">${r.NumberOfPC}</td>
+                            <td class="text-right">${r.NumberOfPC - r.Broken}</td>
+                            <td class="text-right">${r.Broken}</td>
                             <td>${r.Monitor}</td>
                             <td>${r.Mainboard}</td>
                             <td>${r.CPU}</td>

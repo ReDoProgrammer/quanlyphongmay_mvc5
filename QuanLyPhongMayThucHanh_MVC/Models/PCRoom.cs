@@ -27,6 +27,8 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         public string HDD { get; set; }
         public string SSD { get; set; }
         public string Status { get; set; }
+        public int StatusId { get; set; }
+        public int Broken { get; set; }
         public List<PCRoom> Search(string keyword)
         {
             SqlParameter[] pars =
@@ -158,7 +160,9 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                     RAM = r["RAM"].ToString(),
                     HDD = r["HDD"].ToString(),
                     SSD = r["SSD"].ToString(),
-                    Status = r["status_id"].ToString() == "1" ? "Đang sử dụng" : "Phòng trống"
+                    StatusId = int.Parse(r["status_id"].ToString()),
+                    Status = r["status"].ToString(),
+                    Broken = int.Parse(r["broken"].ToString())
                 });
             }
             return lst;
