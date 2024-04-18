@@ -21,14 +21,14 @@ $(function () {
         return this.optional(element) || /^[^\s\u0100-\u024F\u1E00-\u1EFF]+$/.test(value);
     }, "<span class='text-danger'>Password must not contain spaces or Vietnamese accented characters.</span>");
 
-    $.validator.addMethod("checkUsernameExist", function(value, element) {
+    $.validator.addMethod("checkUsernameExist", function (value, element) {
         var result = false;
         $.ajax({
             url: '/account/checkusername', // API URL
             type: 'GET',
             async: false, // Đặt async thành false để đảm bảo giá trị được trả về sau khi AJAX hoàn thành
             data: { username: value },
-            success: function(data) {
+            success: function (data) {
                 result = !data.exists; // Nếu username tồn tại, trả về false
             }
         });
@@ -36,19 +36,19 @@ $(function () {
     }, "<span class='text-danger'>Username already exists.</span>");
 
     // Thêm phương thức kiểm tra số điện thoại
-    $.validator.addMethod("validPhone", function(value, element) {
+    $.validator.addMethod("validPhone", function (value, element) {
         return this.optional(element) || /^\d{10}$/.test(value) && value.startsWith("0");
     }, "<span class='text-danger'>Phone number must be 10 digits long and start with 0.</span>");
 
 
-    $.validator.addMethod("checkEmailExist", function(value, element) {
+    $.validator.addMethod("checkEmailExist", function (value, element) {
         var result = false;
         $.ajax({
             url: '/account/checkemail', // API URL
             type: 'GET',
             async: false, // Đặt async thành false để đảm bảo giá trị được trả về sau khi AJAX hoàn thành
             data: { email: value },
-            success: function(data) {
+            success: function (data) {
                 result = !data.exists;
             }
         });
@@ -72,7 +72,7 @@ $(function () {
             email: {
                 required: true,
                 email: true,
-                checkEmailExist:true
+                checkEmailExist: true
             },
             password: {
                 required: true,
@@ -145,18 +145,19 @@ $btnSubmit.click(function () {
     let phone = $txtPhone.val();
     let faculty_id = $slFaculties.val();
     let position_id = $slPositions.val();
-   
+
     $.ajax({
-        url:'/account/signup',
-        type:'post',
-        data:{username,password,fullname,email,phone,faculty_id,position_id},
-        success:function(data){
-            if(data.code == 201){
+        url: '/account/signup',
+        type: 'post',
+        data: { username, password, fullname, email, phone, faculty_id, position_id },
+        success: function (data) {
+            if (data.code == 201) {
                 Swal.fire({
                     title: "SUCCESSFULLY",
                     text: data.msg,
                     icon: "success"
-                  });
+                });
+                window.location.href = '/account/login';
             }
         }
     })
