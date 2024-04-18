@@ -9,7 +9,7 @@ using System.Web;
 
 namespace QuanLyPhongMayThucHanh_MVC.Models
 {
-    public class Lecturer:DB
+    public class Lecturer : DB
     {
         public int id { get; set; }
         public string username { get; set; }
@@ -23,7 +23,17 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         public int faculty_id { get; set; }
         public string status { get; set; }
         public int is_actived { get; set; }
-        public Lecturer(){}
+
+        //addional info
+        public string created_at { get; set; }
+        public bool gender { get; set; }
+        public string address { get; set; }
+        public string birthdate { get; set; }
+        public bool marital_status { get; set; }
+        public string about { get; set; }
+        public string facebook { get; set; }
+
+        public Lecturer() { }
 
         public List<Lecturer> ConvertToList(DataTable dt)
         {
@@ -49,8 +59,8 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
 
         public bool CheckUsername(string username)
         {
-            SqlParameter[] prs = { new SqlParameter("@username",username) };
-            return Convert.ToInt32(ExecuteScalar("lecturer_checkusername", prs))>0;
+            SqlParameter[] prs = { new SqlParameter("@username", username) };
+            return Convert.ToInt32(ExecuteScalar("lecturer_checkusername", prs)) > 0;
         }
         public bool CheckEmail(string email)
         {
@@ -81,7 +91,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             {
                 id = int.Parse(r["id"].ToString()),
                 faculty = r["faculty"].ToString(),
-                faculty_id =int.Parse(r["faculty_id"].ToString()),
+                faculty_id = int.Parse(r["faculty_id"].ToString()),
                 position = r["position"].ToString(),
                 position_id = int.Parse(r["position_id"].ToString()),
                 username = r["username"].ToString(),
@@ -143,7 +153,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 return new ResponseObject
                 {
                     code = 500,
-                    icon="error",
+                    icon = "error",
                     header = "CREATE NEW LECTURER FAILED",
                     msg = ex.Message
                 };
@@ -170,7 +180,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             }
         }
 
-        public ResponseObject Update(int id,string fullname, string phone, string email, int position_id, int faculty_id)
+        public ResponseObject Update(int id, string fullname, string phone, string email, int position_id, int faculty_id)
         {
             try
             {
@@ -198,7 +208,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             }
         }
 
-        public Lecturer(int id,string username,string fullname,string avatar,string phone, string email, string position,string faculty)
+        public Lecturer(int id, string username, string fullname, string avatar, string phone, string email, string position, string faculty)
         {
             this.id = id;
             this.username = username;
@@ -227,25 +237,41 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         }
         public Lecturer Profile(string username)
         {
-            SqlParameter[] param=
+            try
             {
+                SqlParameter[] param =
+                   {
                 new SqlParameter("@username",username)
             };
-            var rs = ExecuteQuery("lecturer_profile", param);
-            if (rs == null) return null;
-            var gv = rs.Rows[0];
-           
-            var lec = new Lecturer(
-                int.Parse(gv["id"].ToString()),
-               username,
-               gv["fullname"].ToString(),
-               gv["avatar"].ToString(),
-               gv["phone"].ToString(),
-               gv["email"].ToString(),
-               gv["position"].ToString(),
-               gv["faculty"].ToString()
-                );
-            return lec;
+                var rs = ExecuteQuery("lecturer_profile", param);
+                if (rs == null) return null;
+                var gv = rs.Rows[0];
+
+                var lec = new Lecturer();
+                lec.id = int.Parse(gv["id"].ToString());
+                lec.username = gv["username"].ToString();
+                lec.fullname = gv["fullname"].ToString();
+                lec.avatar = gv["avatar"].ToString();
+                lec.phone = gv["phone"].ToString();
+                lec.email = gv["email"].ToString();
+                lec.position_id = int.Parse(gv["position_id"].ToString());
+                lec.position = gv["position"].ToString();
+                lec.faculty_id = int.Parse(gv["faculty_id"].ToString());
+                lec.faculty = gv["faculty"].ToString();
+                lec.facebook = gv["facebook"].ToString();
+                lec.about = gv["about"].ToString();
+                lec.created_at = gv["created_at"].ToString();
+                lec.gender = bool.Parse(gv["gender"].ToString());
+                lec.marital_status = bool.Parse(gv["marital_status"].ToString());
+                lec.address = gv["address"].ToString();
+
+                return lec;
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
         }
 
         public Lecturer Admin()

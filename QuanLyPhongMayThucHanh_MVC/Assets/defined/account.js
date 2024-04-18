@@ -2,6 +2,12 @@
 const $txtPassword = $('#txtPassword');
 const $btnLogin = $('#btnLogin');
 $(function () {
+    $('#dtpBirthdate').datetimepicker({
+        format: 'DD/MM/YYYY',
+        defaultDate: new Date()       
+    });
+
+
     $.validator.addMethod("noSpecialChars", function (value, element) {
         return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
     }, "<span class='text-danger'>Username must not contain special characters, spaces, or Vietnamese accented letters.</span>");

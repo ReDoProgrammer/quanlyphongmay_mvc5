@@ -120,7 +120,10 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
 
         public ActionResult MyProfile()
         {
-            return View();
+            var l = (Lecturer)Session["lecturer"];
+            if(l==null)
+                return RedirectToAction("login");
+            return View(l);
         }
         public ActionResult Logout()
         {

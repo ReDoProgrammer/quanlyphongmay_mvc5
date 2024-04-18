@@ -409,7 +409,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Assets\fonts\Baobinh.net.url" />
     <Content Include="Assets\fonts\fontawesome-webfont862f.eot" />
     <Content Include="Assets\fonts\fontawesome-webfont862f.ttf" />
     <Content Include="Assets\fonts\fontawesome-webfont862f.woff" />
