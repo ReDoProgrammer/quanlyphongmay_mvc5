@@ -30,12 +30,12 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
         }
 
         [HttpPost]
-        public JsonResult Book(DateTime book_date, int room_id, int subject_id, int class_period_id_1, int class_period_id_2, string note)
+        public JsonResult Book(DateTime book_date, int room_id, int teaching_process_id, int class_period_id_1, int class_period_id_2, string note)
         {
             try
             {
-                var lec = (Models.Lecturer)Session["lecturer"];                
-                var rs = ps.Book(book_date, room_id, subject_id, lec.id, class_period_id_1, class_period_id_2, note,lec.id);
+                var lec = (Lecturer)Session["lecturer"];                
+                var rs = ps.Book(book_date, room_id, teaching_process_id, class_period_id_1, class_period_id_2, note,lec.id);
                 if (rs > 0)
                 {
                     //send email

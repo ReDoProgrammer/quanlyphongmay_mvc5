@@ -22,4 +22,28 @@ function setActiveMenu() {
         $('#side-menu li a[href="' + activeMenuHref + '"]').closest('li').addClass('active');
     }
 }
+function makeAjaxRequest(url, queryParams,type='get') {
+    // Nếu queryParams chưa được khai báo, gán một đối tượng trống cho nó
+    queryParams = queryParams || {};
 
+    // Chuyển đổi đối tượng JSON thành chuỗi truy vấn
+    var queryString = Object.entries(queryParams)
+        .map(([key, value]) => key + '=' + encodeURIComponent(value))
+        .join('&');
+
+    return new Promise(function (resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.open(type, url + '?' + queryString); // Thêm queryString vào URL
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                resolve(JSON.parse(xhr.response));
+            } else {
+                reject(Error(xhr.statusText));
+            }
+        };
+        xhr.onerror = function () {
+            reject(Error("Network Error"));
+        };
+        xhr.send();
+    });
+}

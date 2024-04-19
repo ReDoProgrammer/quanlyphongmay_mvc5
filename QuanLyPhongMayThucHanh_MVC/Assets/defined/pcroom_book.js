@@ -1,16 +1,11 @@
 ﻿$(function () {
-   
+
     $('#dtpDate').datetimepicker({
         format: 'DD/MM/YYYY',
         defaultDate: new Date(),
-        minDate: moment().startOf('day')       
+        minDate: moment().startOf('day')
     });
 
-    $('#dtpBookDate').datetimepicker({
-        format: 'DD/MM/YYYY',
-        defaultDate: new Date()
-    })
-    // $('.js-example-basic-multiple').select2();
     loadcp();
     loadsubjects();
 });
@@ -22,86 +17,73 @@ const $slToClassPeriods = $('#slToClassPeriods');
 const $btnSearch = $('#btnSearch');
 const $btnSubmit = $('#btnSubmit');
 const $slSubjects = $('#slSubjects');
+const $dtpDate = $('#dtpDate');
+const $modal = $('#modalBook');
+const $tblRooms = $('#tblRooms');
 
-$btnSearch.click(function () {   
+$btnSearch.click(function () {
     lookup();
 })
-$btnSubmit.click(function(){
-    let book_date = $('#dtpBookDate').data("DateTimePicker").date().format('YYYY-MM-DD');
-    let subject_id = parseInt($('#slSubjects option:selected').val());
+$btnSubmit.click(function () {
+    let book_date = $dtpDate.data("DateTimePicker").date().format('YYYY-MM-DD');
+    let teaching_process_id = parseInt($slSubjects.val());
     let class_period_id_1 = parseInt($('#slFromClassPeriods option:selected').val());
     let class_period_id_2 = parseInt($('#slToClassPeriods option:selected').val());
     let note = $('#txaNote').val();
-    
-    $.ajax({
-        url:'/practiceschedule/book',
-        type:'post',
-        data:{book_date,room_id,subject_id,class_period_id_1,class_period_id_2,note},
-        success:function(data){
-            if(data.code == 201){
-                Swal.fire({
-                    title: "SUCCESSFULLY",
-                    text: data.msg,
-                    icon: "success"
-                  });
-                $('#modalBook').modal('hide');
-                lookup();
-            }
-        }
-    })
+
+    makeAjaxRequest('/practiceschedule/book', { book_date, room_id, teaching_process_id, class_period_id_1, class_period_id_2, note }, 'post')
+        .then(data => {
+            Swal.fire({
+                title: "SUCCESSFULLY",
+                text: data.msg,
+                icon: "success"
+            });
+            $modal.modal('hide');
+            lookup();
+        })
+        .catch(err => {
+            console.log(err);
+        })
 })
 
 function book(id) {
     room_id = id;
-    $('#modalBook').modal();
+    $modal.modal();
 }
 
 function loadsubjects() {
-    $.ajax({
-        url: '/subject/OwnSubjects',
-        type: 'get',
-        success: function (data) {
-            if (data.code == 200) {
-                data.subjects.forEach(s => {
-                    $slSubjects.append(`<option value="${s.Id}">${s.Acronym} - ${s.Name}</option>`)
-                })
-            }
-        }
-    })
+    makeAjaxRequest('/subject/OwnSubjects', null, 'get')
+        .then(data => {
+            data.subjects.forEach(s => {
+                $slSubjects.append(`<option value="${s.Id}">${s.Acronym} - ${s.Name}</option>`)
+            })
+        })
 }
 
 function loadcp() {
-    $.ajax({
-        url: '/classperiod/list',
-        type: 'get',
-        success: function (data) {
-            if (data.code == 200) {
-                cps = data.cps;
-                data.cps.forEach(c => {
-                    $slFromClassPeriods.append(`<option value = "${c.Id}" data-order="${c.Order}">${c.Name}  [${c.StartTime} - ${c.EndTime}]</option>`);
-                })
-                $slFromClassPeriods.trigger('change');
-            }
-        }
-    })
+    makeAjaxRequest('/classperiod/list', null, 'get')
+        .then(data => {
+            cps = data.cps;
+            data.cps.forEach(c => {
+                $slFromClassPeriods.append(`<option value = "${c.Id}" data-order="${c.Order}">${c.Name}  [${c.StartTime} - ${c.EndTime}]</option>`);
+            })
+            $slFromClassPeriods.trigger('change');
+        })
+
 }
 
 
 function lookup() {
-    let date = $('#dtpDate').data("DateTimePicker").date().format('YYYY-MM-DD');
-    let class_period_id_1 = parseInt($('#slFromClassPeriods option:selected').val());
-    let class_period_id_2 = parseInt($('#slToClassPeriods option:selected').val());
-    $.ajax({
-        url: '/pcroom/lookup',
-        type: 'get',
-        data: { date, class_period_id_1,class_period_id_2 },
-        success: function (data) {
-            $('#tblRooms').empty();
-            console.log(data);
+    let date = $dtpDate.data("DateTimePicker").date().format('YYYY-MM-DD');
+    let class_period_id_1 = parseInt($slFromClassPeriods.val());
+    let class_period_id_2 = parseInt($slToClassPeriods.val());
+    makeAjaxRequest('/pcroom/lookup', { date, class_period_id_1, class_period_id_2 }, 'get')
+        .then(data => {
+            $tblRooms.empty();
             if (data.code == 200) {
                 let idx = 1;
                 data.rooms.forEach(r => {
-                    $('#tblRooms').append(`
+                    $tblRooms.append(`
                         <tr id = "${r.Id}">
                             <td>${idx++}</td>
                             <td class="font-weight-bold">${r.Name}</td>
@@ -128,18 +110,17 @@ function lookup() {
                     `);
                 });
             }
-        }
+        })
 
-    })
 }
 
-$slFromClassPeriods.on('change',function(){
-    let order =  $('#slFromClassPeriods option:selected').data('order');
-    var filterCPS = $.grep(cps, function(c) {
+$slFromClassPeriods.on('change', function () {
+    let order = $('#slFromClassPeriods option:selected').data('order');
+    var filterCPS = $.grep(cps, function (c) {
         return c.Order >= order;
     });
     $slToClassPeriods.empty();
-    filterCPS.forEach(c=>{
+    filterCPS.forEach(c => {
         $slToClassPeriods.append(`<option value = "${c.Id}" data-order="${c.Order}">${c.Name}  [${c.StartTime} - ${c.EndTime}]</option>`);
     })
 })

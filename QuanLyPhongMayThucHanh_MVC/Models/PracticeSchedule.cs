@@ -43,20 +43,26 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return lst;
         }
 
-        public int Book(DateTime book_date, int room_id, int subject_id, int lecturer_id, int class_period_id_1, int class_period_id_2, string note, int created_by)
+        public int Book(DateTime book_date, int room_id, int teaching_process_id, int class_period_id_1, int class_period_id_2, string note, int created_by)
         {
-            SqlParameter[] prs =
+            try
             {
-                new SqlParameter("@book_date",book_date.ToString("yyyy-MM-dd")),
-                new SqlParameter("@room_id",room_id),
-                new SqlParameter("@subject_id",subject_id),
-                new SqlParameter("@lecturer_id",lecturer_id),
-                new SqlParameter("@class_period_id_1",class_period_id_1),
-                new SqlParameter("@class_period_id_2",class_period_id_2),
-                new SqlParameter("@note",note),
-                new SqlParameter("@created_by",created_by)
-            };           
-            return Convert.ToInt32(ExecuteScalar("ps_book", prs));
+                SqlParameter[] prs =
+                   {
+                        new SqlParameter("@book_date",book_date.ToString("yyyy-MM-dd")),
+                        new SqlParameter("@room_id",room_id),
+                        new SqlParameter("@teaching_process_id",teaching_process_id),
+                        new SqlParameter("@class_period_id_1",class_period_id_1),
+                        new SqlParameter("@class_period_id_2",class_period_id_2),
+                        new SqlParameter("@note",note),
+                        new SqlParameter("@created_by",created_by)
+                    };
+                return Convert.ToInt32(ExecuteScalar("ps_book", prs));
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
         }
 
         public List<PracticeSchedule> Calendar(DateTime from_date, DateTime to_date)
@@ -70,7 +76,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return ConvertToList(ExecuteQuery("ps_calendar", prs));
         }
 
-        public List<PracticeSchedule> OwnCalendar(DateTime from_date, DateTime to_date,int lecturer_id)
+        public List<PracticeSchedule> OwnCalendar(DateTime from_date, DateTime to_date, int lecturer_id)
         {
             SqlParameter[] prs =
             {
