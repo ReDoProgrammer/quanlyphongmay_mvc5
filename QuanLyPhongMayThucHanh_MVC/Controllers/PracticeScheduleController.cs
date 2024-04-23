@@ -105,7 +105,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
                 content = content.Replace("{{CancelRemark}}", remark);
 
                 Mailer.SendMail(lec.email, "PCLAB Mngr", "Cancel booking PC LAB successfully", content);
-                return Json(new { code = 200, msg = "The room has been canceled!" }, JsonRequestBehavior.AllowGet);
+                return Json(new { code = 200,icon = "success",header = "SUCESSFULLY", msg = "The room has been canceled!" }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { code = 400,  msg = "Can not cancel this room!" }, JsonRequestBehavior.AllowGet);
         }
