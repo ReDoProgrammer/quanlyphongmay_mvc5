@@ -1,34 +1,33 @@
-﻿$(function () {
-   
+﻿const $tblCalendars = $('#tblCalendars');
+$(function () {
+
     $('#dtpFromDate').datetimepicker({
         format: 'DD/MM/YYYY HH:mm',
-        defaultDate: new Date()
+        defaultDate: moment().set({ hour: 0, minute: 1 })
     });
 
     $('#dtpToDate').datetimepicker({
         format: 'DD/MM/YYYY HH:mm',
-        defaultDate: moment().set({hour: 23, minute: 59})
+        defaultDate: moment().set({ hour: 23, minute: 59 })
     })
     LoadLABCalendar()
 });
 
-$('#btnSearch').click(function(){
+$('#btnSearch').click(function () {
     LoadLABCalendar();
 })
 
-function LoadLABCalendar(){
+function LoadLABCalendar() {
     let from_date = $('#dtpFromDate').data("DateTimePicker").date().format('YYYY-MM-DD HH:mm');
     let to_date = $('#dtpToDate').data("DateTimePicker").date().format('YYYY-MM-DD HH:mm');
-    $.ajax({
-        url:'/practiceschedule/labcalendar',
-        type:'get',
-        data:{from_date,to_date},
-        success:function(data){
-            $('#tblCalendars').empty();
+
+    makeAjaxRequest('/practiceschedule/labcalendar', { from_date, to_date }, 'get')
+        .then(data => {
             let idx = 1;
+            $tblCalendars.empty();
             data.calendars.forEach(c => {
-                $('#tblCalendars').append(`
-                    <tr id = "${c.Id}" class="${c.StatusId == 1?"text-success":c.StatusId==0?"text-warning":"text-danger"}">
+                $tblCalendars.append(`
+                    <tr id = "${c.Id}" class="${c.StatusId == 1 ? "text-success" : c.StatusId == 0 ? "text-warning" : "text-danger"}">
                         <td>${idx++}</td>
                         <td style="font-weight:bold;">${c.Room}</td>
                         <td>${c.Subject}</td>
@@ -40,7 +39,6 @@ function LoadLABCalendar(){
                         <td>${c.Status}</td>
                     </tr>
                 `);
-            });
-        }
-    })
+            })
+        })
 }

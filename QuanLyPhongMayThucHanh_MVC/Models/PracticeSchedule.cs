@@ -23,24 +23,32 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         public PracticeSchedule() { }
         private List<PracticeSchedule> ConvertToList(DataTable dt)
         {
-            var lst = new List<PracticeSchedule>();
-            foreach (DataRow r in dt.Rows)
+            try
             {
-                lst.Add(new PracticeSchedule()
+                var lst = new List<PracticeSchedule>();
+                foreach (DataRow r in dt.Rows)
                 {
-                    Id = long.Parse(r["id"].ToString()),
-                    Room = r["room"].ToString(),
-                    Subject = r["subject"].ToString(),
-                    Lecturer = r["lecturer"].ToString(),
-                    ClassPeriod = r["period"].ToString(),
-                    StartDate = r["start_date"].ToString(),
-                    EndDate = r["end_date"].ToString(),
-                    Note = r["note"].ToString(),
-                    StatusId = int.Parse(r["status_id"].ToString()),
-                    Status = r["status"].ToString()
-                });
+                    lst.Add(new PracticeSchedule()
+                    {
+                        Id = long.Parse(r["id"].ToString()),
+                        Room = r["room"].ToString(),
+                        Subject = r["subject"].ToString(),
+                        Lecturer = r["lecturer"].ToString(),
+                        ClassPeriod = r["period"].ToString(),
+                        StartDate = r["start_date"].ToString(),
+                        EndDate = r["end_date"].ToString(),
+                        Note = r["note"].ToString(),
+                        StatusId = int.Parse(r["status_id"].ToString()),
+                        Status = r["status"].ToString()
+                    });
+                }
+                return lst;
             }
-            return lst;
+            catch (Exception ex)
+            {
+
+                return null;
+            }
         }
 
         public int Book(DateTime book_date, int room_id, int teaching_process_id, int class_period_id_1, int class_period_id_2, string note, int created_by)
@@ -72,7 +80,6 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter("@from_date",from_date.ToString("yyyy-MM-dd HH:mm")),
                 new SqlParameter("@to_date",to_date.ToString("yyyy-MM-dd HH:mm"))
             };
-            var dt = ExecuteQuery("ps_calendar", prs);
             return ConvertToList(ExecuteQuery("ps_calendar", prs));
         }
 
