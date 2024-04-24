@@ -72,25 +72,38 @@ function InitData() {
                 })
         })
 
+        $slClassRooms1.select2({
+            placeholder: 'Choose a classroom', // Placeholder text
+            allowClear: true // Enable clearing selection
+        });
+        $slSubjects1.select2({
+            placeholder: 'Choose a subject', // Placeholder text
+            allowClear: true // Enable clearing selection
+        });
+        $slLecturers1.select2({
+            placeholder: 'Choose a lecturer', // Placeholder text
+            allowClear: true // Enable clearing selection
+        });
+
 }
 
-function update_progress(id){
-    makeAjaxRequest('/admin/teachingprogress/detail',{id}, 'get')
-    .then(data=>{
-        this.id = id;
-        $modal.modal();
-        let progress = data.progress;
-        console.log(progress);
-        $slFaculties.val(progress.FacultyId);
-        $slClassRooms.val(progress.ClassRoomId);
-        $slSubjects.val(progress.SubjectId);
-        $slSchoolYears.val(progress.SchoolYear);
-        $slSemesters.val(progress.SemesterId);
-        $txtNumberOfStudents.val(progress.NumberOfStudents);
-    })
+function update_progress(id) {
+    makeAjaxRequest('/admin/teachingprogress/detail', { id }, 'get')
+        .then(data => {
+            this.id = id;
+            $modal.modal();
+            let progress = data.progress;
+            console.log(progress);
+            $slFaculties.val(progress.FacultyId);
+            $slClassRooms.val(progress.ClassRoomId);
+            $slSubjects.val(progress.SubjectId);
+            $slSchoolYears.val(progress.SchoolYear);
+            $slSemesters.val(progress.SemesterId);
+            $txtNumberOfStudents.val(progress.NumberOfStudents);
+        })
 }
 
-function delete_progress(id){
+function delete_progress(id) {
     console.log(id);
 }
 
@@ -116,35 +129,29 @@ $btnSubmit.click(function () {
         })
         return;
     }
-    makeAjaxRequest('/admin/TeachingProgress/Insert', {
+
+    const action = id == 0 ? 'insert' : 'update';
+    const url = `/admin/TeachingProgress/${action}`;
+    const data = {
         lecturer_id: $slLecturers.val(),
         subject_id: $slSubjects.val(),
         semester_id: $slSemesters.val(),
         school_year: $slSchoolYears.val(),
         number_of_students: number_of_students,
         classroom_id: $slClassRooms.val()
-    }, 'post')
-        .then(data => {
-            $.toast({
-                heading: data.header,
-                text: data.msg,
-                icon: data.icon,
-                loader: true,        // Change it to false to disable loader
-                loaderBg: '#9EC600'  // To change the background
-            })
-            $modal.modal('hide');
-            $btnSearch.click();
-        })
+    };
+    if (action === 'update') data.id = id;
+    executeAjaxCall(url, data);
 })
 
 $btnSearch.click(function () {
     const url = '/admin/teachingprogress/filter';
     const data = {
-        lecturer_id: $slLecturers1.val(),
-        subject_id: $slSubjects1.val(),
-        semester_id: $slSemesters1.val(),
-        school_year: $slSchoolYears1.val(),
-        classroom_id: $slClassRooms1.val(),
+        lecturer_id: $slLecturers1.val()?$slLecturers1.val():0,
+        subject_id: $slSubjects1.val()?$slSubjects1.val():0,
+        semester_id: $slSemesters1.val()?$slSemesters1.val():0,
+        school_year: $slSchoolYears1.val()?$slSchoolYears1.val():0,
+        classroom_id: $slClassRooms1.val()?$slClassRooms1.val():0,
         keyword: $txtKeyword.val().trim(),
         page: page
     };
@@ -152,6 +159,10 @@ $btnSearch.click(function () {
         .then(data => {
             console.log(data);
             $tblProgresses.empty();
+            $pagination.empty();
+            for(i=1; i<=data.pages; i++){
+                $pagination.append(`<li class="${page==i?'active':''}"><a href="#">${i}</a></li>`);
+            }
             let idx = (page - 1) * 10;
             data.progresses.forEach(p => {
                 $tblProgresses.append(`
@@ -203,3 +214,28 @@ $slFaculties.on('change', function () {
         })
 })
 
+function executeAjaxCall(url, data) {
+    makeAjaxRequest(url, data, 'post')
+        .then(response => {
+            handleResponse(response);
+        })
+        .catch(err => {
+            Swal.fire('Error', 'An unexpected error occurred. Please try again later.', 'error');
+        })
+}
+
+function handleResponse(data) {
+    if ([200, 201].includes(data.code)) {
+        $.toast({
+            heading: data.header,
+            text: data.msg,
+            icon: data.icon,
+            loader: true,
+            loaderBg: '#9EC600'
+        });
+        $modal.modal('hide');
+        this.id = 0;
+    }
+    $btnSearch.click();
+
+}
