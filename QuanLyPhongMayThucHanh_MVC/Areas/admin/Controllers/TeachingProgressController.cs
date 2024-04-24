@@ -23,24 +23,28 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
             return Json(new { code = 200,icon = "success",header="SUCCESSFULLY",msg="Filter teaching progress successfully!",progresses= tp.Filter(lecturer_id, subject_id, semester_id, school_year, classroom_id, keyword, page),pages = tp.TotalPages(lecturer_id, subject_id, semester_id, school_year, classroom_id, keyword, page) }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult Detail(int id)
         {
             var rs = tp.Detail(id);
             return Json(new { code = 200, icon = "success", header = "SUCCESSFULLY", semester = rs, msg = "Get teaching progress detail successfully" }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public JsonResult Insert(int lecturer_id, int subject_id, int semester_id, string school_year, int number_of_students, int classroom_id)
         {
             var rs = tp.Create(lecturer_id,subject_id,semester_id,school_year,number_of_students, classroom_id);
             return Json(rs, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public JsonResult Update(int id,int lecturer_id, int subject_id, int semester_id, string school_year, int number_of_students, int classroom_id)
         {
             var rs = tp.Update(id,lecturer_id, subject_id, semester_id, school_year, number_of_students, classroom_id);
             return Json(rs, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpDelete]
         public JsonResult Delete(int id)
         {
             var rs = tp.Delete(id);

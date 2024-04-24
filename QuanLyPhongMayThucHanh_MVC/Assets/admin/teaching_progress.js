@@ -21,13 +21,16 @@ const $pagination = $('#pagination');
 var id = 0;
 var page = 1;
 const $tblProgresses = $('#tblProgresses');
+
+const $modal = $('#progressModal');
+
 function InitData() {
     let current_year = new Date().getFullYear();
     for (i = current_year - 5; i <= current_year + 10; i++) {
         $slSchoolYears.append(`<option ${i == current_year ? 'selected' : ''} value="${i}-${i + 1}">${i}-${i + 1}</option>`);
         $slSchoolYears1.append(`<option ${i == current_year ? 'selected' : ''} value="${i}-${i + 1}">${i}-${i + 1}</option>`);
     }
-   
+
     Promise.all([
         makeAjaxRequest('/admin/faculty/select'),
         makeAjaxRequest('/admin/lecturer/ListActived'),
@@ -43,122 +46,140 @@ function InitData() {
             $slFaculties.trigger('change');
             $slFaculties1.trigger('change');
 
-            data[1].lecturers.forEach(l=>{
+            data[1].lecturers.forEach(l => {
                 $slLecturers.append(`<option value="${l.id}">${l.fullname} (${l.username})</option>`)
                 $slLecturers1.append(`<option value="${l.id}">${l.fullname} (${l.username})</option>`)
             })
-          
-            data[2].forEach(s=>{
+
+            data[2].forEach(s => {
                 $slSemesters.append(`<option value="${s.id}">${s.name}</option>`);
                 $slSemesters1.append(`<option value="${s.id}">${s.name}</option>`);
             })
-            data[3].forEach(s=>{
+            data[3].forEach(s => {
                 $slSubjects.append(`<option value="${s.Id}">${s.Acronym} - ${s.Name}</option>`)
                 $slSubjects1.append(`<option value="${s.Id}">${s.Acronym} - ${s.Name}</option>`)
             })
             var queryParams = {
                 faculty_id: $slFaculties1.val()
-            }; 
-            makeAjaxRequest('/admin/classroom/SelectByFaculty',queryParams)
-            .then(async data=>{
-                await data.classrooms.forEach(c=>{
-                    $slClassRooms.append(`<option value="${c.Id}">${c.Acronym} - ${c.Name}</option>`);
-                    $slClassRooms1.append(`<option value="${c.Id}">${c.Acronym} - ${c.Name}</option>`);
-                });
-                $btnSearch.click();    
-            })
+            };
+            makeAjaxRequest('/admin/classroom/SelectByFaculty', queryParams)
+                .then(async data => {
+                    await data.classrooms.forEach(c => {
+                        $slClassRooms.append(`<option value="${c.Id}">${c.Acronym} - ${c.Name}</option>`);
+                        $slClassRooms1.append(`<option value="${c.Id}">${c.Acronym} - ${c.Name}</option>`);
+                    });
+                    $btnSearch.click();
+                })
         })
 
 }
 
-$btnSearch.click(function(){
+$btnSubmit.click(function () {
+    let number_of_students = $txtNumberOfStudents.val();
+    if (!$.isNumeric(number_of_students)) {
+        $.toast({
+            heading: 'Data is invalid',
+            text: 'The number of students is incorrect',
+            icon: 'warning',
+            loader: true,        // Change it to false to disable loader
+            loaderBg: '#9EC600'  // To change the background
+        })
+        return;
+    }
+    if (number_of_students < 10) {
+        $.toast({
+            heading: 'Data is invalid',
+            text: 'There must be at least 10 students.',
+            icon: 'warning',
+            loader: true,        // Change it to false to disable loader
+            loaderBg: '#9EC600'  // To change the background
+        })
+        return;
+    }
+    makeAjaxRequest('/admin/TeachingProgress/Insert', {
+        lecturer_id: $slLecturers.val(),
+        subject_id: $slSubjects.val(),
+        semester_id: $slSemesters.val(),
+        school_year: $slSchoolYears.val(),
+        number_of_students: number_of_students,
+        classroom_id: $slClassRooms.val()
+    }, 'post')
+        .then(data => {
+            $.toast({
+                heading: data.header,
+                text: data.msg,
+                icon: data.icon,
+                loader: true,        // Change it to false to disable loader
+                loaderBg: '#9EC600'  // To change the background
+            })
+            $modal.modal('hide');
+            $btnSearch.click();
+        })
+})
+
+$btnSearch.click(function () {
     const url = '/admin/teachingprogress/filter';
-    const data={
+    const data = {
         lecturer_id: $slLecturers1.val(),
-        subject_id:$slSubjects1.val(),
-        semester_id: $slSemesters1.val(), 
+        subject_id: $slSubjects1.val(),
+        semester_id: $slSemesters1.val(),
         school_year: $slSchoolYears1.val(),
         classroom_id: $slClassRooms1.val(),
         keyword: $txtKeyword.val().trim(),
-        page:page
+        page: page
     };
-    makeAjaxRequest(url,data)
-    .then(data=>{
-        console.log(data);
-        $tblProgresses.empty();
-        let idx = (page-1)*10;
-        data.progresses.forEach(p=>{
-            $tblProgresses.append(`
+    makeAjaxRequest(url, data, 'get')
+        .then(data => {
+            console.log(data);
+            $tblProgresses.empty();
+            let idx = (page - 1) * 10;
+            data.progresses.forEach(p => {
+                $tblProgresses.append(`
                 <tr id = "${p.Id}">
                     <td>${++idx}</td>
                     <td>${p.FacultyAcronym}</td>
                     <td>${p.SubjectName}</td>
                     <td>${p.ClassRoom}</td>
-                    <td>${p.LecturerFullname}</td>
+                    <td>${p.LecturerFullname} (${p.LecturerUsername})</td>
                     <td>${p.SchoolYear}</td>
                     <td class="text-right">${p.NumberOfStudents}</td>
-                    <td><i class="${p.Status?'text-success':'text-danger'}">${p.StatusName}</i></td>
+                    <td><i class="${p.Status ? 'text-success' : 'text-danger'}">${p.StatusName}</i></td>
                     <td class="text-right">
-                        <button class="btn btn-xs btn-warning ${p.Status?'disabled':''}" title="Update progress" onClick = "update_faculty(`+ p.Id + `)"><i class="fa fa-edit"></i></button>
-                        <button class="btn btn-xs btn-danger ${p.Status?'disabled':''}" title="Delete progress" onClick = "delete_faculty(`+ p.Id + `)"><i class="fa fa-trash-o"></i></button>
+                        <button class="btn btn-xs btn-warning ${p.Status ? 'disabled' : ''}" title="Update progress" onClick = "update_faculty(` + p.Id + `)"><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-xs btn-danger ${p.Status ? 'disabled' : ''}" title="Delete progress" onClick = "delete_faculty(` + p.Id + `)"><i class="fa fa-trash-o"></i></button>
                     </td>
                 </tr>
             `);
+            })
         })
-    })
-    .catch(err=>{
-        console.log(err);
-    })
+        .catch(err => {
+            console.log(err);
+        })
 })
 
 
-$slFaculties1.on('change',function(){
+$slFaculties1.on('change', function () {
     var queryParams = {
         faculty_id: $slFaculties1.val()
-    }; 
+    };
     $slClassRooms1.empty();
-    makeAjaxRequest('/admin/classroom/SelectByFaculty',queryParams)
-    .then(data=>{
-        data.classrooms.forEach(c=>{
-            $slClassRooms1.append(`<option value="${c.Id}">${c.Acronym} - ${c.Name}</option>`);
-        });
-    })
+    makeAjaxRequest('/admin/classroom/SelectByFaculty', queryParams, 'get')
+        .then(data => {
+            data.classrooms.forEach(c => {
+                $slClassRooms1.append(`<option value="${c.Id}">${c.Acronym} - ${c.Name}</option>`);
+            });
+        })
 })
-$slFaculties.on('change',function(){
+$slFaculties.on('change', function () {
     var queryParams = {
         faculty_id: $slFaculties.val()
-    }; 
+    };
     $slClassRooms.empty();
-    makeAjaxRequest('/admin/classroom/SelectByFaculty',queryParams)
-    .then(data=>{
-        data.classrooms.forEach(c=>{
-            $slClassRooms.append(`<option value="${c.Id}">${c.Acronym} - ${c.Name}</option>`);
-        });
-    })
+    makeAjaxRequest('/admin/classroom/SelectByFaculty', queryParams, 'get')
+        .then(data => {
+            data.classrooms.forEach(c => {
+                $slClassRooms.append(`<option value="${c.Id}">${c.Acronym} - ${c.Name}</option>`);
+            });
+        })
 })
 
-function makeAjaxRequest(url, queryParams) {
-    // Nếu queryParams chưa được khai báo, gán một đối tượng trống cho nó
-    queryParams = queryParams || {};
-
-    // Chuyển đổi đối tượng JSON thành chuỗi truy vấn
-    var queryString = Object.entries(queryParams)
-        .map(([key, value]) => key + '=' + encodeURIComponent(value))
-        .join('&');
-
-    return new Promise(function (resolve, reject) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", url + '?' + queryString); // Thêm queryString vào URL
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                resolve(JSON.parse(xhr.response));
-            } else {
-                reject(Error(xhr.statusText));
-            }
-        };
-        xhr.onerror = function () {
-            reject(Error("Network Error"));
-        };
-        xhr.send();
-    });
-}

@@ -1,4 +1,5 @@
-﻿$('#btnLogin').click(function () {
+﻿$('#btnLogin').click(function (e) {
+    e.preventDefault();
     let username = $('#txtUsername').val();
     let password = $('#txtPassword').val();
 
@@ -23,23 +24,18 @@
         $('#txtPassword').select();
         return;
     }
-
-    $.ajax({
-        url: '/admin/auth/Login',
-        type: 'post',
-        data: { username, password},
-                success: function (data) {
-                    if (data.code != 200) {
-                        $.toast({
-                            heading: 'Warning',
-                            text: data.msg,
-                            showHideTransition: 'plain',
-                            icon: 'warning'
-                        })
-                        return;
-                    }
-                    console.log(data);
-                    window.location.href = '/admin/home';
-                }
-    })
+    makeAjaxRequest('/admin/auth/Login', { username, password}, 'post')
+    .then(data=>{
+        if (data.code != 200) {
+            $.toast({
+                heading: 'Warning',
+                text: data.msg,
+                showHideTransition: 'plain',
+                icon: 'warning'
+            })
+            return;
+        }
+        console.log(data);
+        window.location.href = '/admin/home';
+    })    
 })

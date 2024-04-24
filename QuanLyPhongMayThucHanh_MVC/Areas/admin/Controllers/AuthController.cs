@@ -15,6 +15,12 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
             return View();
         }
 
+        public ActionResult Logout()
+        {
+            Session["admin"] = null;
+            return RedirectToAction("login");
+        }
+
         [HttpPost]
         public JsonResult Login(string username, string password)
         {
