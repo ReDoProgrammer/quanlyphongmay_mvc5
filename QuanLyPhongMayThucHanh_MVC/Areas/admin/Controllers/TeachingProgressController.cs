@@ -44,7 +44,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
             return Json(rs, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpDelete]
+        [HttpPost]
         public JsonResult Delete(int id)
         {
             var rs = tp.Delete(id);

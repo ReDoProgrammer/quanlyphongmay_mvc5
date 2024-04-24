@@ -72,18 +72,18 @@ function InitData() {
                 })
         })
 
-        $slClassRooms1.select2({
-            placeholder: 'Choose a classroom', // Placeholder text
-            allowClear: true // Enable clearing selection
-        });
-        $slSubjects1.select2({
-            placeholder: 'Choose a subject', // Placeholder text
-            allowClear: true // Enable clearing selection
-        });
-        $slLecturers1.select2({
-            placeholder: 'Choose a lecturer', // Placeholder text
-            allowClear: true // Enable clearing selection
-        });
+    $slClassRooms1.select2({
+        placeholder: 'Choose a classroom', // Placeholder text
+        allowClear: true // Enable clearing selection
+    });
+    $slSubjects1.select2({
+        placeholder: 'Choose a subject', // Placeholder text
+        allowClear: true // Enable clearing selection
+    });
+    $slLecturers1.select2({
+        placeholder: 'Choose a lecturer', // Placeholder text
+        allowClear: true // Enable clearing selection
+    });
 
 }
 
@@ -104,8 +104,20 @@ function update_progress(id) {
 }
 
 function delete_progress(id) {
-    console.log(id);
+    confirmDiaglog("Are you sure want to delete this teaching progress?", "You won't be able to revert this!", "question", "Yes, delete it!", "No, cancel!")
+    .then(_=>{
+        executeAjaxCall('/admin/teachingprogress/delete', {id},'post') 
+        .then(data=>{
+            console.log(data);
+        })
+    })
 }
+
+$(document).on('click', '#pagination li a', function (e) {
+    e.preventDefault();
+    page = $(this).closest('li').text();
+    $btnSearch.click();
+});
 
 $btnSubmit.click(function () {
     let number_of_students = $txtNumberOfStudents.val();
@@ -147,11 +159,11 @@ $btnSubmit.click(function () {
 $btnSearch.click(function () {
     const url = '/admin/teachingprogress/filter';
     const data = {
-        lecturer_id: $slLecturers1.val()?$slLecturers1.val():0,
-        subject_id: $slSubjects1.val()?$slSubjects1.val():0,
-        semester_id: $slSemesters1.val()?$slSemesters1.val():0,
-        school_year: $slSchoolYears1.val()?$slSchoolYears1.val():0,
-        classroom_id: $slClassRooms1.val()?$slClassRooms1.val():0,
+        lecturer_id: $slLecturers1.val() ? $slLecturers1.val() : 0,
+        subject_id: $slSubjects1.val() ? $slSubjects1.val() : 0,
+        semester_id: $slSemesters1.val() ? $slSemesters1.val() : 0,
+        school_year: $slSchoolYears1.val() ? $slSchoolYears1.val() : 0,
+        classroom_id: $slClassRooms1.val() ? $slClassRooms1.val() : 0,
         keyword: $txtKeyword.val().trim(),
         page: page
     };
@@ -160,8 +172,8 @@ $btnSearch.click(function () {
             console.log(data);
             $tblProgresses.empty();
             $pagination.empty();
-            for(i=1; i<=data.pages; i++){
-                $pagination.append(`<li class="${page==i?'active':''}"><a href="#">${i}</a></li>`);
+            for (i = 1; i <= data.pages; i++) {
+                $pagination.append(`<li class="${page == i ? 'active' : ''}"><a href="#">${i}</a></li>`);
             }
             let idx = (page - 1) * 10;
             data.progresses.forEach(p => {
