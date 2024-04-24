@@ -27,7 +27,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
         public JsonResult Detail(int id)
         {
             var rs = tp.Detail(id);
-            return Json(new { code = 200, icon = "success", header = "SUCCESSFULLY", semester = rs, msg = "Get teaching progress detail successfully" }, JsonRequestBehavior.AllowGet);
+            return Json(new { code = 200, icon = "success", header = "SUCCESSFULLY", progress = rs, msg = "Get teaching progress detail successfully" }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

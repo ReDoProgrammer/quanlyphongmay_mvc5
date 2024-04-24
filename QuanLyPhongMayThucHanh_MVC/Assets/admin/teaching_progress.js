@@ -74,6 +74,26 @@ function InitData() {
 
 }
 
+function update_progress(id){
+    makeAjaxRequest('/admin/teachingprogress/detail',{id}, 'get')
+    .then(data=>{
+        this.id = id;
+        $modal.modal();
+        let progress = data.progress;
+        console.log(progress);
+        $slFaculties.val(progress.FacultyId);
+        $slClassRooms.val(progress.ClassRoomId);
+        $slSubjects.val(progress.SubjectId);
+        $slSchoolYears.val(progress.SchoolYear);
+        $slSemesters.val(progress.SemesterId);
+        $txtNumberOfStudents.val(progress.NumberOfStudents);
+    })
+}
+
+function delete_progress(id){
+    console.log(id);
+}
+
 $btnSubmit.click(function () {
     let number_of_students = $txtNumberOfStudents.val();
     if (!$.isNumeric(number_of_students)) {
@@ -143,10 +163,10 @@ $btnSearch.click(function () {
                     <td>${p.LecturerFullname} (${p.LecturerUsername})</td>
                     <td>${p.SchoolYear}</td>
                     <td class="text-right">${p.NumberOfStudents}</td>
-                    <td><i class="${p.Status ? 'text-success' : 'text-danger'}">${p.StatusName}</i></td>
+                    
                     <td class="text-right">
-                        <button class="btn btn-xs btn-warning ${p.Status ? 'disabled' : ''}" title="Update progress" onClick = "update_faculty(` + p.Id + `)"><i class="fa fa-edit"></i></button>
-                        <button class="btn btn-xs btn-danger ${p.Status ? 'disabled' : ''}" title="Delete progress" onClick = "delete_faculty(` + p.Id + `)"><i class="fa fa-trash-o"></i></button>
+                        <button class="btn btn-xs btn-warning ${p.Status ? 'disabled' : ''}" title="Update progress" onClick = "update_progress(` + p.Id + `)"><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-xs btn-danger ${p.Status ? 'disabled' : ''}" title="Delete progress" onClick = "delete_progress(` + p.Id + `)"><i class="fa fa-trash-o"></i></button>
                     </td>
                 </tr>
             `);

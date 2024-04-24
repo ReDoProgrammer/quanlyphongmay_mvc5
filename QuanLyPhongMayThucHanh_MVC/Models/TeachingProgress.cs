@@ -19,6 +19,8 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         public string SubjectAcronym { get; set; }
         public string SubjectName { get; set; }
         public string SchoolYear { get; set; }
+        public int SemesterId { get; set; }
+        public string SemesterName { get; set; }
         public int NumberOfStudents { get; set; }
         public int ClassRoomId { get; set; }
         public string ClassRoom { get; set; }
@@ -193,6 +195,8 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 SubjectAcronym = r["subject_acronym"].ToString(),
                 SubjectName = r["subject_name"].ToString(),
                 SchoolYear = r["school_year"].ToString(),
+                SemesterId = int.Parse(r["semester_id"].ToString()),
+                SemesterName = r["semester_name"].ToString(),
                 NumberOfStudents = int.Parse(r["number_of_students"].ToString()),
                 ClassRoomId = int.Parse(r["classroom_id"].ToString()),
                 ClassRoom = r["classroom"].ToString(),
