@@ -1,9 +1,4 @@
-﻿$(function () {
-    LoadFaculties();
-    LoadPositions();
-
-});
-var id = 0;
+﻿var id = 0;
 const $btnSubmit = $('#btnSubmit');
 const $slFaculties = $('#slFaculties');
 const $slPositions = $('#slPositions');
@@ -15,6 +10,136 @@ const $txtPhone = $('#txtPhone');
 const $txtEmail = $('#txtEmail');
 const $btnSearch = $('#btnSearch');
 const $tblLecturers = $('#tblLecturers');
+
+$(function () {
+    LoadFaculties();
+    LoadPositions();
+
+    // Thêm các phương thức kiểm tra
+    $.validator.addMethod("noSpecialChars", function (value, element) {
+        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
+    }, "<span class='text-danger'>Username must not contain special characters, spaces, or Vietnamese accented letters.</span>");
+
+    $.validator.addMethod("validPassword", function (value, element) {
+        return this.optional(element) || /^[^\s\u0100-\u024F\u1E00-\u1EFF]+$/.test(value);
+    }, "<span class='text-danger'>Password must not contain spaces or Vietnamese accented characters.</span>");
+
+    $.validator.addMethod("checkUsernameExist", function (value, element) {
+        var result = false;
+        $.ajax({
+            url: '/account/checkusername', // API URL
+            type: 'GET',
+            async: false, // Đặt async thành false để đảm bảo giá trị được trả về sau khi AJAX hoàn thành
+            data: { username: value },
+            success: function (data) {
+                result = !data.exists; // Nếu username tồn tại, trả về false
+            }
+        });
+        return result;
+    }, "<span class='text-danger'>Username already exists.</span>");
+
+    // Thêm phương thức kiểm tra số điện thoại
+    $.validator.addMethod("validPhone", function (value, element) {
+        return this.optional(element) || /^\d{10}$/.test(value) && value.startsWith("0");
+    }, "<span class='text-danger'>Phone number must be 10 digits long and start with 0.</span>");
+
+
+    $.validator.addMethod("checkEmailExist", function (value, element) {
+        var result = false;
+        $.ajax({
+            url: '/account/checkemail', // API URL
+            type: 'GET',
+            async: false, // Đặt async thành false để đảm bảo giá trị được trả về sau khi AJAX hoàn thành
+            data: { email: value },
+            success: function (data) {
+                result = !data.exists;
+            }
+        });
+        return result;
+    }, "<span class='text-danger'>Email already exists.</span>");
+
+    // Cấu hình validation
+    $("#registration-form").validate({
+        rules: {
+            username: {
+                required: true,
+                noSpecialChars: true,
+                minlength: 3, // Độ dài tối thiểu là 3
+                checkUsernameExist: true // Thêm phương thức kiểm tra username tồn tại vào quy tắc validate của trường username
+            },
+            fullname: {
+                required: true,
+                minlength: 3, // Độ dài tối thiểu là 3
+            },
+            email: {
+                required: true,
+                email: true,
+                checkEmailExist: true
+            },
+            password: {
+                required: true,
+                validPassword: true
+            },
+            confirm_password: {
+                required: true,
+                equalTo: "#txtPassword"
+            },
+            phone: {
+                required: true,
+                validPhone: true
+            }
+        },
+        messages: {
+            username: {
+                required: "<span class='text-danger'>Please enter a username.</span>",
+                noSpecialChars: "<span class='text-danger'>Only alphanumeric characters are allowed.</span>",
+                minlength: "<span class='text-danger'>Username must be at least 3 characters long.</span>"
+            },
+            fullname: {
+                required: "<span class='text-danger'>Please enter your fullname.</span>",
+                minlength: "<span class='text-danger'>Fullname must be at least 3 characters long.</span>"
+            },
+            email: {
+                required: "<span class='text-danger'>Please enter an email address.</span>",
+                email: "<span class='text-danger'>Please enter a valid email address.</span>"
+            },
+            password: {
+                required: "<span class='text-danger'>Please enter a password.</span>"
+            },
+            confirm_password: {
+                required: "<span class='text-danger'>Please confirm your password.</span>",
+                equalTo: "<span class='text-danger'>The passwords do not match.</span>"
+            },
+            phone: {
+                required: "<span class='text-danger'>Please enter a phone number.</span>"
+            }
+        },
+        onkeyup: function (element) {
+            $(element).valid();
+            checkFormState();
+        },
+        invalidHandler: function (event, validator) {
+            $btnSubmit.hide();
+        },
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+
+
+
+    // Kiểm tra trạng thái ban đầu của form
+    checkFormState();
+});
+
+function checkFormState() {
+    if ($("#lecturerform").valid()) {
+        $btnSubmit.show();
+    } else {
+        $btnSubmit.hide();
+    }
+}
+
 
 $btnSubmit.click(function () {
     const faculty_id = $slFaculties.val();
@@ -119,11 +244,11 @@ function update_lecturer(id) {
         }
     })
 }
-function delete_lecturer(id){
+function delete_lecturer(id) {
     confirmDiaglog("Are you sure want to delete this lecturer?", "You won't be able to revert this!", "question", "Yes, delete it!", "No, cancel!")
-    .then(_=>{
-        executeAjaxCall('/admin/lecturer/delete', {id}) 
-    })
+        .then(_ => {
+            executeAjaxCall('/admin/lecturer/delete', { id })
+        })
 }
 function executeAjaxCall(url, data) {
     $.ajax({

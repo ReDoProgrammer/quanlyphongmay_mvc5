@@ -55,50 +55,52 @@
 
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="modalTitle">Add new lecturer</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label>Position</label>
-                        <select class="form-control" id="slPositions"></select>
+            <form id="lecturerform">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="modalTitle">Add new lecturer</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Position</label>
+                            <select class="form-control" id="slPositions"></select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Fullname</label>
+                            <input type="text" class="form-control" id="txtFullname" name="fullname"/>
+                        </div>
                     </div>
-                    <div class="col-md-6 form-group">
-                        <label>Fullname</label>
-                        <input type="text" class="form-control" id="txtFullname" />
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label>Username</label>
+                            <input type="text" class="form-control" id="txtUsername" name="username" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>Password</label>
+                            <input type="password" value="123" class="form-control" id="txtPassword" name="password" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>Repeat password</label>
+                            <input type="password" value="123" class="form-control" id="txtRepeatPassword" name="confirm_password" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label>Phone</label>
+                            <input type="text" class="form-control" id="txtPhone" name="phone" />
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control" id="txtEmail" name="email" />
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4 form-group">
-                        <label>Username</label>
-                        <input type="text" class="form-control" id="txtUsername" />
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label>Password</label>
-                        <input type="password" value="123" class="form-control" id="txtPassword" />
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label>Repeat password</label>
-                        <input type="password" value="123" class="form-control" id="txtRepeatPassword" />
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btnSubmit">Submit changes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
-                <div class="row">
-                    <div class="col-md-4 form-group">
-                        <label>Phone</label>
-                        <input type="text" class="form-control" id="txtPhone" />
-                    </div>
-                    <div class="col-md-8 form-group">
-                        <label>Email</label>
-                        <input type="text" class="form-control" id="txtEmail" />
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="btnSubmit">Submit changes</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+            </form>
         </div>
 
     </div>
