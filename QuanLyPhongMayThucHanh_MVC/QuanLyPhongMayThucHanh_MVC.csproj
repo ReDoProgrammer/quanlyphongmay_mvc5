@@ -238,6 +238,7 @@
     <Content Include="Assets\admin\account.js" />
     <Content Include="Assets\admin\faculty.js" />
     <Content Include="Assets\admin\lecturer.js" />
+    <Content Include="Assets\admin\position.js" />
     <Content Include="Assets\admin\room.js" />
     <Content Include="Assets\admin\subject.js" />
     <Content Include="Assets\admin\teaching_progress.js" />
@@ -402,7 +403,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\admin\Models\" />
     <Folder Include="Areas\admin\Views\ClassRoom\" />
-    <Folder Include="Areas\admin\Views\Position\" />
     <Folder Include="Areas\admin\Views\Semester\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ClassPeriod\" />
@@ -432,6 +432,7 @@
     <Content Include="Assets\plugins\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Areas\admin\Views\Faculty\Index.cshtml" />
     <Content Include="Areas\admin\Views\TeachingProgress\Index.cshtml" />
+    <Content Include="Areas\admin\Views\Position\Index.cshtml" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />

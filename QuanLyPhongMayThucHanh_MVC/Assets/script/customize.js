@@ -47,3 +47,21 @@ function makeAjaxRequest(url, queryParams,type='get') {
         xhr.send();
     });
 }
+
+    function showToast(heading, text, icon) {
+        $.toast({
+            heading: heading,
+            text: text,
+            icon: icon,
+            loader: true,
+            loaderBg: '#9EC600'
+        });
+    }
+
+    function showMessage(header,msg,icon){
+        Swal.fire({
+            title: header,
+            text: msg,
+            icon: icon
+        });
+    }

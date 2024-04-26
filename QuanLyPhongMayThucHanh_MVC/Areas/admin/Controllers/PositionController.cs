@@ -24,5 +24,29 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
         {
             return Json(new { code = 200, positions = p.List(), msg = "Load faculties list successfully!" }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult Detail(int id)
+        {
+            var pos = p.Detail(id);
+            if (pos == null)
+                return Json(new { code = 404, icon = "error", header = "NOT FOUND"}, JsonRequestBehavior.AllowGet);
+            return Json(new { code = 200, icon = "success", header = "SUCCESSFULLY", position =pos }, JsonRequestBehavior.AllowGet);
+        }
+        
+        [HttpPost]
+        public JsonResult Insert(string acronym, string name)
+        {
+            return Json(p.Insert(acronym, name), JsonRequestBehavior.AllowGet);               
+        }
+        [HttpPost]
+        public JsonResult Update(int id, string acronym, string name)
+        {
+            return Json(p.Update(id,acronym, name), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            return Json(p.Delete(id), JsonRequestBehavior.AllowGet);
+        }
     }
 }
