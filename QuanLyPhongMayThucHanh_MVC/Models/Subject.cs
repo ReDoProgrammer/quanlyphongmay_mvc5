@@ -58,28 +58,28 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             };
         }
 
-        public int Insert(string name)
+        public string Insert(string name)
         {
             SqlParameter[] prs =
             {
                 new SqlParameter("@name",name)
             };
-            return (int)ExecuteScalar("subject_insert", prs);
+            return (string)ExecuteScalar("subject_insert", prs);
         }
 
-        public int Update(int id, string name)
+        public string Update(int id, string name)
         {
             SqlParameter[] prs =
             {
                 new SqlParameter("@id",id),
                 new SqlParameter("@name",name)
             };
-            return ExecuteNonQuery("subject_update", prs);
+            return (string)ExecuteScalar("subject_update", prs);
         }
-        public int Delete(int id)
+        public string Delete(int id)
         {
             SqlParameter[] prs = { new SqlParameter("@id", id) };
-            return ExecuteNonQuery("subject_delete", prs);
+            return (string)ExecuteScalar("subject_delete", prs);
         }
 
         private List<Subject> ConvertToList(DataTable dt)
