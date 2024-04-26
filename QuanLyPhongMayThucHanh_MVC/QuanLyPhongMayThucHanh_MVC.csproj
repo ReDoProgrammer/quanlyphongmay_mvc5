@@ -216,7 +216,6 @@
     <Compile Include="Controllers\PracticeScheduleController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
     <Compile Include="DTO\Mailer.cs" />
-    <Compile Include="DTO\ResponseObject.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -403,7 +402,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\admin\Models\" />
     <Folder Include="Areas\admin\Views\ClassRoom\" />
-    <Folder Include="Areas\admin\Views\Semester\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ClassPeriod\" />
     <Folder Include="Views\Subject\" />
@@ -433,6 +431,7 @@
     <Content Include="Areas\admin\Views\Faculty\Index.cshtml" />
     <Content Include="Areas\admin\Views\TeachingProgress\Index.cshtml" />
     <Content Include="Areas\admin\Views\Position\Index.cshtml" />
+    <Content Include="Areas\admin\Views\Semester\Index.cshtml" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />

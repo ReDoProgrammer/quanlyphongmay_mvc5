@@ -103,7 +103,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             };
         }
 
-        public ResponseObject SignUp(string username, string fullname, string password, string email, string phone, int faculty_id, int position_id)
+        public string SignUp(string username, string fullname, string password, string email, string phone, int faculty_id, int position_id)
         {
             try
             {
@@ -117,21 +117,14 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter("@position_id",position_id),
                 new SqlParameter("@faculty_id",faculty_id)
             };
-                var rs = (string)ExecuteScalar("[lecturer_register]", prs);
-                return JsonConvert.DeserializeObject<ResponseObject>(rs);
+                return (string)ExecuteScalar("[lecturer_register]", prs);
             }
             catch (Exception ex)
             {
-                return new ResponseObject
-                {
-                    code = 500,
-                    icon = "error",
-                    header = "CREATE NEW LECTURER FAILED",
-                    msg = ex.Message
-                };
+                return null;
             }
         }
-        public ResponseObject Create(string username, string password, string fullname, string phone, string email, int position_id, int faculty_id)
+        public string Create(string username, string password, string fullname, string phone, string email, int position_id, int faculty_id)
         {
             try
             {
@@ -145,42 +138,28 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter("@position_id",position_id),
                 new SqlParameter("@faculty_id",faculty_id)
             };
-                var rs = (string)ExecuteScalar("lecturer_insert", prs);
-                return JsonConvert.DeserializeObject<ResponseObject>(rs);
+                return (string)ExecuteScalar("lecturer_insert", prs);
             }
             catch (Exception ex)
             {
-                return new ResponseObject
-                {
-                    code = 500,
-                    icon = "error",
-                    header = "CREATE NEW LECTURER FAILED",
-                    msg = ex.Message
-                };
+                return null;
             }
         }
 
-        public ResponseObject Delete(int id)
+        public string Delete(int id)
         {
             try
             {
                 SqlParameter[] prs = { new SqlParameter("@id", id) };
-                var rs = (string)ExecuteScalar("lecturer_delete", prs);
-                return JsonConvert.DeserializeObject<ResponseObject>(rs);
+                return (string)ExecuteScalar("lecturer_delete", prs);
             }
             catch (Exception ex)
             {
-                return new ResponseObject
-                {
-                    code = 500,
-                    icon = "error",
-                    header = "DELETE LECTURER FAILED",
-                    msg = ex.Message
-                };
+                return null;
             }
         }
 
-        public ResponseObject Update(int id, string fullname, string phone, string email, int position_id, int faculty_id)
+        public string Update(int id, string fullname, string phone, string email, int position_id, int faculty_id)
         {
             try
             {
@@ -193,18 +172,11 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                         new SqlParameter("@position_id",position_id),
                         new SqlParameter("@faculty_id",faculty_id)
                     };
-                var rs = (string)ExecuteScalar("lecturer_update", prs);
-                return JsonConvert.DeserializeObject<ResponseObject>(rs);
+                return (string)ExecuteScalar("lecturer_update", prs);
             }
             catch (Exception ex)
             {
-                return new ResponseObject
-                {
-                    code = 500,
-                    icon = "error",
-                    header = "UPDATE LECTURER FAILED",
-                    msg = ex.Message
-                };
+                return null;
             }
         }
 

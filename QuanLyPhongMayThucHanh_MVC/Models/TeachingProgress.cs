@@ -103,7 +103,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             }
         }
 
-        public ResponseObject Create(int lecturer_id, int subject_id, int semester_id, string school_year,int number_of_students,int classroom_id)
+        public string Create(int lecturer_id, int subject_id, int semester_id, string school_year,int number_of_students,int classroom_id)
         {
             try
             {
@@ -116,22 +116,15 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter("@number_of_students",number_of_students),
                 new SqlParameter("@classroom_id",classroom_id)
             };
-                var rs = (string)ExecuteScalar("[tp_insert]", prs);
-                return JsonConvert.DeserializeObject<ResponseObject>(rs);
+                return (string)ExecuteScalar("[tp_insert]", prs);
             }
             catch (Exception ex)
             {
-                return new ResponseObject
-                {
-                    code = 500,
-                    icon = "error",
-                    header = "CREATE NEW TEACHING PROGRESS FAILED",
-                    msg = ex.Message
-                };
+                return null;
             }
         }
 
-        public ResponseObject Update(int id,int lecturer_id, int subject_id, int semester_id, string school_year, int number_of_students, int classroom_id)
+        public string Update(int id,int lecturer_id, int subject_id, int semester_id, string school_year, int number_of_students, int classroom_id)
         {
             try
             {
@@ -145,38 +138,24 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                         new SqlParameter("@number_of_students",number_of_students),
                         new SqlParameter("@classroom_id",classroom_id)
                     };
-                var rs = (string)ExecuteScalar("[tp_update]", prs);
-                return JsonConvert.DeserializeObject<ResponseObject>(rs);
+                return (string)ExecuteScalar("[tp_update]", prs);
             }
             catch (Exception ex)
             {
-                return new ResponseObject
-                {
-                    code = 500,
-                    icon = "error",
-                    header = "UPDATE TEACHING PROGRESS FAILED",
-                    msg = ex.Message
-                };
+                return null;
             }
         }
 
-        public ResponseObject Delete(int id)
+        public string Delete(int id)
         {
             try
             {
                 SqlParameter[] prs ={new SqlParameter("@id",id)};
-                var rs = (string)ExecuteScalar("[tp_delete]", prs);
-                return JsonConvert.DeserializeObject<ResponseObject>(rs);
+                return (string)ExecuteScalar("[tp_delete]", prs);
             }
             catch (Exception ex)
             {
-                return new ResponseObject
-                {
-                    code = 500,
-                    icon = "error",
-                    header = "DELETE TEACHING PROGRESS FAILED",
-                    msg = ex.Message
-                };
+                return null;
             }
         }
 

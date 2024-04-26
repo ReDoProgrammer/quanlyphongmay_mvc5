@@ -27,29 +27,26 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return lst;
         }
 
-        public ResponseObject Insert(string name)
+        public string Insert(string name)
         {
             SqlParameter[] prs = { new SqlParameter("@name", name) };
-            var rs = (string)ExecuteScalar("semester_insert",prs);
-            return JsonConvert.DeserializeObject<ResponseObject>(rs);
+            return (string)ExecuteScalar("semester_insert", prs);
         }
-        public ResponseObject Update(int id,string name)
+        public string Update(int id,string name)
         {
             SqlParameter[] prs = {
                 new SqlParameter("@id", id),
                 new SqlParameter("@name", name)
             };
-            var rs = (string)ExecuteScalar("semester_update", prs);
-            return JsonConvert.DeserializeObject<ResponseObject>(rs);
+            return (string)ExecuteScalar("semester_update", prs);
         }
 
-        public ResponseObject Delete(int id)
+        public string Delete(int id)
         {
             SqlParameter[] prs = {
                 new SqlParameter("@id", id)               
             };
-            var rs = (string)ExecuteScalar("semester_delete", prs);
-            return JsonConvert.DeserializeObject<ResponseObject>(rs);
+            return (string)ExecuteScalar("semester_delete", prs);
         }
 
         public Semester Detail(int id)
