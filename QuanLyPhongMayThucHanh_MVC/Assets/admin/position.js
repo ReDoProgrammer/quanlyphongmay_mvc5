@@ -90,3 +90,10 @@ function LoadPositions(){
         })
     })
 }
+
+$modal.on('hide.bs.modal', function () {
+    id = 0;
+    $acronym.val('');
+    $name.val('');
+    $title.text('Create new faculty');
+});
