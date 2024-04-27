@@ -48,8 +48,10 @@ function update_position(id) {
 $btnSubmit.click(function () {
     let acronym = $acronym.val().trim();
     let name = $name.val().trim();
-    //validatetion 
-
+    
+     // Validate input
+     if (!validateInput(acronym, 'Position acronym can not be blank. Please enter acronym', $acronym)) return;
+     if (!validateInput(name, 'Position name can not be blank. Please enter name', $name)) return;
 
     let action = id == 0 ? 'insert' : 'update';
     let url = `/admin/position/${action}`;
