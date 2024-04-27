@@ -79,3 +79,4 @@ E:\WS\ASPX\QuanLyPhongMayThucHanh\QuanLyPhongMayThucHanh_MVC\bin\Microsoft.Owin.
 E:\WS\ASPX\QuanLyPhongMayThucHanh\QuanLyPhongMayThucHanh_MVC\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 E:\WS\ASPX\QuanLyPhongMayThucHanh\QuanLyPhongMayThucHanh_MVC\obj\Debug\QuanLyPhongMayThucHanh_MVC.dll
 E:\WS\ASPX\QuanLyPhongMayThucHanh\QuanLyPhongMayThucHanh_MVC\obj\Debug\QuanLyPhongMayThucHanh_MVC.pdb
+E:\WS\ASPX\QuanLyPhongMayThucHanh\QuanLyPhongMayThucHanh_MVC\obj\Debug\QuanLyPhongMayThucHanh_MVC.csprojResolveAssemblyReference.cache

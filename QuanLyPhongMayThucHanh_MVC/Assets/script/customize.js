@@ -42,6 +42,7 @@ function makeAjaxRequest(url, queryParams,type='get') {
             }
         };
         xhr.onerror = function () {
+            Swal.fire('Error', 'An unexpected error occurred. Please try again later.', 'error');
             reject(Error("Network Error"));
         };
         xhr.send();
@@ -64,4 +65,13 @@ function makeAjaxRequest(url, queryParams,type='get') {
             text: msg,
             icon: icon
         });
+    }
+
+    function validateInput(value, message, $element) {
+        if (value.length === 0) {
+            showToast('Validation', message, 'warning');
+            $element.select();
+            return false;
+        }
+        return true;
     }
