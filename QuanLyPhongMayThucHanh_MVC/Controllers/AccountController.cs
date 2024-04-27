@@ -19,16 +19,22 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
         }
 
         [HttpGet]
-        public JsonResult CheckUsername(string username)
+        public JsonResult CheckUsername(string username, int id = 0)
         {
-            return Json(new { code = 200, icon = "success",header = "SUCCESSFULLY",msg="Check username successfully", exists = l.CheckUsername(username)}, JsonRequestBehavior.AllowGet);
+            return Json(new { code = 200, icon = "success",header = "SUCCESSFULLY",msg="Check username successfully", exists = l.CheckUsername(username,id)}, JsonRequestBehavior.AllowGet);
         }
 
 
         [HttpGet]
-        public JsonResult CheckEmail(string email)
+        public JsonResult CheckEmail(string email, int id = 0)
         {
-            return Json(new { code = 200, icon = "success", header = "SUCCESSFULLY", msg = "Check email successfully", exists = l.CheckEmail(email) }, JsonRequestBehavior.AllowGet);
+            return Json(new { code = 200, icon = "success", header = "SUCCESSFULLY", msg = "Check email successfully", exists = l.CheckEmail(email,id) }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult CheckPhone(string phone, int id = 0)
+        {
+            return Json(new { code = 200, icon = "success", header = "SUCCESSFULLY", msg = "Check phone successfully", exists = l.CheckPhone(phone, id) }, JsonRequestBehavior.AllowGet);
         }
 
 

@@ -57,17 +57,32 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return lst;
         }
 
-        public bool CheckUsername(string username)
+        public bool CheckUsername(string username, int id = 0)
         {
-            SqlParameter[] prs = { new SqlParameter("@username", username) };
+            SqlParameter[] prs = {
+                new SqlParameter("@username", username),
+                new SqlParameter("@id", id)
+            };
             return Convert.ToInt32(ExecuteScalar("lecturer_checkusername", prs)) > 0;
         }
-        public bool CheckEmail(string email)
+        public bool CheckEmail(string email, int id = 0)
         {
-            SqlParameter[] prs = { new SqlParameter("@email", email) };
+            SqlParameter[] prs = {
+                new SqlParameter("@email", email),
+                new SqlParameter("@id", id)
+            };
             return Convert.ToInt32(ExecuteScalar("lecturer_checkemail", prs)) > 0;
         }
 
+        public bool CheckPhone(string phone, int id = 0)
+        {
+            SqlParameter[] prs = {
+                new SqlParameter("@phone", phone),
+                new SqlParameter("@id", id)
+
+            };
+            return Convert.ToInt32(ExecuteScalar("lecturer_checkphone", prs)) > 0;
+        }
         public List<Lecturer> ListActived()
         {
             return ConvertToList(ExecuteQuery("lecturer_select_actived"));

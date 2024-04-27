@@ -11,11 +11,14 @@ const $txtEmail = $('#txtEmail');
 const $btnSearch = $('#btnSearch');
 const $tblLecturers = $('#tblLecturers');
 
+const $form = $('#lecturerform');
+const $modal = $('#lecturerModal');
+const $title = $('#modalTitle');
+
 $(function () {
     LoadFaculties();
     LoadPositions();
 
-    // Thêm các phương thức kiểm tra
     $.validator.addMethod("noSpecialChars", function (value, element) {
         return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
     }, "<span class='text-danger'>Username must not contain special characters, spaces, or Vietnamese accented letters.</span>");
@@ -30,7 +33,7 @@ $(function () {
             url: '/account/checkusername', // API URL
             type: 'GET',
             async: false, // Đặt async thành false để đảm bảo giá trị được trả về sau khi AJAX hoàn thành
-            data: { username: value },
+            data: { username: value,id },
             success: function (data) {
                 result = !data.exists; // Nếu username tồn tại, trả về false
             }
@@ -38,19 +41,18 @@ $(function () {
         return result;
     }, "<span class='text-danger'>Username already exists.</span>");
 
-    // Thêm phương thức kiểm tra số điện thoại
     $.validator.addMethod("validPhone", function (value, element) {
         return this.optional(element) || /^\d{10}$/.test(value) && value.startsWith("0");
     }, "<span class='text-danger'>Phone number must be 10 digits long and start with 0.</span>");
 
 
     $.validator.addMethod("checkEmailExist", function (value, element) {
-        var result = false;
+        var result = false;        
         $.ajax({
             url: '/account/checkemail', // API URL
             type: 'GET',
             async: false, // Đặt async thành false để đảm bảo giá trị được trả về sau khi AJAX hoàn thành
-            data: { email: value },
+            data: { email: value,id },
             success: function (data) {
                 result = !data.exists;
             }
@@ -58,18 +60,31 @@ $(function () {
         return result;
     }, "<span class='text-danger'>Email already exists.</span>");
 
-    // Cấu hình validation
-    $("#registration-form").validate({
+    $.validator.addMethod("checkPhoneExist", function (value, element) {
+        var result = false;        
+        $.ajax({
+            url: '/account/checkphone', // API URL
+            type: 'GET',
+            async: false, // Đặt async thành false để đảm bảo giá trị được trả về sau khi AJAX hoàn thành
+            data: { phone: value,id },
+            success: function (data) {
+                result = !data.exists;
+            }
+        });
+        return result;
+    }, "<span class='text-danger'>Phone number already exists.</span>");
+
+    $form.validate({
         rules: {
             username: {
                 required: true,
                 noSpecialChars: true,
-                minlength: 3, // Độ dài tối thiểu là 3
-                checkUsernameExist: true // Thêm phương thức kiểm tra username tồn tại vào quy tắc validate của trường username
+                minlength: 3, 
+                checkUsernameExist: true 
             },
             fullname: {
                 required: true,
-                minlength: 3, // Độ dài tối thiểu là 3
+                minlength: 3
             },
             email: {
                 required: true,
@@ -82,11 +97,12 @@ $(function () {
             },
             confirm_password: {
                 required: true,
-                equalTo: "#txtPassword"
+                equalTo: $txtPassword
             },
             phone: {
                 required: true,
-                validPhone: true
+                validPhone: true,
+                checkPhoneExist:true
             }
         },
         messages: {
@@ -96,7 +112,7 @@ $(function () {
                 minlength: "<span class='text-danger'>Username must be at least 3 characters long.</span>"
             },
             fullname: {
-                required: "<span class='text-danger'>Please enter your fullname.</span>",
+                required: "<span class='text-danger'>Please enter lecturer fullname.</span>",
                 minlength: "<span class='text-danger'>Fullname must be at least 3 characters long.</span>"
             },
             email: {
@@ -107,7 +123,7 @@ $(function () {
                 required: "<span class='text-danger'>Please enter a password.</span>"
             },
             confirm_password: {
-                required: "<span class='text-danger'>Please confirm your password.</span>",
+                required: "<span class='text-danger'>Please confirm lecturer password.</span>",
                 equalTo: "<span class='text-danger'>The passwords do not match.</span>"
             },
             phone: {
@@ -128,12 +144,15 @@ $(function () {
 
 
 
-    // Kiểm tra trạng thái ban đầu của form
-    checkFormState();
+    // Sự kiện khi modal hiện lên
+    $modal.on('shown.bs.modal', function () {
+        console.log(id);
+        checkFormState(); // Kiểm tra trạng thái của form và cập nhật trạng thái của nút submit
+    });
 });
 
 function checkFormState() {
-    if ($("#lecturerform").valid()) {
+    if ($form.valid()) {
         $btnSubmit.show();
     } else {
         $btnSubmit.hide();
@@ -147,16 +166,9 @@ $btnSubmit.click(function () {
     const fullname = $txtFullname.val().trim();
     const username = $txtUsername.val().trim();
     const password = $txtPassword.val().trim();
-    const rpassword = $txtRepeatPassword.val().trim();
     const phone = $txtPhone.val().trim();
     const email = $txtEmail.val().trim();
-
-    // Validate input
-    if (!validateInput(fullname, 'Lecturer fullname can not be blank. Please enter it', $txtFullname)) return;
-    if (!validateInput(username, 'Username can not be blank. Please enter username', $txtUsername)) return;
-    if (!validateInput(password, 'Password can not be blank. Please enter username', $txtPassword)) return;
-    if (!validateInput(rpassword, 'Password does not match the second time.', $txtRepeatPassword)) return;
-    if (!validateInput(email, 'Email can not be blank.', $txtEmail)) return;
+   
 
     // Determine the action (insert or update)
     const action = id == 0 ? 'insert' : 'update';
@@ -164,18 +176,29 @@ $btnSubmit.click(function () {
     const data = { faculty_id, position_id, fullname, username, password, phone, email };
     if (action === 'update') data.id = id;
 
-    // Execute the AJAX call
-    executeAjaxCall(url, data);
+    makeAjaxRequest(url,data,'post')
+    .then(response=>{
+        let rs = JSON.parse(response);
+        if ([200, 201].includes(rs.code)) {
+            showToast(rs.header, rs.msg, rs.icon);
+            $modal.modal('hide');
+            $btnSearch.click();
+        } else {
+            Swal.fire({
+                title: rs.header,
+                text: rs.msg,
+                icon: rs.icon
+            });
+        }
+    })
+    .catch(err=>{
+        console.log(err);
+    })
+
+  
 })
 
-function validateInput(value, message, $element) {
-    if (value.length === 0) {
-        showToast('Validation', message, 'warning');
-        $element.select();
-        return false;
-    }
-    return true;
-}
+
 
 
 $btnSearch.click(function () {
@@ -209,7 +232,7 @@ $btnSearch.click(function () {
         }
     })
 })
-$('#lecturerModal').on('hidden.bs.modal', function () {
+$modal.on('hidden.bs.modal', function () {
     id = 0;
     $txtFullname.val('');
     $txtUsername.val('');
@@ -222,98 +245,72 @@ $('#lecturerModal').on('hidden.bs.modal', function () {
 
 function update_lecturer(id) {
     this.id = id;
-    $.ajax({
-        url: '/admin/lecturer/detail',
-        type: 'get',
-        data: { id },
-        success: function (data) {
-            console.log(data);
-            if (data.code == 200) {
-                $('#lecturerModal').modal();
-                $('#modalTitle').text('Update lecturer info');
-                let l = data.lecturer;
-                $slPositions.val(l.position_id)
-                $txtFullname.val(l.fullname);
-                $txtUsername.val(l.username);
-                $txtUsername.attr("readonly", true);
-                $txtPassword.attr("readonly", true);
-                $txtRepeatPassword.attr("readonly", true);
-                $txtPhone.val(l.phone);
-                $txtEmail.val(l.email);
-            }
+    makeAjaxRequest('/admin/lecturer/detail',{id},'get')
+    .then(data=>{
+        if (data.code == 200) {
+            $modal.modal();
+            $title.text('Update lecturer info');
+            let l = data.lecturer;
+            $slPositions.val(l.position_id)
+            $txtFullname.val(l.fullname);
+            $txtUsername.val(l.username);
+            $txtUsername.attr("readonly", true);
+            $txtPassword.attr("readonly", true);
+            $txtRepeatPassword.attr("readonly", true);
+            $txtPhone.val(l.phone);
+            $txtEmail.val(l.email);
         }
     })
+    .catch(err=>{
+        console.log(err);
+    })   
 }
 function delete_lecturer(id) {
     confirmDiaglog("Are you sure want to delete this lecturer?", "You won't be able to revert this!", "question", "Yes, delete it!", "No, cancel!")
         .then(_ => {
-            executeAjaxCall('/admin/lecturer/delete', { id })
+            makeAjaxRequest('/admin/lecturer/delete', { id },'post')
+            .then(response=>{
+                let rs = JSON.parse(response);
+                if ([200, 201].includes(rs.code)) {
+                    showToast(rs.header, rs.msg, rs.icon);
+                    $modal.modal('hide');
+                    $btnSearch.click();
+                } else {
+                    Swal.fire({
+                        title: rs.header,
+                        text: rs.msg,
+                        icon: rs.icon
+                    });
+                }
+            })
+            .catch(err=>{
+                console.log(err);
+            })
         })
 }
-function executeAjaxCall(url, data) {
-    $.ajax({
-        url: url,
-        type: 'post',
-        data: data,
-        success: function (response) {
-            console.log(response);
-            handleResponse(response);
-        },
-        error: function () {
-            Swal.fire('Error', 'An unexpected error occurred. Please try again later.', 'error');
-        }
-    });
-}
 
-function handleResponse(data) {
-    if ([200, 201].includes(data.code)) {
-        showToast(data.header, data.msg, data.icon);
-        $('#lecturerModal').modal('hide');
-    } else {
-        Swal.fire({
-            title: data.header,
-            text: data.msg,
-            icon: data.icon
-        });
-    }
-    $btnSearch.click();
 
-}
 
 
 function LoadFaculties() {
-    $.ajax({
-        url: '/admin/faculty/select',
-        type: 'get',
-        success: function (data) {
-            $('#slFaculties').empty();
-            data.faculties.forEach(f => {
-                $('#slFaculties').append(`<option value="${f.Id}">${f.Acronym} - ${f.Name}</option>`);
-            })
-            $btnSearch.click();
-        }
-    })
+    makeAjaxRequest('/admin/faculty/select',{},'get')
+    .then(data=>{
+        $slFaculties.empty();
+        data.faculties.forEach(f => {
+            $slFaculties.append(`<option value="${f.Id}">${f.Acronym} - ${f.Name}</option>`);
+        })
+        $btnSearch.click();
+    })    
 }
 
 function LoadPositions() {
-    $.ajax({
-        url: '/admin/position/select',
-        type: 'get',
-        success: function (data) {
-            $('#slPositions').empty();
-            data.positions.forEach(p => {
-                $('#slPositions').append(`<option value = "${p.Id}">${p.Acronym} - ${p.Name}</option>`)
-            })
-        }
+    makeAjaxRequest('/admin/position/select',{},'get')
+    .then(data=>{
+        $slPositions.empty();
+        data.positions.forEach(p => {
+            $slPositions.append(`<option value = "${p.Id}">${p.Acronym} - ${p.Name}</option>`)
+        })
     })
+    
 }
 
-function showToast(heading, text, icon) {
-    $.toast({
-        heading: heading,
-        text: text,
-        icon: icon,
-        loader: true,
-        loaderBg: '#9EC600'
-    });
-}
