@@ -122,7 +122,6 @@ $btnSubmit.click(function () {
     makeAjaxRequest(url, data, 'post')
         .then(data => {
             let rs = JSON.parse(data);
-            console.log(rs);
             if ([200, 201].includes(rs.code)) {
                 showToast(rs.header, rs.msg, rs.icon);
                 $modal.modal('hide');

@@ -31,15 +31,15 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
             return Json(new { code = 200,icon="success",header = "SUCCESSFULLY",semester = rs,msg="Get semester detail successfully"}, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Insert(string name)
+        public JsonResult Insert(string name, int order)
         {
-            var rs = s.Insert(name);
+            var rs = s.Insert(name,order);
             return Json(rs, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(int id, string name)
+        public JsonResult Update(int id, string name,int order)
         {
-            var rs = s.Update(id,name);
+            var rs = s.Update(id,name,order);
             return Json(rs, JsonRequestBehavior.AllowGet);
         }
 

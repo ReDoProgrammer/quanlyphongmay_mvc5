@@ -241,6 +241,7 @@
     <Content Include="Assets\admin\lecturer.js" />
     <Content Include="Assets\admin\position.js" />
     <Content Include="Assets\admin\room.js" />
+    <Content Include="Assets\admin\semester.js" />
     <Content Include="Assets\admin\subject.js" />
     <Content Include="Assets\admin\teaching_progress.js" />
     <Content Include="Assets\defined\account.js" />

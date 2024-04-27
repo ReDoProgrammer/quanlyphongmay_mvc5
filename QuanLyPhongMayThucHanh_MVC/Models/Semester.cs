@@ -13,6 +13,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
     {
         public int id { get; set; }
         public string name { get; set; }
+        public int order { get; set; }
         private List<Semester> ConvertToList(DataTable dt)
         {
             var lst = new List<Semester>();
@@ -21,22 +22,27 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 lst.Add(new Semester
                 {
                     id = int.Parse(r["id"].ToString()),
+                    order = int.Parse(r["order"].ToString()),
                     name = r["name"].ToString()
                 });
             }
             return lst;
         }
 
-        public string Insert(string name)
+        public string Insert(string name, int order)
         {
-            SqlParameter[] prs = { new SqlParameter("@name", name) };
+            SqlParameter[] prs = {
+                new SqlParameter("@name", name),
+                new SqlParameter("@order", order),
+            };
             return (string)ExecuteScalar("semester_insert", prs);
         }
-        public string Update(int id,string name)
+        public string Update(int id,string name, int order)
         {
             SqlParameter[] prs = {
                 new SqlParameter("@id", id),
-                new SqlParameter("@name", name)
+                new SqlParameter("@name", name),
+                new SqlParameter("@order", order)
             };
             return (string)ExecuteScalar("semester_update", prs);
         }
@@ -57,6 +63,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return new Semester
             {
                 id = int.Parse(r["id"].ToString()),
+                order = int.Parse(r["order"].ToString()),
                 name = r["name"].ToString()
             };
         }

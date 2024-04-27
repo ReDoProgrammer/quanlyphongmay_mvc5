@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-md-offset-10 col-md-2 text-right">
-        <button class="btn btn-success" data-toggle="modal" data-target="#positionModal">
+        <button class="btn btn-success" data-toggle="modal" data-target="#semesterModal">
             <i class="fa fa-plus" aria-hidden="true"></i>
             Add new semester
         </button>
@@ -34,24 +34,20 @@
 
         <!-- Modal content-->
         <div class="modal-content">
-            <form id="lecturerform">
+            <form id="semesterForm">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" id="modalTitle">Add new position</h4>
+                    <h4 class="modal-title" id="modalTitle">Add new semester</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-4 form-group">
+                        <div class="col-md-10 form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control" id="txtAcronym" name="acronym" placeholder="Position acronym" />
+                            <input type="text" class="form-control" id="txtName" name="name" placeholder="Semester name" />
                         </div>
-                        <div class="col-md-4 form-group">
-                            <label>From Year</label>
-                            <select class="form-control" id="slFromYear"></select>
-                        </div>
-                        <div class="col-md-4 form-group">
-                            <label>To Year</label>
-                            <select class="form-control" id="slToYear"></select>
+                        <div class="col-md-2 form-group">
+                            <label>Order</label>
+                            <input type="number" name="order" min="1" class="form-control" id="txtOrder"/>
                         </div>
                     </div>
                 </div>
@@ -68,7 +64,7 @@
 
 
 @section scripts{
-    <script src="~/Assets/admin/position.js"></script>
+    <script src="~/Assets/admin/semester.js"></script>
 }
 
 

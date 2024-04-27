@@ -1,5 +1,4 @@
 ﻿var actived_menu = '';
-
 $(function () {
     $('#side-menu li a').click(function () {
         // Lấy giá trị href của thẻ a được click
@@ -22,7 +21,7 @@ function setActiveMenu() {
         $('#side-menu li a[href="' + activeMenuHref + '"]').closest('li').addClass('active');
     }
 }
-function makeAjaxRequest(url, queryParams,type='get') {
+function makeAjaxRequest(url, queryParams, type = 'get') {
     // Nếu queryParams chưa được khai báo, gán một đối tượng trống cho nó
     queryParams = queryParams || {};
 
@@ -49,29 +48,29 @@ function makeAjaxRequest(url, queryParams,type='get') {
     });
 }
 
-    function showToast(heading, text, icon) {
-        $.toast({
-            heading: heading,
-            text: text,
-            icon: icon,
-            loader: true,
-            loaderBg: '#9EC600'
-        });
-    }
+function showToast(heading, text, icon) {
+    $.toast({
+        heading: heading,
+        text: text,
+        icon: icon,
+        loader: true,
+        loaderBg: '#9EC600'
+    });
+}
 
-    function showMessage(header,msg,icon){
-        Swal.fire({
-            title: header,
-            text: msg,
-            icon: icon
-        });
-    }
+function showMessage(header, msg, icon) {
+    Swal.fire({
+        title: header,
+        text: msg,
+        icon: icon
+    });
+}
 
-    function validateInput(value, message, $element) {
-        if (value.length === 0) {
-            showToast('Validation', message, 'warning');
-            $element.select();
-            return false;
-        }
-        return true;
+function validateInput(value, message, $element) {
+    if (value.length === 0) {
+        showToast('Validation', message, 'warning');
+        $element.select();
+        return false;
     }
+    return true;
+}
