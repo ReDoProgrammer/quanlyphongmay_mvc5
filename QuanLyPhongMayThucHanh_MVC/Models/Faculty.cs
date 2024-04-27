@@ -35,17 +35,17 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return lst;
         }
 
-        public int Insert(string acronym, string name)
+        public string Insert(string acronym, string name)
         {
             SqlParameter[] prs =
             {
                 new SqlParameter("@acronym",acronym),
                 new SqlParameter("@name",name)
             };
-            return Convert.ToInt32(ExecuteScalar("faculty_insert",prs));
+            return (string)ExecuteScalar("faculty_insert",prs);
         }
 
-        public int Update(int id,string acronym, string name)
+        public string Update(int id,string acronym, string name)
         {
             SqlParameter[] prs =
             {
@@ -53,15 +53,15 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter("@acronym",acronym),
                 new SqlParameter("@name",name)
             };
-            return ExecuteNonQuery("faculty_update", prs);
+            return (string)ExecuteScalar("faculty_update", prs);
         }
-        public int Delete(int id)
+        public string Delete(int id)
         {
             SqlParameter[] prs =
             {
                 new SqlParameter("@id",id)               
             };
-            return ExecuteNonQuery("faculty_delete", prs);
+            return (string)ExecuteScalar("faculty_delete", prs);
         }
 
         public List<Faculty> Select()
