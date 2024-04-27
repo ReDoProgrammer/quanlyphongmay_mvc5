@@ -25,6 +25,7 @@ const $txtNote = $('#txtNote');
 const $modal = $('#roomModal');
 const $title = $('#modalTitle');
 const $form = $("#roomForm");
+const $table = $('#tblRooms');
 
 $(document).ready(function () {
     SearchRoom();
@@ -221,49 +222,46 @@ function deleteroom(id) {
 }
 
 function SearchRoom() {
-    $.ajax({
-        url: '/admin/room/Search',
-        type: 'get',
-        data: { keyword },
-        success: function (data) {
-            $('#tblRooms').empty();
-            if (data.code == 200) {
-                let idx = 1;
-                data.rooms.forEach(r => {
-                    $('#tblRooms').append(`
-                        <tr id = "${r.Id}">
-                            <td>${idx++}</td>
-                            <td class="font-weight-bold">${r.Name}</td>
-                            <td>${r.Location}</td>
-                            <td>${r.NumberOfPC}</td>
-                            <td>${r.Monitor}</td>
-                            <td>${r.Mainboard}</td>
-                            <td>${r.CPU}</td>
-                            <td>${r.RAM}</td>
-                            <td>${r.VGA}</td>
-                            <td>${r.SSD}</td>
-                            <td>${r.HDD}</td>
-                            <td>${r.Keyboard}</td>
-                            <td>${r.Mouse}</td>
-                            <td>${r.Headphone}</td>
-                            <td>${r.Speaker}</td>
-                            <td>${r.PSU}</td>
-                            <td>${r.Status}</td>
-                            <td>${r.Note}</td>
-                            <td>
-                                <a  href="javascript:void(0)" onclick="updateroom(${r.Id})">
-                                    <i class="fa fa-edit text-warning"></i>
-                                </a>
-                                <a  href="javascript:void(0)" onclick="deleteroom(${r.Id})">
-                                <i class="fa fa-trash-o text-danger"></i>
-                                </a>
-                            </td>
-                        </tr> 
-                    `);
-                });
-            }
+    makeAjaxRequest('/admin/room/search',{keyword},'get')
+    .then(data=>{
+        console.log(data);
+        $table.empty();
+        if (data.code == 200) {
+            let idx = 1;
+            data.rooms.forEach(r => {
+                $table.append(`
+                    <tr id = "${r.Id}">
+                        <td>${idx++}</td>
+                        <td class="font-weight-bold">${r.Name}</td>
+                        <td>${r.Location}</td>
+                        <td class="text-right">${r.NumberOfPC}</td>
+                        <td class="text-right">${r.NumberOfPC-r.Broken}/${r.NumberOfPC}</td>
+                        <td>${r.Monitor}</td>
+                        <td>${r.Mainboard}</td>
+                        <td>${r.CPU}</td>
+                        <td>${r.RAM}</td>
+                        <td>${r.VGA}</td>
+                        <td>${r.SSD}</td>
+                        <td>${r.HDD}</td>
+                        <td>${r.Keyboard}</td>
+                        <td>${r.Mouse}</td>
+                        <td>${r.Headphone}</td>
+                        <td>${r.Speaker}</td>
+                        <td>${r.PSU}</td>
+                        <td>${r.Status}</td>
+                        <td>${r.Note}</td>
+                        <td>
+                            <a  href="javascript:void(0)" onclick="updateroom(${r.Id})">
+                                <i class="fa fa-edit text-warning"></i>
+                            </a>
+                            <a  href="javascript:void(0)" onclick="deleteroom(${r.Id})">
+                            <i class="fa fa-trash-o text-danger"></i>
+                            </a>
+                        </td>
+                    </tr> 
+                `);
+            });
         }
-
     })
 }
 
