@@ -9,7 +9,7 @@ using System.Web;
 
 namespace QuanLyPhongMayThucHanh_MVC.Models
 {
-    public class TeachingProgress:DB
+    public class TeachingProgress : DB
     {
         public int Id { get; set; }
         public int LecturerId { get; set; }
@@ -56,11 +56,11 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return lst;
         }
 
-        
+
 
         public List<TeachingProgress> Filter(int lecturer_id, int subject_id, int semester_id, string school_year, int classroom_id, string keyword, int page)
         {
-           
+
             try
             {
                 SqlParameter[] prs =
@@ -73,14 +73,14 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter("@keyword",keyword),
                 new SqlParameter("@page",page)
             };
-                return ConvertToList(ExecuteQuery("tp_filter",prs));
+                return ConvertToList(ExecuteQuery("tp_filter", prs));
             }
             catch (Exception ex)
             {
                 return null;
             }
         }
-        public int TotalPages(int lecturer_id, int subject_id, int semester_id, string school_year, int classroom_id, string keyword, int page)
+        public string TotalPages(int lecturer_id, int subject_id, int semester_id, string school_year, int classroom_id, string keyword, int page_size)
         {
 
             try
@@ -93,17 +93,18 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter("@school_year",school_year),
                 new SqlParameter("@classroom_id",classroom_id),
                 new SqlParameter("@keyword",keyword),
-                new SqlParameter("@page",page)
+                new SqlParameter("@page_size",page_size),
             };
-                return Convert.ToInt32(ExecuteScalar("tp_filter_pages", prs));
+                return (string)ExecuteScalar("[tp_total_pages]", prs);
+
             }
             catch (Exception ex)
             {
-                return -1;
+                return ex.Message;
             }
         }
 
-        public string Create(int lecturer_id, int subject_id, int semester_id, string school_year,int number_of_students,int classroom_id)
+        public string Create(int lecturer_id, int subject_id, int semester_id, string school_year, int number_of_students, int classroom_id)
         {
             try
             {
@@ -124,7 +125,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             }
         }
 
-        public string Update(int id,int lecturer_id, int subject_id, int semester_id, string school_year, int number_of_students, int classroom_id)
+        public string Update(int id, int lecturer_id, int subject_id, int semester_id, string school_year, int number_of_students, int classroom_id)
         {
             try
             {
@@ -150,7 +151,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         {
             try
             {
-                SqlParameter[] prs ={new SqlParameter("@id",id)};
+                SqlParameter[] prs = { new SqlParameter("@id", id) };
                 return (string)ExecuteScalar("[tp_delete]", prs);
             }
             catch (Exception ex)
@@ -162,7 +163,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         public TeachingProgress Detail(int id)
         {
             SqlParameter[] prs = { new SqlParameter("@id", id) };
-            var r = ExecuteQuery("tp_detail",prs).Rows[0];
+            var r = ExecuteQuery("tp_detail", prs).Rows[0];
             if (r == null) return null;
             return new TeachingProgress
             {

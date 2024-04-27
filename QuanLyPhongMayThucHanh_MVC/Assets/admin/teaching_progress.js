@@ -18,6 +18,7 @@ const $txtNumberOfStudents = $('#txtNumberOfStudents');
 const $txtKeyword = $('#txtKeyword');
 const $btnSearch = $('#btnSearch');
 const $pagination = $('#pagination');
+const $slPageSize = $('#slPageSize');
 var id = 0;
 var page = 1;
 const $tblProgresses = $('#tblProgresses');
@@ -106,10 +107,24 @@ function update_progress(id) {
 function delete_progress(id) {
     confirmDiaglog("Are you sure want to delete this teaching progress?", "You won't be able to revert this!", "question", "Yes, delete it!", "No, cancel!")
     .then(_=>{
-        executeAjaxCall('/admin/teachingprogress/delete', {id},'post') 
-        .then(data=>{
-            console.log(data);
+        makeAjaxRequest('/admin/teachingprogress/delete', {id},'post') 
+        .then(response=>{
+            let rs = JSON.parse(response);
+        if ([200, 201].includes(rs.code)) {
+            showToast(rs.header, rs.msg, rs.icon);
+            $modal.modal('hide');
+            $btnSearch.click();
+        } else {
+            Swal.fire({
+                title: rs.header,
+                text: rs.msg,
+                icon: rs.icon
+            });
+        }
         })
+    })
+    .catch(err=>{
+        console.log(err);
     })
 }
 
@@ -153,7 +168,24 @@ $btnSubmit.click(function () {
         classroom_id: $slClassRooms.val()
     };
     if (action === 'update') data.id = id;
-    executeAjaxCall(url, data);
+    makeAjaxRequest(url, data,'post')
+    .then(response=>{
+        let rs = JSON.parse(response);
+        if ([200, 201].includes(rs.code)) {
+            showToast(rs.header, rs.msg, rs.icon);
+            $modal.modal('hide');
+            $btnSearch.click();
+        } else {
+            Swal.fire({
+                title: rs.header,
+                text: rs.msg,
+                icon: rs.icon
+            });
+        }
+    })
+    .catch(err=>{
+        console.log(err);
+    })
 })
 
 $btnSearch.click(function () {
@@ -165,14 +197,16 @@ $btnSearch.click(function () {
         school_year: $slSchoolYears1.val() ? $slSchoolYears1.val() : 0,
         classroom_id: $slClassRooms1.val() ? $slClassRooms1.val() : 0,
         keyword: $txtKeyword.val().trim(),
-        page: page
+        page: page,
+        page_size: $slPageSize.val()
     };
     makeAjaxRequest(url, data, 'get')
         .then(data => {
             console.log(data);
+            let pages = JSON.parse(data.pages);           
             $tblProgresses.empty();
             $pagination.empty();
-            for (i = 1; i <= data.pages; i++) {
+            for (i = 1; i <= pages.total_pages; i++) {
                 $pagination.append(`<li class="${page == i ? 'active' : ''}"><a href="#">${i}</a></li>`);
             }
             let idx = (page - 1) * 10;
@@ -226,28 +260,4 @@ $slFaculties.on('change', function () {
         })
 })
 
-function executeAjaxCall(url, data) {
-    makeAjaxRequest(url, data, 'post')
-        .then(response => {
-            handleResponse(response);
-        })
-        .catch(err => {
-            Swal.fire('Error', 'An unexpected error occurred. Please try again later.', 'error');
-        })
-}
 
-function handleResponse(data) {
-    if ([200, 201].includes(data.code)) {
-        $.toast({
-            heading: data.header,
-            text: data.msg,
-            icon: data.icon,
-            loader: true,
-            loaderBg: '#9EC600'
-        });
-        $modal.modal('hide');
-        this.id = 0;
-    }
-    $btnSearch.click();
-
-}
