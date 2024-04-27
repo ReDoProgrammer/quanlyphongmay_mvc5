@@ -71,7 +71,9 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 Speaker = r["Speaker"].ToString(),
                 RAM = r["RAM"].ToString(),
                 HDD = r["HDD"].ToString(),
-                SSD = r["SSD"].ToString()
+                SSD = r["SSD"].ToString(),
+                StatusId = int.Parse(r["status_id"].ToString())
+
             };
             return room;
         }

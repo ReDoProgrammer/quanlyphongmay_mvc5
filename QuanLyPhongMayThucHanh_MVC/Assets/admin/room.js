@@ -35,10 +35,10 @@ $(document).ready(function () {
             name: { required: true },
             location: { required: true },
             numberpc: { required: true, min: 1 },
-            activepc:{
+            activepc: {
                 required: true,
                 number: true,
-                max: function() {
+                max: function () {
                     return $txtNumberOfPC.val();
                 }
             },
@@ -60,8 +60,8 @@ $(document).ready(function () {
                 required: "<span class='text-danger'>Please enter the number of PCs that belong to this room.</span>",
                 min: "<span class='text-danger'>Must be at least 1.</span>"
             },
-            activepc:{
-               
+            activepc: {
+
 
                 required: "<span class='text-danger'>Can not be blank</span>",
                 number: "<span class='text-danger'>Only positive integers.</span>",
@@ -115,7 +115,7 @@ $btnSubmit.click(function () {
     let psu = $txtPSU.val();
     let note = $txtNote.val();
     let status_id = $slRoomStatuses.val();
-    let data = { name, location, number_of_pc,activepc, monitor, mainboard, cpu, ram, vga, ssd, hdd, keyboard, mouse, headphone, speaker, psu, note , status_id}
+    let data = { name, location, number_of_pc, activepc, monitor, mainboard, cpu, ram, vga, ssd, hdd, keyboard, mouse, headphone, speaker, psu, note, status_id }
     if (id != 0) data.id = id;
     let action = id == 0 ? 'insert' : 'update';
     let url = `/admin/room/${action}`;
@@ -170,18 +170,16 @@ $modal.on('hidden.bs.modal', function () {
 
 function updateroom(id) {
     this.id = id;
-    $('#modalTitle').text('Update room info');
-    $.ajax({
-        url: '/admin/room/detail',
-        type: 'get',
-        data: { id },
-        success: function (data) {
+    $title.text('Update room info');
+    makeAjaxRequest('/admin/room/detail', { id }, 'get')
+        .then(data => {
             if (data.code == 200) {
                 $modal.modal();
                 let r = data.room;
                 $txtName.val(r.Name);
                 $txtLocation.val(r.Location);
                 $txtNumberOfPC.val(r.NumberOfPC);
+                $txtActivePC.val(r.NumberOfPC - r.Broken);
                 $txtMonitor.val(r.Monitor);
                 $txtMainboard.val(r.Mainboard);
                 $txtCPU.val(r.CPU);
@@ -195,47 +193,45 @@ function updateroom(id) {
                 $txtSpeaker.val(r.Speaker);
                 $txtPSU.val(r.PSU);
                 $txtNote.val(r.Note);
+                $slRoomStatuses.val(r.StatusId);
             }
-        }
-    })
-
+        })
 }
 
 function deleteroom(id) {
     confirmDiaglog("Are you sure want to delete this room?", "You won't be able to revert this!", "question", "Yes, delete it!", "No, cancel!")
         .then(_ => {
-            makeAjaxRequest('/admin/room/delete',{id},'post')
-            .then(data=>{
-                let rs = JSON.parse(data);
-                if ([200, 201].includes(rs.code)) {
-                    showToast(rs.header, rs.msg, rs.icon);
-                } else {
-                    Swal.fire({
-                        title: rs.header,
-                        text: rs.msg,
-                        icon: rs.icon
-                    });
-                }
-                $btnSearch.click();
-            })
+            makeAjaxRequest('/admin/room/delete', { id }, 'post')
+                .then(data => {
+                    let rs = JSON.parse(data);
+                    if ([200, 201].includes(rs.code)) {
+                        showToast(rs.header, rs.msg, rs.icon);
+                    } else {
+                        Swal.fire({
+                            title: rs.header,
+                            text: rs.msg,
+                            icon: rs.icon
+                        });
+                    }
+                    $btnSearch.click();
+                })
         })
 }
 
 function SearchRoom() {
-    makeAjaxRequest('/admin/room/search',{keyword},'get')
-    .then(data=>{
-        console.log(data);
-        $table.empty();
-        if (data.code == 200) {
-            let idx = 1;
-            data.rooms.forEach(r => {
-                $table.append(`
+    makeAjaxRequest('/admin/room/search', { keyword }, 'get')
+        .then(data => {
+            $table.empty();
+            if (data.code == 200) {
+                let idx = 1;
+                data.rooms.forEach(r => {
+                    $table.append(`
                     <tr id = "${r.Id}">
                         <td>${idx++}</td>
                         <td class="font-weight-bold">${r.Name}</td>
                         <td>${r.Location}</td>
                         <td class="text-right">${r.NumberOfPC}</td>
-                        <td class="text-right">${r.NumberOfPC-r.Broken}/${r.NumberOfPC}</td>
+                        <td class="text-right">${r.NumberOfPC - r.Broken}/${r.NumberOfPC}</td>
                         <td>${r.Monitor}</td>
                         <td>${r.Mainboard}</td>
                         <td>${r.CPU}</td>
@@ -260,9 +256,9 @@ function SearchRoom() {
                         </td>
                     </tr> 
                 `);
-            });
-        }
-    })
+                });
+            }
+        })
 }
 
 function checkFormState() {
@@ -273,28 +269,28 @@ function checkFormState() {
     }
 }
 
-function loadroomstatus(){
+function loadroomstatus() {
     $slRoomStatuses.empty();
-    makeAjaxRequest('/admin/roomstatus/select',{},'get')
-    .then(data=>{
-        if(data.code == 200){
-            data.statuses.forEach(s=>{
-                $slRoomStatuses.append(`<option value="${s.Id}">${s.Name}</option>`);
-            })
-        }
-    })
-    .catch(err=>{
-        console.log(err);
-    })
+    makeAjaxRequest('/admin/roomstatus/select', {}, 'get')
+        .then(data => {
+            if (data.code == 200) {
+                data.statuses.forEach(s => {
+                    $slRoomStatuses.append(`<option value="${s.Id}">${s.Name}</option>`);
+                })
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
-$txtNumberOfPC.on('input', function(event){
+$txtNumberOfPC.on('input', function (event) {
     // Kiểm tra xem phím đã được nhấn có phải là số hay không
     var charCode = (event.which) ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
         // Không phải số, ngăn người dùng nhập ký tự
         event.preventDefault();
-    }else{
+    } else {
         $txtActivePC.val($txtNumberOfPC.val())
     }
 });
