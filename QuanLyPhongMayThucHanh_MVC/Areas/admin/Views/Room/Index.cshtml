@@ -8,18 +8,10 @@
 }
 
 <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-offset-6 col-md-4">
         <div class="input-group">
-            <div class="input-group-btn">
-                <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">All</a></li>
-                    <li><a href="#">Free</a></li>
-                    <li><a href="#">Busy</a></li>                  
-                </ul>
-            </div>
             <input type="text" class="form-control" id="txtKeyword">
-            <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch"><i class="fa fa-search" aria-hidden="true"></i> Search</button></span>
+            <span class="input-group-btn"><button type="button" class="btn btn-info" id="btnSearch"><i class="fa fa-search" aria-hidden="true"></i> Search</button></span>
         </div>
     </div>
     <div class="col-md-2 text-right">
@@ -65,97 +57,107 @@
 
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="modalTitle">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control" id="txtName"/>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Location</label>
-                        <input type="text" class="form-control" id="txtLocation" />
-                    </div>
+            <form id="roomForm">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="modalTitle">Create a new room</h4>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label>Number Of PC</label>
-                        <input type="number" min="1" class="form-control" id="txtNumberOfPC" />
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" name="name" id="txtName" placeholder="Room name" />
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Location</label>
+                            <input type="text" class="form-control" name="location" id="txtLocation" placeholder="Location of the room" />
+                        </div>
                     </div>
-                    <div class="col-md-6 form-group">
-                        <label>Monitor</label>
-                        <input type="text" class="form-control" id="txtMonitor" />
+                    <div class="row">
+                        <div class="col-md-2 form-group">
+                            <label>Number Of PC</label>
+                            <input type="number" min="1" name="numberpc" class="form-control" id="txtNumberOfPC" />
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label>Active</label>
+                            <input type="number" min="1" name="activepc" class="form-control" id="txtActivePC" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>Room Status</label>
+                            <select class="form-control" id="slRoomStatuses"></select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>Monitor</label>
+                            <input type="text" class="form-control" id="txtMonitor" name="monitor" placeholder="Monitor info" />
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label>Mainboard</label>
-                        <input type="text" class="form-control" id="txtMainboard" />
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label>Mainboard</label>
+                            <input type="text" class="form-control" id="txtMainboard" name="mainboard" placeholder="Mainboard info" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>CPU</label>
+                            <input type="text" class="form-control" id="txtCPU" placeholder="CPU info" name="cpu" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>RAM</label>
+                            <input type="text" class="form-control" id="txtRAM" placeholder="RAM info" name="ram" />
+                        </div>
                     </div>
-                    <div class="col-md-6 form-group">
-                        <label>CPU</label>
-                        <input type="text" class="form-control" id="txtCPU" />
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label>VGA</label>
+                            <input type="text" class="form-control" id="txtVGA" placeholder="VGA info" name="vga"/>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>SSD</label>
+                            <input type="text" class="form-control" id="txtSSD" placeholder="SSD info" name="ssd"/>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>HDD</label>
+                            <input type="text" class="form-control" id="txtHDD" placeholder="HDD info" name="hdd"/>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label>RAM</label>
-                        <input type="text" class="form-control" id="txtRAM" />
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>VGA</label>
-                        <input type="text" class="form-control" id="txtVGA" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label>SSD</label>
-                        <input type="text" class="form-control" id="txtSSD" />
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>HDD</label>
-                        <input type="text" class="form-control" id="txtHDD" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label>Keyboard</label>
-                        <input type="text" class="form-control" id="txtKeyboard" />
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Mouse</label>
-                        <input type="text" class="form-control" id="txtMouse" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label>Headphone</label>
-                        <input type="text" class="form-control" id="txtHeadphone" />
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Speaker</label>
-                        <input type="text" class="form-control" id="txtSpeaker" />
-                    </div>
-                </div>
+                    <div class="row">
 
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label>PSU</label>
-                        <input type="text" class="form-control" id="txtPSU" />
                     </div>
-                    <div class="col-md-6 form-group">
-                        <label>Note</label>
-                        <input type="text" class="form-control" id="txtNote" />
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label>Keyboard</label>
+                            <input type="text" class="form-control" id="txtKeyboard" placeholder="Keyboard info" name="keyboard"/>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Mouse</label>
+                            <input type="text" class="form-control" id="txtMouse" placeholder="Mouse info" name="mouse"/>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Headphone</label>
+                            <input type="text" class="form-control" id="txtHeadphone" placeholder="Headphone info" name="headphone"/>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Speaker</label>
+                            <input type="text" class="form-control" id="txtSpeaker" placeholder="Speaker info" name="speaker" />
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>PSU</label>
+                            <input type="text" class="form-control" id="txtPSU" placeholder="PSU info" name="psu"/>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Note</label>
+                            <input type="text" class="form-control" id="txtNote" placeholder="Remark" name="remark"/>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="btnSubmit">Submit changes</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btnSubmit">Submit changes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
         </div>
 
     </div>

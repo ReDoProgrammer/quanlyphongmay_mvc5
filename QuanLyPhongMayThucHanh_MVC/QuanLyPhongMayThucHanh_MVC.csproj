@@ -204,6 +204,7 @@
     <Compile Include="Areas\admin\Controllers\LecturerController.cs" />
     <Compile Include="Areas\admin\Controllers\PositionController.cs" />
     <Compile Include="Areas\admin\Controllers\RoomController.cs" />
+    <Compile Include="Areas\admin\Controllers\RoomStatusController.cs" />
     <Compile Include="Areas\admin\Controllers\SemesterController.cs" />
     <Compile Include="Areas\admin\Controllers\StatisticController.cs" />
     <Compile Include="Areas\admin\Controllers\SubjectController.cs" />
@@ -227,6 +228,7 @@
     <Compile Include="Models\PCRoom.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\PracticeSchedule.cs" />
+    <Compile Include="Models\RoomStatus.cs" />
     <Compile Include="Models\Semester.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\TeachingProgress.cs" />
@@ -400,8 +402,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\admin\Models\" />
     <Folder Include="Areas\admin\Views\ClassRoom\" />
+    <Folder Include="Areas\admin\Views\RoomStatus\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ClassPeriod\" />
     <Folder Include="Views\Subject\" />

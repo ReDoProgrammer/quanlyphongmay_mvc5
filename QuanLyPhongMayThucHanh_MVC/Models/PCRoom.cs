@@ -76,12 +76,13 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return room;
         }
 
-        public int Insert(string name, string location, int number_of_pc, string monitor, string mainboard, string cpu, string ram, string vga, string ssd, string hdd, string keyboard, string mouse, string headphone, string speaker, string psu, string note)
+        public string Insert(string name, string location, int number_of_pc,int activepc, string monitor, string mainboard, string cpu, string ram, string vga, string ssd, string hdd, string keyboard, string mouse, string headphone, string speaker, string psu, string note,int status_id)
         {
             SqlParameter[] prs =
             {
                 new SqlParameter ("@name",name),
                 new SqlParameter ("@number_of_pc",number_of_pc),
+                new SqlParameter ("@activepc",activepc),
                 new SqlParameter ("@location",location),
                 new SqlParameter ("@note",note),
                 new SqlParameter ("@CPU",cpu),
@@ -95,20 +96,22 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter ("@Speaker",speaker),
                 new SqlParameter ("@RAM",ram),
                 new SqlParameter ("@HDD",hdd),
-                new SqlParameter ("@SSD",ssd)
+                new SqlParameter ("@SSD",ssd),
+                new SqlParameter ("@status_id",status_id)
             };
-            return (int)ExecuteScalar("[room_insert]", prs);
+            return (string)ExecuteScalar("[room_insert]", prs);
 
         }
 
 
-        public int Update(int id,string name, string location, int number_of_pc, string monitor, string mainboard, string cpu, string ram, string vga, string ssd, string hdd, string keyboard, string mouse, string headphone, string speaker, string psu, string note)
+        public string Update(int id,string name, string location, int number_of_pc,int activepc, string monitor, string mainboard, string cpu, string ram, string vga, string ssd, string hdd, string keyboard, string mouse, string headphone, string speaker, string psu, string note,int status_id)
         {
             SqlParameter[] prs =
             {
                 new SqlParameter ("@id",id),
                 new SqlParameter ("@name",name),
                 new SqlParameter ("@number_of_pc",number_of_pc),
+                new SqlParameter ("@activepc",activepc),
                 new SqlParameter ("@location",location),
                 new SqlParameter ("@note",note),
                 new SqlParameter ("@CPU",cpu),
@@ -122,18 +125,19 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter ("@Speaker",speaker),
                 new SqlParameter ("@RAM",ram),
                 new SqlParameter ("@HDD",hdd),
-                new SqlParameter ("@SSD",ssd)
+                new SqlParameter ("@SSD",ssd),
+                new SqlParameter ("@status_id",status_id)
             };
-            return ExecuteNonQuery("[room_update]", prs);
+            return (string)ExecuteScalar("[room_update]", prs);
 
         }
-        public int Delete(int id)
+        public string Delete(int id)
         {
             SqlParameter[] prs =
             {
                 new SqlParameter("@id",id)
             };
-            return ExecuteNonQuery("[room_delete]", prs);
+            return (string)ExecuteScalar("[room_delete]", prs);
         }
 
         private List<PCRoom> ConvertToList(DataTable dt)
