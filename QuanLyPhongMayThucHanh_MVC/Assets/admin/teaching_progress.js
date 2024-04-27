@@ -262,6 +262,7 @@ $slFaculties.on('change', function () {
 
 $slPageSize.on('change',function(){
     page = 1;
+    $btnSearch.click();
 })
 
 

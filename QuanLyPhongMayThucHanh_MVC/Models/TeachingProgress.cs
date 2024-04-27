@@ -58,7 +58,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
 
 
 
-        public List<TeachingProgress> Filter(int lecturer_id, int subject_id, int semester_id, string school_year, int classroom_id, string keyword, int page)
+        public List<TeachingProgress> Filter(int lecturer_id, int subject_id, int semester_id, string school_year, int classroom_id, string keyword, int page,int page_size)
         {
 
             try
@@ -71,7 +71,8 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter("@school_year",school_year),
                 new SqlParameter("@classroom_id",classroom_id),
                 new SqlParameter("@keyword",keyword),
-                new SqlParameter("@page",page)
+                new SqlParameter("@page",page),
+                new SqlParameter("@rows_per_page",page_size),
             };
                 return ConvertToList(ExecuteQuery("tp_filter", prs));
             }
