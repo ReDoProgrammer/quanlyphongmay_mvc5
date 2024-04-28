@@ -374,6 +374,7 @@
     <Content Include="Assets\styles\style-responsive.css" />
     <Content Include="Assets\styles\zabuto_calendar.min.css" />
     <Content Include="Assets\tmp\admin.html" />
+    <Content Include="Assets\tmp\lecturer_accepted.html" />
     <Content Include="Assets\tmp\lecturer_cancel.html" />
     <Content Include="Assets\tmp\lecturer.html" />
     <Content Include="favicon.ico" />

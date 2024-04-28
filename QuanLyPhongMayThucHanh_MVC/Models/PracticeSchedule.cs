@@ -13,6 +13,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         public string Room { get; set; }
         public string Subject { get; set; }
         public string Lecturer { get; set; }
+        public string LecturerEmail { get; set; }
         public string ClassPeriod { get; set; }
         public string Note { get; set; }
         public string Status { get; set; }
@@ -103,7 +104,8 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 Id = long.Parse(r["id"].ToString()),
                 Room = r["room"].ToString(),
                 Subject = r["subject"].ToString(),
-                Lecturer = r["subject"].ToString(),
+                Lecturer = r["lecturer"].ToString(),
+                LecturerEmail = r["lecturer_email"].ToString(),
                 ClassPeriod = r["period"].ToString(),
                 StartDate = r["start_date"].ToString(),
                 EndDate = r["end_date"].ToString(),

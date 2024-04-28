@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <div class="center">
+        <h1 class="text-center fw-bold text-warning">PC LAB BOOKING</h1>
+        <h4 class="text-center">#{{Id}}</h4>
+        <h5>Dear <span class="text-info fw-bold">{{Lecturer}}</span>, The PC LAB room that you have booked has been accepted</h5>
+    </div>
+    
+    <div class="div-table center">
+        <table>
+            <tr>
+                <td class="fw-bold">Room</td>
+                <td class="text-info">{{Room}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Subject</td>
+                <td class="text-info"> {{Subject}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Class period</td>
+                <td class="text-info"> {{ClassPeriod}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Start time</td>
+                <td class="text-info"> {{StartTime}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">End time</td>
+                <td class="text-info"> {{EndTime}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Remark</td>
+                <td class="text-info"> {{Remark}}</td>
+            </tr>
+        </table>
+        <h5 style="text-align: right; padding-right:20px;">Best wishes!</h5>
+        <h4 style="text-align: right; padding-right:24px;">PCLAB</h4>
+    </div>
+
+
+
+
+
+
+</body>
+
+</html>
+
+<style>
+    .text-warning{
+        color:indianred
+    }
+    .text-info{
+        color:teal
+    }
+    div {
+        width: 50%;
+
+    }
+
+    .center {
+        margin: auto;
+    }
+
+    .div-table {
+        width: 51%;
+        margin-top: 10px;
+    }
+
+
+    .text-center {
+        text-align: center;
+    }
+
+    .fw-bold {
+        font-weight: bold;
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid;
+        padding: 10px 5px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+</style>
