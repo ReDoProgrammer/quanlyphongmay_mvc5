@@ -10,6 +10,12 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
 {
     public class HomeController : BaseController
     {
+        private Summary s;
+        public HomeController()
+        {
+            s = new Summary();
+        }
+
         // GET: admin/Home
         public ActionResult Index()
         {
@@ -27,6 +33,11 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
         public ActionResult RenderSideMenu()
         {
             return PartialView("_SideMenu");
+        }
+
+        public JsonResult Summary()
+        {
+            return Json(new { code = 200, icon = "success", header = "Statistic summary successfully!", summary = s.GetSummary() }, JsonRequestBehavior.AllowGet);
         }
     }
 }

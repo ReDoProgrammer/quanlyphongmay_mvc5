@@ -4,5 +4,306 @@
     Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div id="tab-general">
+    <div id="sum_box" class="row mbl">
+        <div class="col-sm-2 col-md-2">
+            <div class="panel visit db mbm">
+                <div class="panel-body">
+                    <p class="icon">
+                        <i class="icon fa fa-graduation-cap"></i>
+                    </p>
+                    <h4 class="value">
+                        <span id="spTotalFaculties"></span>
+                    </h4>
+                    <p class="description">
+                        Falcuties
+                    </p>                   
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-2 col-md-2">
+            <div class="panel income db mbm">
+                <div class="panel-body">
+                    <p class="icon">
+                        <i class="icon icon-users"></i>
+                    </p>
+                    <h4 class="value">
+                        <span id="spTotalOfStudents"></span>
+                    </h4>
+                    <p class="description">
+                        Students
+                    </p>                    
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-2 col-md-2 block-space">
+            <div class="panel task db mbm">
+                <div class="panel-body">
+                    <p class="icon">
+                        <i class="icon fa fa-building-o" aria-hidden="true"></i>
+                    </p>
+                    <h4 class="value">
+                        <span id="spTotalClasses"></span>
+                    </h4>
+                    <p class="description">
+                        Classes
+                    </p>                    
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-2 col-md-2 block-space">
+            <div class="panel visit db mbm">
+                <div class="panel-body">
+                    <p class="icon">
+                        <i class="icon icon-users"></i>
+                    </p>
+                    <h4 class="value">
+                        <span id="spTotalLecturers"></span>
+                    </h4>
+                    <p class="description">
+                        Lecturers
+                    </p>                    
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-2 col-md-2 block-space">
+            <div class="panel income db mbm">
+                <div class="panel-body">
+                    <p class="icon">
+                        <i class="icon fa fa-desktop" aria-hidden="true"></i>
+                    </p>
+                    <h4 class="value">
+                        <span id="spActivePC"></span>
+                    </h4>
+                    <p class="description">
+                        Active Computers
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-2 col-md-2 block-space">
+            <div class="panel task db mbm">
+                <div class="panel-body">
+                    <p class="icon">
+                        <i class="icon fa fa-book" aria-hidden="true"></i>
+                    </p>
+                    <h4 class="value">
+                        <span id="spTotalSubjects"></span>
+                    </h4>
+                    <p class="description">
+                        Subjects
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row mbl">
+        <div class="col-lg-12 block-space">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4 class="mbs">
+                                Network Performance
+                            </h4>
+                            <p class="help-block">
+                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem...
+                            </p>
+                            <div id="area-chart-spline" style="width: 100%; height: 300px; padding: 0px; position: relative;">
+                                <canvas class="flot-base" width="506" height="300" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 506px; height: 300px;"></canvas><div class="flot-text" style="position: absolute; inset: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; inset: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 284px; left: 17px;">Jan</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 284px; left: 94px;">Feb</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 284px; left: 172px;">Mar</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 284px; left: 251px;">Apr</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 284px; left: 328px;">May</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 284px; left: 409px;">Jun</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 284px; left: 489px;">Jul</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; inset: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 272px; left: 14px;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 233px; left: 8px;">25</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 195px; left: 8px;">50</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 156px; left: 8px;">75</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 118px; left: 1px;">100</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 79px; left: 1px;">125</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 41px; left: 1px;">150</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 3px; left: 1px;">175</div></div></div><canvas class="flot-overlay" width="506" height="300" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 506px; height: 300px;"></canvas><div class="legend"><div style="position: absolute; width: 70px; height: 40px; top: 15px; right: 16px; background-color: rgb(255, 255, 255); opacity: 0.85;"> </div><table style="position:absolute;top:15px;right:16px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #66b0ea;overflow:hidden"></div></div></td><td class="legendLabel">Upload</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #3f516b;overflow:hidden"></div></div></td><td class="legendLabel">Download</td></tr></tbody></table></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="mbm">
+                                Server Status
+                            </h4>
+                            <span class="task-item">
+                                CPU Usage (25 - 32 cpus)<small class="pull-right text-muted">40%</small><div class="progress progress-sm">
+                                    <div role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;" class="progress-bar progress-bar-orange">
+                                        <span class="sr-only">40% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </span><span>
+                                Memory Usage (2.5GB)<small class="pull-right text-muted">60%</small><div class="progress progress-sm">
+                                    <div role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;" class="progress-bar progress-bar-blue">
+                                        <span class="sr-only">60% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </span><span>
+                                Disk Usage (C:\ 120GB , D:\ 430GB)<small class="pull-right text-muted">55%</small><div class="progress progress-sm">
+                                    <div role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" style="width: 55%;" class="progress-bar progress-bar-green">
+                                        <span class="sr-only">55% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </span><span>
+                                Domain (2/5)<small class="pull-right text-muted">66%</small><div class="progress progress-sm">
+                                    <div role="progressbar" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100" style="width: 66%;" class="progress-bar progress-bar-yellow">
+                                        <span class="sr-only">66% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </span><span>
+                                Database (90/100)<small class="pull-right text-muted">90%</small><div class="progress progress-sm">
+                                    <div role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;" class="progress-bar progress-bar-pink">
+                                        <span class="sr-only">90% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </span><span>
+                                Email Account (25/50)<small class="pull-right text-muted">50%</small><div class="progress progress-sm">
+                                    <div role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;" class="progress-bar progress-bar-violet">
+                                        <span class="sr-only">50% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mbl">
+        <div class="col-lg-12">
+            <div class="portlet box">
+                <div class="portlet-header">
+                    <div class="caption">
+                        Todo List
+                    </div>
+                </div>
+                <div style="overflow: hidden;" class="portlet-body">
+                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: 100%; height: 250px;">
+                        <ul class="todo-list sortable ui-sortable" style="overflow: hidden; width: 100%; height: 250px;">
+                            <li class="clearfix">
+                                <span class="drag-drop"><i></i></span>
+                                <div class="todo-check pull-left">
+                                    <div class="icheckbox_minimal-grey" style="position: relative;"><input type="checkbox" value="" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                </div>
+                                <div class="todo-title">
+                                    Sed ut perspiciatis unde omnis iste
+                                </div>
+                                <div class="todo-actions pull-right clearfix">
+                                    <a href="#" class="todo-complete"><i class="fa fa-check"></i></a><a href="#" class="todo-edit">
+                                        <i class="fa fa-edit"></i>
+                                    </a><a href="#" class="todo-remove">
+                                        <i class="fa fa-trash-o">
+                                        </i>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <span class="drag-drop"><i></i></span>
+                                <div class="todo-check pull-left">
+                                    <div class="icheckbox_minimal-grey" style="position: relative;"><input type="checkbox" value="" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                </div>
+                                <div class="todo-title">
+                                    At vero eos et accusamus et iusto odio dignissimos ducimus.
+                                </div>
+                                <div class="todo-actions pull-right clearfix">
+                                    <a href="#" class="todo-complete"><i class="fa fa-check"></i></a><a href="#" class="todo-edit">
+                                        <i class="fa fa-edit"></i>
+                                    </a><a href="#" class="todo-remove">
+                                        <i class="fa fa-trash-o">
+                                        </i>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <span class="drag-drop"><i></i></span>
+                                <div class="todo-check pull-left">
+                                    <div class="icheckbox_minimal-grey" style="position: relative;"><input type="checkbox" value="" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                </div>
+                                <div class="todo-title">
+                                    Nam libero tempore, cum soluta nobis est eligendi optio cumque
+                                </div>
+                                <div class="todo-actions pull-right clearfix">
+                                    <a href="#" class="todo-complete"><i class="fa fa-check"></i></a><a href="#" class="todo-edit">
+                                        <i class="fa fa-edit"></i>
+                                    </a><a href="#" class="todo-remove">
+                                        <i class="fa fa-trash-o">
+                                        </i>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <span class="drag-drop"><i></i></span>
+                                <div class="todo-check pull-left">
+                                    <div class="icheckbox_minimal-grey" style="position: relative;"><input type="checkbox" value="" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                </div>
+                                <div class="todo-title">
+                                    Et harum quidem rerum facilis est
+                                </div>
+                                <div class="todo-actions pull-right clearfix">
+                                    <a href="#" class="todo-complete"><i class="fa fa-check"></i></a><a href="#" class="todo-edit">
+                                        <i class="fa fa-edit"></i>
+                                    </a><a href="#" class="todo-remove">
+                                        <i class="fa fa-trash-o">
+                                        </i>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <span class="drag-drop"><i></i></span>
+                                <div class="todo-check pull-left">
+                                    <div class="icheckbox_minimal-grey" style="position: relative;"><input type="checkbox" value="" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                </div>
+                                <div class="todo-title">
+                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet
+                                </div>
+                                <div class="todo-actions pull-right clearfix">
+                                    <a href="#" class="todo-complete"><i class="fa fa-check"></i></a><a href="#" class="todo-edit">
+                                        <i class="fa fa-edit"></i>
+                                    </a><a href="#" class="todo-remove">
+                                        <i class="fa fa-trash-o">
+                                        </i>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <span class="drag-drop"><i></i></span>
+                                <div class="todo-check pull-left">
+                                    <div class="icheckbox_minimal-grey" style="position: relative;"><input type="checkbox" value="" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                </div>
+                                <div class="todo-title">
+                                    Excepteur sint occaecat cupidatat non proident
+                                </div>
+                                <div class="todo-actions pull-right clearfix">
+                                    <a href="#" class="todo-complete"><i class="fa fa-check"></i></a><a href="#" class="todo-edit">
+                                        <i class="fa fa-edit"></i>
+                                    </a><a href="#" class="todo-remove">
+                                        <i class="fa fa-trash-o">
+                                        </i>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 198.413px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+
+    <script src="~/assets/script/jquery.flot.js"></script> //bao cao
+    <script src="~/assets/script/jquery.flot.categories.js"></script>
+    <script src="~/assets/script/jquery.flot.pie.js"></script>
+
+    <script src="~/assets/script/jquery.flot.fillbetween.js"></script>
+    <script src="~/assets/script/jquery.flot.stack.js"></script>
+    <script src="~/assets/script/jquery.flot.spline.js"></script>
+    <script src="~/assets/script/index.js"></script>
+
+    <!--LOADING SCRIPTS FOR CHARTS-->
+    <script src="~/assets/script/highcharts.js"></script>
+    <script src="~/assets/script/data.js"></script>
+    <script src="~/Assets/admin/statistic.js"></script>
+
+
+}
 

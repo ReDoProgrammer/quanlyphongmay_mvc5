@@ -231,6 +231,7 @@
     <Compile Include="Models\PracticeSchedule.cs" />
     <Compile Include="Models\RoomStatus.cs" />
     <Compile Include="Models\Semester.cs" />
+    <Compile Include="Models\Summary.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\TeachingProgress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -245,6 +246,7 @@
     <Content Include="Assets\admin\position.js" />
     <Content Include="Assets\admin\room.js" />
     <Content Include="Assets\admin\semester.js" />
+    <Content Include="Assets\admin\statistic.js" />
     <Content Include="Assets\admin\subject.js" />
     <Content Include="Assets\admin\teaching_progress.js" />
     <Content Include="Assets\defined\account.js" />

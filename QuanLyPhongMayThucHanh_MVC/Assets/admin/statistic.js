@@ -1,0 +1,15 @@
+﻿$(function(){
+    makeAjaxRequest('/admin/home/summary',null,'get')
+    .then(data=>{
+        console.log(data);
+        $('#spTotalFaculties').text(data.summary.number_of_faculties);
+        $('#spTotalOfStudents').text(data.summary.total_students);
+        $('#spTotalClasses').text(data.summary.number_of_classes);
+        $('#spTotalLecturers').text(data.summary.number_of_lecturers);
+        $('#spActivePC').text(`${data.summary.total_active_pc}/${data.summary.total_pc}`);
+        $('#spTotalSubjects').text(data.summary.number_of_subjects);
+    })
+    .catch(err=>{
+        console.log(err);
+    })
+})
