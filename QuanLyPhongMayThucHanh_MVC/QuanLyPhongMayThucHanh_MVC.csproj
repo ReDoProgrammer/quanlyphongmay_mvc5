@@ -239,6 +239,7 @@
   <ItemGroup>
     <Content Include="Assets\admin\account.js" />
     <Content Include="Assets\admin\calendar.js" />
+    <Content Include="Assets\admin\classroom.js" />
     <Content Include="Assets\admin\faculty.js" />
     <Content Include="Assets\admin\lecturer.js" />
     <Content Include="Assets\admin\position.js" />
@@ -406,7 +407,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\admin\Views\ClassRoom\" />
     <Folder Include="Areas\admin\Views\RoomStatus\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ClassPeriod\" />
@@ -439,6 +439,7 @@
     <Content Include="Areas\admin\Views\Position\Index.cshtml" />
     <Content Include="Areas\admin\Views\Semester\Index.cshtml" />
     <Content Include="Areas\admin\Views\PracticeSchedule\Index.cshtml" />
+    <Content Include="Areas\admin\Views\ClassRoom\Index.cshtml" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />

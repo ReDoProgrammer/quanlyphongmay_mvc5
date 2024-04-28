@@ -9,7 +9,7 @@ using System.Web;
 
 namespace QuanLyPhongMayThucHanh_MVC.Models
 {
-    public class ClassRoom:DB
+    public class ClassRoom : DB
     {
         public int Id { get; set; }
         public string Acronym { get; set; }
@@ -40,7 +40,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             return lst;
         }
 
-        public List<ClassRoom> Select(int faculty_id,string keyword)
+        public List<ClassRoom> Select(int faculty_id, string keyword)
         {
             SqlParameter[] prs = {
                 new SqlParameter("@faculty_id",faculty_id),
@@ -50,12 +50,12 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         }
         public List<ClassRoom> SelectByFaculty(int faculty_id)
         {
-            SqlParameter[] prs = {new SqlParameter("@faculty_id",faculty_id)};
+            SqlParameter[] prs = { new SqlParameter("@faculty_id", faculty_id) };
             return ConvertToList(ExecuteQuery("[classroom_select_by_faculty]", prs));
         }
 
 
-        public string Create(string name, string academic_year,int faculty_id)
+        public string Create(string name, string academic_year, int faculty_id)
         {
             try
             {
@@ -69,11 +69,11 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             }
             catch (Exception ex)
             {
-                return null;
+                return ex.Message;
             }
         }
 
-        public string Update(int id,string name, string academic_year, int faculty_id)
+        public string Update(int id, string name, string academic_year, int faculty_id)
         {
             try
             {
@@ -84,11 +84,11 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter("@academic_year",academic_year),
                 new SqlParameter("@faculty_id",faculty_id)
             };
-                return (string)ExecuteScalar("[classroom_update]", prs);
+                return (string)ExecuteScalar("[classrooms_update]", prs);
             }
             catch (Exception ex)
             {
-                return null;
+                return ex.Message;
             }
         }
         public string Delete(int id)
@@ -109,17 +109,16 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             SqlParameter[] prs = { new SqlParameter("@id", id) };
             var r = ExecuteQuery("classroom_detail", prs).Rows[0];
             if (r == null) return null;
-            return new ClassRoom
-            {
-                Id = int.Parse(r["id"].ToString()),
-                Acronym = r["acronym"].ToString(),
-                Name = r["name"].ToString(),
-                Fullname = r["fullname"].ToString(),
-                FacultyId = int.Parse(r["faculty_id"].ToString()),
-                FacultyAcronym = r["faculty_acronym"].ToString(),
-                FacultyName = r["faculty_name"].ToString(),
-                AcademicYear = r["academic_year"].ToString()
-            };
+            var cr = new ClassRoom();
+            cr.Id = int.Parse(r["id"].ToString());
+            cr.Acronym = r["acronym"].ToString();
+            cr.Name = r["name"].ToString();
+            cr.Fullname = r["fullname"].ToString();
+            cr.FacultyId = int.Parse(r["faculty_id"].ToString());
+            cr.FacultyAcronym = r["faculty_acronym"].ToString();
+            cr.FacultyName = r["faculty_name"].ToString();
+            cr.AcademicYear = r["academic_year"].ToString();
+            return cr;
 
         }
     }

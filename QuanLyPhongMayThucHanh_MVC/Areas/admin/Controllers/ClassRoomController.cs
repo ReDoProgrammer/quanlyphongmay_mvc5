@@ -36,7 +36,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
 
         public JsonResult Update(int id,string name, string academic_year, int faculty_id)
         {
-            return Json(cr.Update(id,name, academic_year, faculty_id), JsonRequestBehavior.AllowGet);
+            return Json(cr.Update(id, name, academic_year, faculty_id), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Delete(int id)
@@ -48,7 +48,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
             var rs = cr.Detail(id);
             if (rs == null)
                 return Json(new { code = 403,icon ="error",header="CONTENT NOT FOUND",msg = "Can not get classroom detail" }, JsonRequestBehavior.AllowGet);
-            return Json(new { icon = "success",header = "RESOURCE MATCH",cr = rs,msg="Get classroom detail successfully"}, JsonRequestBehavior.AllowGet);
+            return Json(new { code = 200,icon = "success",header = "RESOURCE MATCH",cr = rs,msg="Get classroom detail successfully"}, JsonRequestBehavior.AllowGet);
         }
 
     }

@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Class room management";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <select class="form-control" id="slAllFaculties"></select>
+    </div>
+    <div class="col-md-4">
+        <div class="input-group">
+            <input type="text" class="form-control" id="txtKeyword" placeholder="Enter your keyword ...">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-info" id="btnSearch">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    Search...
+                </button>
+            </span>
+        </div>
+    </div>
+    <div class="col-md-2 text-right">
+        <button class="btn btn-success" data-toggle="modal" data-target="#classroomModal">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Add new Classroom
+        </button>
+    </div>
+</div>
+
+
+<div class="table-responsive" style="margin-top:15px;">
+    <table class="table table-hover-color">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Faculty</th>
+                <th>Acronym</th>
+                <th>Name</th>
+                <th>Academic year</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tblClassrooms">  </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div id="classroomModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-md">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="modalTitle">Create new classroom</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">                   
+                    <div class="col-md-6 form-group">
+                        <label>From year</label>
+                        <select class="form-control" id="slFromYears"></select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>To year</label>
+                        <select class="form-control" id="slToYears"></select>
+                    </div>   
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" id="txtName" placeholder="Classroom name" />
+                    </div>                                    
+                </div>               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btnSubmit">Submit changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script src="~/Assets/admin/classroom.js"></script>
+}
+
+
+
+
+

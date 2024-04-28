@@ -22,25 +22,22 @@ $btnSubmit.click(function () {
     const data = { acronym, name };
     if (action === 'update') data.id = id;
 
-    makeAjaxRequest(url,data,'post')
-    .then(response=>{
-        let rs = JSON.parse(response);
-                if ([200, 201].includes(rs.code)) {
-                    showToast(rs.header, rs.msg, rs.icon);
-                    $modal.modal('hide');
-                    LoadFaculties();
-                } else {
-                    Swal.fire({
-                        title: rs.header,
-                        text: rs.msg,
-                        icon: rs.icon
-                    });
-                }
-
-        if ([200, 201].includes(data.code)){
-            showToast(data.header,data.msg,data.icon);
-        }      
-    })
+    makeAjaxRequest(url, data, 'post')
+        .then(response => {
+            let rs = JSON.parse(response);
+            if ([200, 201].includes(rs.code)) {
+                showToast(rs.header, rs.msg, rs.icon);
+                $modal.modal('hide');
+                LoadFaculties();
+            } else {
+                Swal.fire({
+                    title: rs.header,
+                    text: rs.msg,
+                    icon: rs.icon
+                });
+            }
+           
+        })
 });
 
 
@@ -86,24 +83,24 @@ function update_faculty(id) {
 function delete_faculty(id) {
     confirmDiaglog("Are you sure want to delete this faculty?", "You won't be able to revert this!", "question", "Yes, delete it!", "No, cancel!")
         .then(_ => {
-            makeAjaxRequest('/admin/faculty/delete', { id },'post')
-            .then(response=>{
-                let rs = JSON.parse(response);
-                if ([200, 201].includes(rs.code)) {
-                    showToast(rs.header, rs.msg, rs.icon);
-                    $modal.modal('hide');
-                    LoadFaculties();
-                } else {
-                    Swal.fire({
-                        title: rs.header,
-                        text: rs.msg,
-                        icon: rs.icon
-                    });
-                }
-            })
-            .catch(err=>{
-                console.log(err);
-            })
+            makeAjaxRequest('/admin/faculty/delete', { id }, 'post')
+                .then(response => {
+                    let rs = JSON.parse(response);
+                    if ([200, 201].includes(rs.code)) {
+                        showToast(rs.header, rs.msg, rs.icon);
+                        $modal.modal('hide');
+                        LoadFaculties();
+                    } else {
+                        Swal.fire({
+                            title: rs.header,
+                            text: rs.msg,
+                            icon: rs.icon
+                        });
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
         })
 }
 $modal.on('hide.bs.modal', function () {
