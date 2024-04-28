@@ -118,5 +118,14 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             SqlParameter[] prs = { new SqlParameter("@id", id) };
             return Convert.ToInt32(ExecuteNonQuery("ps_delete", prs));
         }
+
+        public bool ActiveCalendar(int id)
+        {
+            SqlParameter[] prs =
+            {
+                new SqlParameter("@id",id)
+            };
+            return Convert.ToInt32(ExecuteScalar("ps_submit", prs)) > 0;
+        }
     }
 }

@@ -203,6 +203,7 @@
     <Compile Include="Areas\admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\admin\Controllers\LecturerController.cs" />
     <Compile Include="Areas\admin\Controllers\PositionController.cs" />
+    <Compile Include="Areas\admin\Controllers\PracticeScheduleController.cs" />
     <Compile Include="Areas\admin\Controllers\RoomController.cs" />
     <Compile Include="Areas\admin\Controllers\RoomStatusController.cs" />
     <Compile Include="Areas\admin\Controllers\SemesterController.cs" />
@@ -237,6 +238,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\admin\account.js" />
+    <Content Include="Assets\admin\calendar.js" />
     <Content Include="Assets\admin\faculty.js" />
     <Content Include="Assets\admin\lecturer.js" />
     <Content Include="Assets\admin\position.js" />
@@ -314,6 +316,7 @@
     <Content Include="Assets\plugins\sweetalert\sweetalert.min.js" />
     <Content Include="Assets\plugins\toast\jquery.toast.min.css" />
     <Content Include="Assets\plugins\toast\jquery.toast.min.js" />
+    <Content Include="Assets\plugins\xlxs\xlsx.full.min.js" />
     <Content Include="Assets\script\animation.js" />
     <Content Include="Assets\script\bootstrap-hover-dropdown.js" />
     <Content Include="Assets\script\bootstrap.min.js" />
@@ -435,6 +438,7 @@
     <Content Include="Areas\admin\Views\TeachingProgress\Index.cshtml" />
     <Content Include="Areas\admin\Views\Position\Index.cshtml" />
     <Content Include="Areas\admin\Views\Semester\Index.cshtml" />
+    <Content Include="Areas\admin\Views\PracticeSchedule\Index.cshtml" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />

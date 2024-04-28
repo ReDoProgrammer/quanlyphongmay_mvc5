@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
 {
-    public class RoomStatusController : Controller
+    public class RoomStatusController : BaseController
     {
         private RoomStatus rs;
         public RoomStatusController()
