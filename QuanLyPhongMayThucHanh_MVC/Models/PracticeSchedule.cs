@@ -94,6 +94,10 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             };
             return ConvertToList(ExecuteQuery("[ps_own_calendar]", prs));
         }
+        public List<PracticeSchedule> LatestCalendars()
+        {          
+            return ConvertToList(ExecuteQuery("[ps_latest]"));
+        }
 
         public PracticeSchedule Detail(int id)
         {

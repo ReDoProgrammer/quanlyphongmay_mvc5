@@ -26,6 +26,12 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
             return Json(new { code = 200, icon = "success", header = "SUCCESSFULLY", calendars = ps.Calendar(fromDate, toDate) }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult LatestCalendars()
+        {
+            return Json(new { code = 200, icon = "success", header = "SUCCESSFULLY",msg= "Retrieve the latest calendars that are not currently active successfully.", calendars = ps.LatestCalendars() }, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult SubmitCalendar(int id)
         {
