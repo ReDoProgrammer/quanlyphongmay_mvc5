@@ -52,6 +52,7 @@ function LoadStatistic() {
         .then(data => {
             let idx = 1;
             arr = data.content;
+            console.log(data);
             data.content.forEach(d => {
                 $table.append(`
                 <tr id = "${d.Id}">
@@ -61,7 +62,9 @@ function LoadStatistic() {
                     <td>${d.Classroom}</td>
                     <td>${d.Lecturer}</td>
                     <td>${d.Semester}</td>
-                    <td>${d.Times}</td>
+                    <td>${d.ClassPeriod}</td>
+                    <td>${d.FromDate}</td>
+                    <td>${d.ToDate}</td>
                 </tr>
             `);
             })

@@ -12,12 +12,14 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         public string Id { get; set; }
         public string RoomName { get; set; }
         public string Faculty { get; set; }
-        public string Subject { get; set; }
         public string Classroom { get; set; }
-        public string Lecturer { get; set; }
+        public string Subject { get; set; }
         public string Semester { get; set; }
+        public string Lecturer { get; set; }
+        public string ClassPeriod { get; set; }
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
 
-        public string Times { get; set; }  
         private List<Statistic> ConvertToList(DataTable dt)
         {
             var lst = new List<Statistic>();
@@ -29,10 +31,12 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                     RoomName = r["roomname"].ToString(),
                     Faculty = r["faculty_name"].ToString(),
                     Classroom = r["classname"].ToString(),
+                    Subject = r["subject"].ToString(),
                     Semester = r["semester"].ToString(),
                     Lecturer = r["lecturer"].ToString(),
-                    Subject = r["subject"].ToString(),
-                    Times = r["times"].ToString()
+                    ClassPeriod = r["class_period"].ToString(),
+                    FromDate = r["fromdate"].ToString(),
+                    ToDate = r["todate"].ToString()
                 });
             }
             return lst;
