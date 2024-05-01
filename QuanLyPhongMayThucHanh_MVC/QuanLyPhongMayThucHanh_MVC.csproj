@@ -218,6 +218,7 @@
     <Compile Include="Controllers\PracticeScheduleController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
     <Compile Include="DTO\Mailer.cs" />
+    <Compile Include="DTO\ResponseDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

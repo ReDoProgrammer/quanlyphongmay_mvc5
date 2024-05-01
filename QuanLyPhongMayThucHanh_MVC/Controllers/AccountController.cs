@@ -1,4 +1,5 @@
-﻿using QuanLyPhongMayThucHanh_MVC.DTO;
+﻿using Newtonsoft.Json;
+using QuanLyPhongMayThucHanh_MVC.DTO;
 using QuanLyPhongMayThucHanh_MVC.Models;
 using System;
 using System.Web.Mvc;
@@ -101,19 +102,19 @@ namespace QuanLyPhongMayThucHanh_MVC.Controllers
         [HttpPost]
         public ActionResult SignUp(string username, string fullname, string password, string email, string phone, int faculty_id, int position_id)
         {
-            var rs = l.SignUp(username, fullname, password, email, phone, faculty_id, position_id);
-            //if(rs.code == 201)
-            //{
-            //    string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/tmp/lecturer_register_admin.html"));
-            //    var adm = new Lecturer().Admin();
-            //    content = content.Replace("{{Username}}", username);
-            //    content = content.Replace("{{Fullname}}", fullname);
-            //    content = content.Replace("{{Email}}", email);
-            //    content = content.Replace("{{Phone}}", phone);                
-            //    content = content.Replace("{{ActionTime}}", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+            var rs = JsonConvert.DeserializeObject<ResponseDTO>(l.SignUp(username, fullname, password, email, phone, faculty_id, position_id));
+            if (rs.code == 201)
+            {
+                string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/tmp/lecturer_register_admin.html"));
+                var adm = new Lecturer().Admin();
+                content = content.Replace("{{Username}}", username);
+                content = content.Replace("{{Fullname}}", fullname);
+                content = content.Replace("{{Email}}", email);
+                content = content.Replace("{{Phone}}", phone);
+                content = content.Replace("{{ActionTime}}", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
 
-            //    Mailer.SendMail(adm.email, "PCLAB MNGR", "New registed account", content);
-            //}
+                Mailer.SendMail(adm.email, "PCLAB MNGR", "New registed account", content);
+            }
             return Json(rs, JsonRequestBehavior.AllowGet);
         }
 
