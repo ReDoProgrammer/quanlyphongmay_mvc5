@@ -16,16 +16,16 @@ $(function () {
 
     $fromdate.datetimepicker({
         format: 'DD/MM/YYYY HH:mm',
-        defaultDate: moment().set({date:1,hour: 0, minute: 1})
+        defaultDate: moment().set({ date: 1, hour: 0, minute: 1 })
     });
     $todate.datetimepicker({
         format: 'DD/MM/YYYY HH:mm',
-        defaultDate: moment().set({hour: 23, minute: 59})
+        defaultDate: moment().set({ hour: 23, minute: 59 })
     })
     InitData();
 })
 
-$btnExport.click(function(){
+$btnExport.click(function () {
     var ws = XLSX.utils.json_to_sheet(arr); // Convert data to worksheet
     var wb = XLSX.utils.book_new(); // Create a new workbook
     XLSX.utils.book_append_sheet(wb, ws, "LAB Calendar"); // Append the worksheet to the workbook
@@ -33,27 +33,27 @@ $btnExport.click(function(){
     XLSX.writeFile(wb, `${$fromdate.data("DateTimePicker").date().format('YYYY-MM-DD HH:mm')} - ${$todate.data("DateTimePicker").date().format('YYYY-MM-DD HH:mm')}.xlsx`); // Write the workbook file and name it
 })
 
-$btnSearch.click(function(){
+$btnSearch.click(function () {
     LoadStatistic();
 })
 
 
 
-function LoadStatistic(){
+function LoadStatistic() {
     $table.empty();
-    makeAjaxRequest('/admin/statistic/filter',{
-        classroom_id:$slClassRooms.val()?$slClassRooms.val():0,
-        lecturer_id:$slLecturers.val()?$slLecturers.val():0,
-        fromdate:$fromdate.data("DateTimePicker").date().format('YYYY-MM-DD HH:mm'),
-        todate:$todate.data("DateTimePicker").date().format('YYYY-MM-DD HH:mm'),
-        subject_id: $slSubjects.val()?$slSubjects.val():0,
+    makeAjaxRequest('/admin/statistic/filter', {
+        classroom_id: $slClassRooms.val() ? $slClassRooms.val() : 0,
+        lecturer_id: $slLecturers.val() ? $slLecturers.val() : 0,
+        fromdate: $fromdate.data("DateTimePicker").date().format('YYYY-MM-DD HH:mm'),
+        todate: $todate.data("DateTimePicker").date().format('YYYY-MM-DD HH:mm'),
+        subject_id: $slSubjects.val() ? $slSubjects.val() : 0,
         keyword: $txtKeyword.val().trim()
-    },'get')
-    .then(data=>{
-        let idx = 1;
-        arr = data.content;
-        data.content.forEach(d=>{
-            $table.append(`
+    }, 'get')
+        .then(data => {
+            let idx = 1;
+            arr = data.content;
+            data.content.forEach(d => {
+                $table.append(`
                 <tr id = "${d.Id}">
                     <td>${idx++}</td>
                     <td>${d.Faculty}</td>
@@ -64,11 +64,11 @@ function LoadStatistic(){
                     <td>${d.Times}</td>
                 </tr>
             `);
+            })
         })
-    })
-    .catch(err=>{
-        console.log(err);
-    })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 function InitData() {
@@ -103,13 +103,8 @@ function InitData() {
             var queryParams = {
                 faculty_id: $slFaculties.val()
             };
-            makeAjaxRequest('/admin/classroom/SelectByFaculty', queryParams)
-                .then(async data => {
-                    await data.classrooms.forEach(c => {
-                        $slClassRooms.append(`<option value="${c.Id}">${c.Acronym} - ${c.Name}</option>`);
-                    });
-                    $btnSearch.click();
-                })
+            ListClassByFaculty(queryParams);
+
             $btnSearch.click();
         })
 
@@ -126,3 +121,25 @@ function InitData() {
         allowClear: true // Enable clearing selection
     });
 }
+
+
+function ListClassByFaculty(queryParams) {
+    makeAjaxRequest('/admin/classroom/SelectByFaculty', queryParams)
+        .then(async data => {
+            await data.classrooms.forEach(c => {
+                $slClassRooms.append(`<option value="${c.Id}">${c.Acronym} - ${c.Name}</option>`);
+            });
+            $btnSearch.click();
+        })
+}
+$slFaculties.on('change', function () {
+    var queryParams = {
+        faculty_id: $slFaculties.val()
+    };
+    $slClassRooms.empty();
+    var queryParams = {
+        faculty_id: $slFaculties.val()
+    };
+    ListClassByFaculty(queryParams);
+})
+
