@@ -195,6 +195,21 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
             }
         }
 
+
+        public string Active(int id)
+        {
+            try
+            {
+                SqlParameter[] prs ={new SqlParameter("@id",id)};
+                return (string)ExecuteScalar("[lecturer_active]", prs);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
         public Lecturer(int id, string username, string fullname, string avatar, string phone, string email, string position, string faculty)
         {
             this.id = id;

@@ -160,6 +160,26 @@ function checkFormState() {
 }
 
 
+function ActiveLecturer(id){
+    confirmDiaglog("Are you sure want to active this lecturer account?", "You won't be able to revert this!", "question", "Yes, active!", "No, cancel!")
+        .then(_ => {
+            makeAjaxRequest('/admin/lecturer/active', { id },'post')
+            .then(response=>{
+                let rs = JSON.parse(response);
+                if ([200, 201].includes(rs.code)) {
+                    showToast(rs.header, rs.msg, rs.icon);
+                    $btnSearch.click();
+                } else {
+                    Swal.fire({
+                        title: rs.header,
+                        text: rs.msg,
+                        icon: rs.icon
+                    });
+                }
+            })
+        })
+}
+
 $btnSubmit.click(function () {
     const faculty_id = $slFaculties.val();
     const position_id = $slPositions.val();
@@ -225,6 +245,7 @@ $btnSearch.click(function () {
                         <td class="text-right">
                             <button class="btn btn-xs btn-warning" title="Update faculty" onClick = "update_lecturer(`+ l.id + `)"><i class="fa fa-edit"></i></button>
                             <button class="btn btn-xs btn-danger" title="Delete faculty" onClick = "delete_lecturer(`+ l.id + `)"><i class="fa fa-trash-o"></i></button>
+                            ${l.is_actived ==1?``:`<input type="checkbox" title="Active lecturer" onClick="ActiveLecturer(${l.id})" style="padding:7px;"/>`}
                         </td>
                     </tr>
                 `);

@@ -36,6 +36,11 @@ namespace QuanLyPhongMayThucHanh_MVC.Areas.admin.Controllers
             var rs = l.Delete(id);
             return Json(rs, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Active(int id)
+        {
+            var rs = l.Active(id);
+            return Json(rs, JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult Search(int faculty_id, string keyword)
         {
