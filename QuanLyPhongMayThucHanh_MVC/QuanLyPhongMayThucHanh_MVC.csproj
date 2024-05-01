@@ -231,6 +231,7 @@
     <Compile Include="Models\PracticeSchedule.cs" />
     <Compile Include="Models\RoomStatus.cs" />
     <Compile Include="Models\Semester.cs" />
+    <Compile Include="Models\Statistic.cs" />
     <Compile Include="Models\Summary.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\TeachingProgress.cs" />

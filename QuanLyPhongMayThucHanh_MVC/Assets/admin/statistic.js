@@ -4,20 +4,13 @@ const $slSubjects = $('#slSubjects');
 const $slFaculties = $('#slFaculties');
 const $slClassRooms = $('#slClassrooms');
 const $slLecturers = $('#slLecturers');
-const $btnSubmit = $('#btnSubmit');
-const $txtNumberOfStudents = $('#txtNumberOfStudents');
 const $txtKeyword = $('#txtKeyword');
 const $btnSearch = $('#btnSearch');
-const $pagination = $('#pagination');
-const $slPageSize = $('#slPageSize');
 const $fromdate = $('#dtpFromDate');
 const $todate = $('#dtpToDate');
-var id = 0;
-var page = 1;
-const $tblProgresses = $('#tblProgresses');
-
-const $modal = $('#progressModal');
-
+const $table = $('#tblData');
+const $btnExport = $('#btnExportToExcel');
+var arr = [];
 
 $(function () {
 
@@ -32,6 +25,51 @@ $(function () {
     InitData();
 })
 
+$btnExport.click(function(){
+    var ws = XLSX.utils.json_to_sheet(arr); // Convert data to worksheet
+    var wb = XLSX.utils.book_new(); // Create a new workbook
+    XLSX.utils.book_append_sheet(wb, ws, "LAB Calendar"); // Append the worksheet to the workbook
+
+    XLSX.writeFile(wb, `${$fromdate.data("DateTimePicker").date().format('YYYY-MM-DD HH:mm')} - ${$todate.data("DateTimePicker").date().format('YYYY-MM-DD HH:mm')}.xlsx`); // Write the workbook file and name it
+})
+
+$btnSearch.click(function(){
+    LoadStatistic();
+})
+
+
+
+function LoadStatistic(){
+    $table.empty();
+    makeAjaxRequest('/admin/statistic/filter',{
+        classroom_id:$slClassRooms.val()?$slClassRooms.val():0,
+        lecturer_id:$slLecturers.val()?$slLecturers.val():0,
+        fromdate:$fromdate.data("DateTimePicker").date().format('YYYY-MM-DD HH:mm'),
+        todate:$todate.data("DateTimePicker").date().format('YYYY-MM-DD HH:mm'),
+        subject_id: $slSubjects.val()?$slSubjects.val():0,
+        keyword: $txtKeyword.val().trim()
+    },'get')
+    .then(data=>{
+        let idx = 1;
+        arr = data.content;
+        data.content.forEach(d=>{
+            $table.append(`
+                <tr id = "${d.Id}">
+                    <td>${idx++}</td>
+                    <td>${d.Faculty}</td>
+                    <td>${d.Subject}</td>
+                    <td>${d.Classroom}</td>
+                    <td>${d.Lecturer}</td>
+                    <td>${d.Semester}</td>
+                    <td>${d.Times}</td>
+                </tr>
+            `);
+        })
+    })
+    .catch(err=>{
+        console.log(err);
+    })
+}
 
 function InitData() {
     let current_year = new Date().getFullYear();
@@ -72,6 +110,7 @@ function InitData() {
                     });
                     $btnSearch.click();
                 })
+            $btnSearch.click();
         })
 
     $slClassRooms.select2({
