@@ -43,8 +43,10 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         }
         public List<Statistic> Filter(int classroom_id, int lecturer_id, DateTime fromdate, DateTime todate,int subject_id, string keyword)
         {
-            SqlParameter[] prs =
+            try
             {
+                SqlParameter[] prs =
+                   {
                 new SqlParameter("@classroom_id",classroom_id),
                 new SqlParameter("@lecturer_id",lecturer_id),
                 new SqlParameter("@fromdate",fromdate),
@@ -52,7 +54,12 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
                 new SqlParameter("@subject_id",subject_id),
                 new SqlParameter("@keyword",keyword)
             };
-            return ConvertToList(ExecuteQuery("statistic_filter", prs));
+                return ConvertToList(ExecuteQuery("statistic_filter", prs));
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }
