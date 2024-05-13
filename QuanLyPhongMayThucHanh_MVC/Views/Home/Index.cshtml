@@ -3,5 +3,44 @@
     ViewData["icon"] = "fa fa-home";
     ViewData["url"] = "/";
 }
+<h4>Your own classes</h4>
+<div class="table-responsive">
+    <table class="table table-hover table-bordered table-striped">
+        <thead>
+            <tr class="text-info">
+                <th>#</th>
+                <th>Faculty</th>
+                <th>ClassRoom</th>
+                <th>Subject</th>
+                <th>School year</th>
+                <th>Number of students</th>                
+            </tr>
+        </thead>
+        <tbody id="tblClasses"></tbody>
+    </table>
+</div>
 
-<h1>TRang chur</h1>
+<hr/>
+<h4>Your recent top 10 calendar events. </h4>
+<div class="table-responsive">
+    <table class="table table-hover table-bordered table-striped">
+        <thead>
+            <tr class="text-info">
+                <th>#</th>
+                <th>Faculty</th>
+                <th>ClassRoom</th>
+                <th>Subject</th>
+                <th>Number of students</th>
+                <th>Room</th>
+                <th>Class period</th>
+                <th>From</th>
+                <th>To</th>
+            </tr>
+        </thead>
+        <tbody id="tblCalendars"></tbody>
+    </table>
+</div>
+
+@section scripts{    
+<script src="~/Assets/defined/summary.js"></script>
+}

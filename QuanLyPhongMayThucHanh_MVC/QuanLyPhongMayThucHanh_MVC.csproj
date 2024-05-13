@@ -227,6 +227,8 @@
     <Compile Include="Models\DB.cs" />
     <Compile Include="Models\Faculty.cs" />
     <Compile Include="Models\Lecturer.cs" />
+    <Compile Include="Models\OwnRecentCalendar.cs" />
+    <Compile Include="Models\OwnSummary.cs" />
     <Compile Include="Models\PCRoom.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\PracticeSchedule.cs" />
@@ -259,6 +261,7 @@
     <Content Include="Assets\defined\pcroom.js" />
     <Content Include="Assets\defined\pcroom_book.js" />
     <Content Include="Assets\defined\pcroom_calendar.js" />
+    <Content Include="Assets\defined\summary.js" />
     <Content Include="Assets\fonts\fontawesome-webfont862f.svg" />
     <Content Include="Assets\fonts\glyphicons-halflings-regular-2.html" />
     <Content Include="Assets\fonts\glyphicons-halflings-regular-3.html" />
