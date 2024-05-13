@@ -10,10 +10,13 @@ const $txtPhone = $('#txtPhone');
 const $txtEmail = $('#txtEmail');
 const $btnSearch = $('#btnSearch');
 const $tblLecturers = $('#tblLecturers');
+const $btnExport = $('#btnExportToExcel');
 
 const $form = $('#lecturerform');
 const $modal = $('#lecturerModal');
 const $title = $('#modalTitle');
+
+var lecs = [];
 
 $(function () {
     LoadFaculties();
@@ -231,6 +234,7 @@ $btnSearch.click(function () {
         success: function (data) {
             $tblLecturers.empty();
             let idx = 1;
+            lecs = data.lecturers;
             data.lecturers.forEach(l => {
                 $tblLecturers.append(`
                         <tr id="${l.id}">
@@ -286,6 +290,16 @@ function update_lecturer(id) {
         console.log(err);
     })   
 }
+
+$btnExport.click(function(){
+    var ws = XLSX.utils.json_to_sheet(lecs); // Convert data to worksheet
+    var wb = XLSX.utils.book_new(); // Create a new workbook
+    XLSX.utils.book_append_sheet(wb, ws, "LAB lecturers"); // Append the worksheet to the workbook
+
+    XLSX.writeFile(wb, `lecturers.xlsx`); // Write the workbook file and name it
+})
+
+
 function delete_lecturer(id) {
     confirmDiaglog("Are you sure want to delete this lecturer?", "You won't be able to revert this!", "question", "Yes, delete it!", "No, cancel!")
         .then(_ => {
