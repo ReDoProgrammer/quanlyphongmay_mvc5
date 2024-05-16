@@ -144,6 +144,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
 
         private List<PCRoom> ConvertToList(DataTable dt)
         {
+            if (dt == null) return null;
             var lst = new List<PCRoom>();
             foreach (DataRow r in dt.Rows)
             {

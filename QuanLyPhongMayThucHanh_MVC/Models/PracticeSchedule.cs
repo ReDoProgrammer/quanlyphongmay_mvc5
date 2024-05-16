@@ -26,6 +26,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         {
             try
             {
+                if (dt == null) return null;
                 var lst = new List<PracticeSchedule>();
                 foreach (DataRow r in dt.Rows)
                 {

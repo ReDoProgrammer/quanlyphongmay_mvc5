@@ -33,6 +33,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
 
         private List<TeachingProgress> ConvertToList(DataTable dt)
         {
+            if (dt == null) return null;
             var lst = new List<TeachingProgress>();
             foreach (DataRow r in dt.Rows)
             {

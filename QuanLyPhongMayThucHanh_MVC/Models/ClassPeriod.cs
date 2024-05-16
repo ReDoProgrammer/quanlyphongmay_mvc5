@@ -25,6 +25,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         private List<ClassPeriod> ConvertToList(DataTable dt)
         {
             var lst = new List<ClassPeriod>();
+            if (dt == null) return null;
             foreach (DataRow r in dt.Rows)
             {
                 lst.Add(new ClassPeriod

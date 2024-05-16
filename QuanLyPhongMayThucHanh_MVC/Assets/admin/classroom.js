@@ -138,3 +138,9 @@ $slFromYears.on('change',function(){
         $slToYears.append(`<option value="${i}">${i}</option>`);
     }
 })
+
+$modal.on('hidden.bs.modal', function () {
+    id = 0;
+    $title.text('Create a new classroom');
+    $txtName.val('');   
+})

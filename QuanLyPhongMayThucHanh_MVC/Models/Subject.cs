@@ -84,6 +84,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
 
         private List<Subject> ConvertToList(DataTable dt)
         {
+            if (dt == null) return null;
             var lst = new List<Subject>();
             foreach (DataRow r in dt.Rows)
             {

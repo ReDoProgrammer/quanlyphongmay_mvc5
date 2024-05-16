@@ -17,6 +17,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         public string NumberOfStudents { get; set; }
         private List<OwnSummary> ConvertToList(DataTable dt)
         {
+            if (dt == null) return null;
             var lst = new List<OwnSummary>();
             foreach(DataRow r in dt.Rows)
             {

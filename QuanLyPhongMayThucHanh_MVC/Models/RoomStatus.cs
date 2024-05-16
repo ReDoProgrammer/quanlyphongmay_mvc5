@@ -14,6 +14,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         public bool HasRemark { get; set; }
         private List<RoomStatus> ConvertToList(DataTable dt)
         {
+            if (dt == null) return null;
             var lst = new List<RoomStatus>();
             foreach(DataRow r in dt.Rows)
             {

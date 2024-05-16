@@ -15,6 +15,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         public Position() { }
         private List<Position> ConvertToList(DataTable dt)
         {
+            if (dt == null) return null;
             var lst = new List<Position>();
             foreach(DataRow r in dt.Rows)
             {

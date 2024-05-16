@@ -22,6 +22,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
 
         private List<Statistic> ConvertToList(DataTable dt)
         {
+            if (dt == null) return null;
             var lst = new List<Statistic>();
             foreach(DataRow r in dt.Rows)
             {

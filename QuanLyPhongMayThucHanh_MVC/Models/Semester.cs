@@ -16,6 +16,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         public int order { get; set; }
         private List<Semester> ConvertToList(DataTable dt)
         {
+            if (dt == null) return null;
             var lst = new List<Semester>();
             foreach (DataRow r  in dt.Rows)
             {

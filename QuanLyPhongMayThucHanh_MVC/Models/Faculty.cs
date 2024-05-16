@@ -23,6 +23,7 @@ namespace QuanLyPhongMayThucHanh_MVC.Models
         public List<Faculty> ConvertToList(DataTable dt)
         {
             var lst = new List<Faculty>();
+            if (dt == null) return null;
             foreach (DataRow r in dt.Rows)
             {
                 lst.Add(new Faculty
